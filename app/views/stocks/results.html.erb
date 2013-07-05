@@ -1,0 +1,14 @@
+<!-- Display the results -->
+
+<h2> Stock Prices</h2>
+
+
+<ul>
+  <% @stock.each do |stock| %>
+    <li>
+      Stock: "<%= stock.name %>" 
+      Your Price: "<%= stock.composite_share_value %>"
+      The Market's Price: "<%= stock.get_stock_price %>"
+    </li>
+  <% end %>
+</ul>
