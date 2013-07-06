@@ -1,4 +1,4 @@
-class StockController < Application Controller
+class StocksController < Application Controller
 	def index
 
 	end
