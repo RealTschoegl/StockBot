@@ -3,22 +3,22 @@ class Stock < ActiveRecord::Base
 
   	require 'yahoofinance' # Needed for current price
 
-  	@company = {
-  		 :company => # From User, 
-  		 :stock_ticker => # From Database, 
-  		 :free_cash_flow => # From Database, 
-  		 :num_shares => # From Database, 
-  		 :PE_ratio => # From Database, 
-  		 :dividend_per_share => # From Database, 
-  		 :dividend_growth_rate => # From Database, 
-  		 :beta => # From Database, 
-  		 :cost_of_equity => # Calculated Here, 
-  		 :current_stock_price => # Calculated Here, 
-  		 :expected_share_value => # Calculated Here, 
-  		 :capm_share_value => # Calculated Here, 
-  		 :dividend_share_value => # Calculated Here, 
-  		 :composite_share_value => # Calculated Here 
-  	}
+  	# @company_data = {
+  	# 	 :company => # From User, 
+  	# 	 :stock_ticker => # From Database, 
+  	# 	 :free_cash_flow => # From Database, 
+  	# 	 :num_shares => # From Database, 
+  	# 	 :PE_ratio => # From Database, 
+  	# 	 :dividend_per_share => # From Database, 
+  	# 	 :dividend_growth_rate => # From Database, 
+  	# 	 :beta => # From Database, 
+  	# 	 :cost_of_equity => # Calculated Here, 
+  	# 	 :current_stock_price => # Calculated Here, 
+  	# 	 :expected_share_value => # Calculated Here, 
+  	# 	 :capm_share_value => # Calculated Here, 
+  	# 	 :dividend_share_value => # Calculated Here, 
+  	# 	 :composite_share_value => # Calculated Here 
+  	# }
 
 	@@risk_free_rate = 0.0141 #5 year treasury yield at market
 	@@market_growth_rate = 0.2038 #S&P500 1 year growth rate
@@ -28,7 +28,7 @@ class Stock < ActiveRecord::Base
 		free_cash_flow_method
 		dividend_discount_model
 		capm_method
-		@company.map do |category, value|
+		@company_data.map do |category, value|
 			if value[:dividend_per_share] == 0
 				value[:composite_share_value] = ((value[:expected_share_value].to_f + value[:capm_share_value].to_f)/2).round(2)
 			else
@@ -41,7 +41,7 @@ class Stock < ActiveRecord::Base
 	# Vales the stock based on the FCF approach
 	def free_cash_flow_method
 		get_cost_of_equity
-		@company.map do |category, value|
+		@company_data.map do |category, value|
 			value[:expected_share_value] += value[:free_cash_flow]/(value[:cost_of_equity]-(value[:PE_ratio]/100))
 		end
 		num_shares
@@ -51,7 +51,7 @@ class Stock < ActiveRecord::Base
 	
 	def dividend_discount_model
 		get_stock_prices
-		@company.map do |category, value|
+		@company_data.map do |category, value|
 			rate_of_return = (value[:dividend_per_share]/value[:current_stock_price]) + value[:dividend_growth_rate]
 			value[:dividend_share_value] += value[:dividend_per_share]/(rate_of_return - value[:dividend_growth_rate])
 		end
@@ -59,7 +59,7 @@ class Stock < ActiveRecord::Base
 	
 	# Gets the present real price of the stock
 	def get_stock_prices
-		@company.each do |category, value|
+		@company_data.each do |category, value|
 			quote_type = YahooFinance::StandardQuote
 			quote_symbols = "#{category}"
 			YahooFinance::get_quotes(quote_type, quote_symbols) do |qt|
@@ -70,7 +70,7 @@ class Stock < ActiveRecord::Base
 	
 	# Finds the cost of equity for stock
 	def get_cost_of_equity
-		@company.map do |category, value|
+		@company_data.map do |category, value|
 			value[:cost_of_equity] = @@risk_free_rate + value[:beta] * (@@market_growth_rate - @@risk_free_rate)
 		end
 	end
@@ -80,7 +80,7 @@ class Stock < ActiveRecord::Base
 		capm_years = @years
 		get_cost_of_equity
 		get_stock_prices
-		@company.map do |category, value|
+		@company_data.map do |category, value|
 			value[:capm_share_value] = (value[:cost_of_equity] + 1) * capm_years * value[:current_stock_price]
 		end
 
@@ -88,7 +88,7 @@ class Stock < ActiveRecord::Base
 
 	# Divides the value of the stock by the number of shares - useful for FCF 
 	def num_shares
-		@company.map do |category, value|
+		@company_data.map do |category, value|
 			value[:expected_share_value] = (value[:expected_share_value].to_f/value[:num_shares].to_f).round(2)
 		end
 	end
@@ -101,7 +101,7 @@ class Stock < ActiveRecord::Base
 
 	# Puts the company and it's values
 	def test
-		@company.each do |category, value|
+		@company_data.each do |category, value|
 			puts category
 			puts value
 		end
