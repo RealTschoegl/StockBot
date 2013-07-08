@@ -64,7 +64,7 @@ Stock.create(
     :dividend_growth_rate => 0,
     :beta => 1.33,
     :cost_of_equity => 0,
-    :current_stock_price => 10,
+    :current_stock_price => 0,
     :expected_share_value => 0,
     :capm_share_value => 0,
     :dividend_share_value => 0,

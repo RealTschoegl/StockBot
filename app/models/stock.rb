@@ -5,7 +5,7 @@ class Stock < ActiveRecord::Base
 
   	# @company_data = {
   	# 	 :company => # From User, 
-  	# 	 :stock_ticker => # From Database, 
+  	# 	 :stock_ticker => # From User, 
   	# 	 :free_cash_flow => # From Database, 
   	# 	 :num_shares => # From Database, 
   	# 	 :PE_ratio => # From Database, 
@@ -74,7 +74,7 @@ class Stock < ActiveRecord::Base
 			value[:cost_of_equity] = @@risk_free_rate + value[:beta] * (@@market_growth_rate - @@risk_free_rate)
 		end
 	end
-	
+
 	# Values the stock based on the CAPM method
 	def capm_method
 		capm_years = @years
@@ -83,11 +83,10 @@ class Stock < ActiveRecord::Base
 		@company_data.map do |category, value|
 			value[:capm_share_value] = (value[:cost_of_equity] + 1) * capm_years * value[:current_stock_price]
 		end
-
 	end
-
 	# Divides the value of the stock by the number of shares - useful for FCF 
-	def num_shares
+	def get_num_shares
+		puts @company_data.class
 		@company_data.map do |category, value|
 			value[:expected_share_value] = (value[:expected_share_value].to_f/value[:num_shares].to_f).round(2)
 		end
