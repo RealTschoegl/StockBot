@@ -1,5 +1,11 @@
 StockPickApp::Application.routes.draw do
-  resources :stocks
+
+  # resources :stocks
+
+  get "/stocks" => "stocks#index"
+  get "/stocks/picker" => "stocks#new"
+  get "/stocks/results" => "stocks#show"
+            
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

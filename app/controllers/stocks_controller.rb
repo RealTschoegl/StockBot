@@ -1,16 +1,17 @@
 class StocksController < ApplicationController
 
-	def index
+  def index
+    
+  end
 
-	end
+  def new
+     # @stock_ticker_symbol = params[:data]
+     # @stock_data = Stock_Data.find(@stock_ticker_symbol)
+  end
 
-	def show
-		# @Stock = Stock.composite_valuation
-		# @Stock_price = Stock.get_stock_value
-	end
+  def show
 
-  def get_stock_ticker
-     @stock_ticker_symbol = params[:data]
   end
 
 end
+

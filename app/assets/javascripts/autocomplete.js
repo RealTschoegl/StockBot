@@ -45,13 +45,14 @@ YUI({
     });
 
     acNode.ac.on("select", function (e) {
+        var stock_symbol = e.result.raw.symbol;
         alert(e.result.raw.symbol);
         // $.ajax({
         //   type: "POST",
-        //   url: url,
-        //   data: data,
+        //   url: ,
+        //   data: stock_symbol,
         //   success: success,
-        //   dataType: dataType,
+        //   dataType: 'string',
         //   error: errorFunction
         // });
     });
