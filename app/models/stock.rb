@@ -4,20 +4,20 @@ class Stock < ActiveRecord::Base
   	require 'yahoofinance' # Needed for current price
 
   	# @company_data = {
-  	# 	 :company => # From User, 
-  	# 	 :stock_ticker => # From User, 
-  	# 	 :free_cash_flow => # From Database, 
-  	# 	 :num_shares => # From Database, 
-  	# 	 :PE_ratio => # From Database, 
-  	# 	 :dividend_per_share => # From Database, 
-  	# 	 :dividend_growth_rate => # From Database, 
-  	# 	 :beta => # From Database, 
-  	# 	 :cost_of_equity => # Calculated Here, 
-  	# 	 :current_stock_price => # Calculated Here, 
-  	# 	 :expected_share_value => # Calculated Here, 
-  	# 	 :capm_share_value => # Calculated Here, 
-  	# 	 :dividend_share_value => # Calculated Here, 
-  	# 	 :composite_share_value => # Calculated Here 
+  	# 	 :stock_ticker_m => # From User,
+  	# 	 :company_m => # SELECT :company FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
+  	# 	 :free_cash_flow_m => # SELECT :free_cash_flow FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
+  	# 	 :num_shares_m => # SELECT :num_shares FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
+  	# 	 :PE_ratio_m => # SELECT :PE_ratio_m FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
+  	# 	 :dividend_per_share_m => # SELECT :dividend_per_share FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
+  	# 	 :dividend_growth_rate_m => # SELECT :dividened_growth_rate FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
+  	# 	 :beta_m => # SELECT :beta FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
+  	# 	 :cost_of_equity_m => 0, 
+  	# 	 :current_stock_price_m => 0, 
+  	# 	 :expected_share_value_m => 0, 
+  	# 	 :capm_share_value_m => 0, 
+  	# 	 :dividend_share_value_m => 0, 
+  	# 	 :composite_share_value_m => 0
   	# }
 
 	@@risk_free_rate = 0.0141 #5 year treasury yield at market
@@ -29,10 +29,10 @@ class Stock < ActiveRecord::Base
 		dividend_discount_model
 		capm_method
 		@company_data.map do |category, value|
-			if value[:dividend_per_share] == 0
-				value[:composite_share_value] = ((value[:expected_share_value].to_f + value[:capm_share_value].to_f)/2).round(2)
+			if value[:dividend_per_share_m] == 0
+				value[:composite_share_value_m] = ((value[:expected_share_value_m].to_f + value[:capm_share_value_m].to_f)/2).round(2)
 			else
-				value[:composite_share_value] = ((value[:expected_share_value].to_f + value[:dividend_share_value].to_f + value[:capm_share_value].to_f)/3).round(2)
+				value[:composite_share_value_m] = ((value[:expected_share_value_m].to_f + value[:dividend_share_value_m].to_f + value[:capm_share_value_m].to_f)/3).round(2)
 			end
 		end
 		time_value_of_money
@@ -42,9 +42,9 @@ class Stock < ActiveRecord::Base
 	def free_cash_flow_method
 		get_cost_of_equity
 		@company_data.map do |category, value|
-			value[:expected_share_value] += value[:free_cash_flow]/(value[:cost_of_equity]-(value[:PE_ratio]/100))
+			value[:expected_share_value_m] += value[:free_cash_flow_m]/(value[:cost_of_equity_m]-(value[:PE_ratio_m]/100))
 		end
-		num_shares
+		get_num_shares
 	end
 
 	# Value the stock based on the dividend discount method
@@ -52,8 +52,8 @@ class Stock < ActiveRecord::Base
 	def dividend_discount_model
 		get_stock_prices
 		@company_data.map do |category, value|
-			rate_of_return = (value[:dividend_per_share]/value[:current_stock_price]) + value[:dividend_growth_rate]
-			value[:dividend_share_value] += value[:dividend_per_share]/(rate_of_return - value[:dividend_growth_rate])
+			rate_of_return = (value[:dividend_per_share_m]/value[:current_stock_price_m]) + value[:dividend_growth_rate_m]
+			value[:dividend_share_value_m] += value[:dividend_per_share_m]/(rate_of_return - value[:dividend_growth_rate_m])
 		end
 	end
 	
@@ -63,7 +63,7 @@ class Stock < ActiveRecord::Base
 			quote_type = YahooFinance::StandardQuote
 			quote_symbols = "#{category}"
 			YahooFinance::get_quotes(quote_type, quote_symbols) do |qt|
-				value[:current_stock_price] = qt.lastTrade
+				value[:current_stock_price_m] = qt.lastTrade
 			end
 		end
 	end
@@ -71,7 +71,7 @@ class Stock < ActiveRecord::Base
 	# Finds the cost of equity for stock
 	def get_cost_of_equity
 		@company_data.map do |category, value|
-			value[:cost_of_equity] = @@risk_free_rate + value[:beta] * (@@market_growth_rate - @@risk_free_rate)
+			value[:cost_of_equity_m] = @@risk_free_rate + value[:beta_m] * (@@market_growth_rate - @@risk_free_rate)
 		end
 	end
 
@@ -81,14 +81,14 @@ class Stock < ActiveRecord::Base
 		get_cost_of_equity
 		get_stock_prices
 		@company_data.map do |category, value|
-			value[:capm_share_value] = (value[:cost_of_equity] + 1) * capm_years * value[:current_stock_price]
+			value[:capm_share_value_m] = (value[:cost_of_equity_m] + 1) * capm_years * value[:current_stock_price_m]
 		end
 	end
 	# Divides the value of the stock by the number of shares - useful for FCF 
 	def get_num_shares
 		puts @company_data.class
 		@company_data.map do |category, value|
-			value[:expected_share_value] = (value[:expected_share_value].to_f/value[:num_shares].to_f).round(2)
+			value[:expected_share_value_m] = (value[:expected_share_value_m].to_f/value[:num_shares_m].to_f).round(2)
 		end
 	end
 
@@ -109,7 +109,7 @@ class Stock < ActiveRecord::Base
 
 	# Takes the future value of the stock and changes it into the present value
 	def time_value_of_money
-		value[:composite_share_value] = value[:composite_share_value]/((1+@@market_growth_rate)**@years)
+		value[:composite_share_value_m] = value[:composite_share_value_m]/((1+@@market_growth_rate)**@years)
 	end
 	
 end

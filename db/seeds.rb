@@ -15,12 +15,6 @@ Stock.create(
     :dividend_per_share => 0, #Forward Annual Dividend Rate
     :dividend_growth_rate => 0, #Forward Annual Dividend Yield
     :beta => 1.19,
-    :cost_of_equity => 0,
-    :current_stock_price => 0,
-    :expected_share_value => 0,
-    :capm_share_value => 0,
-    :dividend_share_value => 0,
-    :composite_share_value => 0
     )
 Stock.create(
     :company => "Microsoft",
@@ -31,12 +25,6 @@ Stock.create(
     :dividend_per_share => 0.92,
     :dividend_growth_rate => 0.028,
     :beta => 1.10,
-    :cost_of_equity => 0,
-    :current_stock_price => 0,
-    :expected_share_value => 0, 
-    :capm_share_value => 0,
-    :dividend_share_value => 0,
-    :composite_share_value => 0
     )
 Stock.create( 
     :company => "Yahoo",
@@ -47,12 +35,6 @@ Stock.create(
     :dividend_per_share => 0,
     :dividend_growth_rate => 0,
     :beta => 0.89,
-    :cost_of_equity => 0,
-    :current_stock_price => 0,
-    :expected_share_value => 0,
-    :capm_share_value => 0,
-    :dividend_share_value => 0,
-    :composite_share_value => 0
     )
 Stock.create(
     :company => "Facebook",
@@ -63,10 +45,4 @@ Stock.create(
     :dividend_per_share => 0,
     :dividend_growth_rate => 0,
     :beta => 1.33,
-    :cost_of_equity => 0,
-    :current_stock_price => 0,
-    :expected_share_value => 0,
-    :capm_share_value => 0,
-    :dividend_share_value => 0,
-    :composite_share_value => 0
     )
