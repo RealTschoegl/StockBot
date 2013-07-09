@@ -4,7 +4,7 @@ class Stock < ActiveRecord::Base
   	require 'yahoofinance' # Needed for current price
 
   	# @company_data = {
-  	# 	 :stock_ticker_m => # From User,
+  	# 	 :stock_ticker_m => # @stock_ticker_symbol,
   	# 	 :company_m => # SELECT :company FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
   	# 	 :free_cash_flow_m => # SELECT :free_cash_flow FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
   	# 	 :num_shares_m => # SELECT :num_shares FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 
