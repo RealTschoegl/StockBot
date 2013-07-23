@@ -46,14 +46,11 @@ YUI({
 
     acNode.ac.on("select", function (e) {
         var stock_symbol = e.result.raw.symbol;
-        alert(e.result.raw.symbol);
+        // alert(e.result.raw.symbol);
         // $.ajax({
         //   type: "POST",
-        //   url: ,
-        //   data: stock_symbol,
-        //   success: success,
-        //   dataType: 'string',
-        //   error: errorFunction
+        //   url: "/stocks/picker",
+        //   data: {stock_tbd: stock_symbol}
         // });
     });
 });
