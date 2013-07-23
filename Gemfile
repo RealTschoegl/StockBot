@@ -17,6 +17,9 @@ end
 gem 'yahoofinance'
 
 gem 'hirb'
+gem 'shotgun'
+gem 'better_errors'
+gem 'pry'
 
 
 # Gems used only for assets and not required
