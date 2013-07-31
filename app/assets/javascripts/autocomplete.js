@@ -45,7 +45,9 @@ YUI({
     });
 
     acNode.ac.on("select", function (e) {
-        var stock_symbol = e.result.raw.symbol;
+        alert(e.result.raw.symbol);
+        // var users_stock_symbol = e.result.raw.symbol;
+        // var users_stock_name = e.result.raw.name;
         $('button').show();
         // alert(e.result.raw.symbol);
         // $.ajax({

@@ -5,7 +5,7 @@ class StocksController < ApplicationController
   end
 
   def new
-     @stock_ticker_symbol = params[:stock_tbd]
+     @stock_ticker_symbol = params
 
 
   end
