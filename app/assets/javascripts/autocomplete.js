@@ -42,13 +42,12 @@ YUI({
         },
         requestTemplate:  "{query}&region=US&lang=en-US",
         source: oDS
-    });
+    });  
 
     acNode.ac.on("select", function (e) {
-        alert(e.result.raw.symbol);
-        // var users_stock_symbol = e.result.raw.symbol;
-        // var users_stock_name = e.result.raw.name;
         $('button').show();
+        var users_stock_name = e.result.raw.name;
+        document.getElementById("hiddenField").value = users_stock_name;
         // alert(e.result.raw.symbol);
         // $.ajax({
         //   type: "POST",
@@ -56,4 +55,8 @@ YUI({
         //   data: {stock_tbd: stock_symbol}
         // });
     });
+
+    
+    
+
 });
