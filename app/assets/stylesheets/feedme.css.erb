@@ -5,9 +5,15 @@ body {
 form {
   padding-bottom: 10%;
 }
+.yui3-aclist {
+  width: 35em;
+  background-color: red;
+  font-family: 'Iceland', cursive;
+  border: 1px dotted white;
+}
 .bubble 
 {
-  position: relative;
+  position: absolute;
   width: 250px;
   height: 120px;
   padding: 0px;
@@ -17,7 +23,11 @@ form {
   border-radius: 10px;
   font-size: 1.8em;
   font-weight: bold;
+  top: 470px;
+  left: 700px;
   font-family: 'Iceland', cursive;
+  display: none;
+  cursor: hand;
 }
 .bubble:after 
 {

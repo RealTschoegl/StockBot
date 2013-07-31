@@ -46,6 +46,7 @@ YUI({
 
     acNode.ac.on("select", function (e) {
         var stock_symbol = e.result.raw.symbol;
+        $('button').show();
         // alert(e.result.raw.symbol);
         // $.ajax({
         //   type: "POST",
