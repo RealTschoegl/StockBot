@@ -1,0 +1,192 @@
+@import url(http://fonts.googleapis.com/css?family=Iceland);
+body {
+  background-image: url(<%=asset_path "squairy_light.png"%>);
+}
+form {
+  padding-bottom: 10%;
+}
+.bubble 
+{
+  position: relative;
+  width: 250px;
+  height: 120px;
+  padding: 0px;
+  background: #FF0000;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  font-size: 1.8em;
+  font-weight: bold;
+  font-family: 'Iceland', cursive;
+}
+.bubble:after 
+{
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 110px;
+  border-style: solid;
+  border-width: 15px 15px 0;
+  border-color: #FF0000 transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+}
+#text {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 300px;
+  word-wrap: break-word;
+  font-size: 1.8em;
+  font-weight: bold;
+  font-family: 'Iceland', cursive;
+}
+#neck {
+  width: 16%;
+  height: 24%;
+  background-color: gray;
+  border-left:  5px solid black;
+  border-right:  5px solid black;
+  position: absolute;
+/*  z-index: -1;
+*/  margin-left: 42%;
+  margin-top: -10%;
+}
+#wrapper {
+  background-color: #B2B2B2;
+  width: 40%;
+  height: 55%;
+  margin-left: 30%;
+  margin-right: 15%;
+  margin-top: 20%;
+  margin-bottom: 10%;
+  z-index: 1;
+  border: 5px solid black;
+}
+#bulb {
+  width: 9%;
+  height: 18%;
+  border-radius: 50%;
+  background-image: -webkit-linear-gradient(right bottom, rgb(0,0,0) 0%, rgb(255,0,0) 49%);
+  position: absolute;
+  margin-left: 45%;
+  margin-top: -15%;
+  z-index: 1;
+  border: 5px solid black;
+}
+#antenna {
+  width: 1%;
+  height: 12%;
+  background-color: gray;
+  border-left:  5px solid black;
+  border-right:  5px solid black;
+  position: absolute;
+  z-index: -2;
+  margin-left: 49%;
+  margin-top: -8%;
+}
+#dome {
+  width: 19%;
+  height: 16%;
+  background-color: gray;
+  border-radius: 50%;
+  border-top: 5px solid black;
+  border-left:  5px solid black;
+  border-right:  5px solid black;
+  position: absolute;
+  z-index: -1;
+  margin-left: 40%;
+  margin-top: -3%;
+}
+#leftear {
+  width: 5%;
+  height: 25%;
+  margin-left: 25%;
+  margin-top: 5%;
+  background-color: #808080;
+  border-left: 5px solid black;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+  position: absolute;
+  z-index: -1;
+}
+#rightear {
+  width: 5%;
+  height: 25%;
+  background-color: #808080;
+  margin-left: 69%;
+  margin-top: 5%;
+  border-right: 5px solid black;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+  position: absolute;
+  z-index: -1;
+}
+.highlight {
+  background-color: white;
+  opacity: .8;
+  z-index: 3;
+}
+#lefteye {
+  float: left;
+  width: 7.500em;
+  height: 7.500em;
+  border: 2px solid black;
+  background-image: -webkit-linear-gradient(right bottom, rgb(253,154,21) 1%, rgb(255,185,49) 51%, rgb(255,238,0) 69%);
+  border-radius: 50%;
+  margin-left: 5%;
+  margin-top: 5%;
+  z-index: 3;
+}
+#lefteyering {
+  float: left;
+  width: 8.750em;
+  height: 8.750em;
+  border: 2px solid black;
+  background-color: #808080;
+  border-radius: 50%;
+  margin-left: 15%;
+  margin-top: 5%;
+  z-index: 2;
+}
+#righteye {
+  float: right;
+  width: 7.500em;
+  height: 7.500em;
+  background-image: -webkit-linear-gradient(right bottom, rgb(253,154,21) 1%, rgb(255,185,49) 51%, rgb(255,238,0) 69%);
+  border-radius: 50%;
+  margin-right: 5%;
+  margin-top: 5%;
+  z-index: 3;
+  border: 2px solid black;
+}
+#righteyering {
+  float: right;
+  width: 8.750em;
+  height: 8.750em;
+  background-color: #808080;
+  border-radius: 50%;
+  margin-right: 15%;
+  margin-top: 5%;
+  z-index: 2;
+  border: 2px solid black;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #191919;
+}
+input[type="text"] {
+ box-shadow: inset 0px 0px 15px #1A0000;
+ text-align: center;
+ padding: 15px;
+ height: 15%;
+ width: 55%; 
+ font-size: 1.6em;
+ font-weight: bold;
+ margin-top: 15%;
+ margin-left: 20%;
+ background-color: #FF0000;
+ font-family: 'Iceland', cursive;
+}
+
+

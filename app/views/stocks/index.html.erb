@@ -5,19 +5,28 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
-        <%= javascript_include_tag 'application' %>
-    </head>
-    <body>
-    	<h1>Hello!</h1>
-        <p>Try typing a name of an asset: yahoo, ibm, oracle, etc.</p>
-        
-        <form method="POST" action="/stocks/picker">
-            <label for="ac-input">Enter an asset (for instance, YAHOO):</label><br>
-            <input id="ac-input" style="width: 500px;" type="text" name="stock_tbd"><br /><br />
-            <input type="submit" value="Submit" > 
-        </form>
-
-    </body>
+  <head>
+      <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+      <%= javascript_include_tag 'application' %>
+  </head>
+  <body>
+  	<div id="text">Enter a company in the StockBot, follow the steps, and get a customized stock quote. <br /><br />  Try it now, Hal ...</div>
+    <div id="bulb"></div>
+    <div id="antenna"></div>
+    <div id="dome"></div>
+    <div id="leftear"></div>
+    <div id="rightear"></div>
+    <div id="wrapper">
+      <div id="lefteyering">
+        <div class="highlight" id="lefteye"></div>
+      </div>
+      <div id="righteyering">
+        <div class="highlight" id="righteye"></div>
+      </div>
+      <form method="POST" action="/stocks/picker">
+        <button type="submit" class="bubble">Submit!</button>
+        <input type="text" id="ac-input" placeholder="Input Your Stock!" name="stock_tbd"></input>
+      </form>
+    </div>
+   </body>
 </html>
