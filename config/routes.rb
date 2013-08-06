@@ -3,7 +3,7 @@ StockPickApp::Application.routes.draw do
   # resources :stocks
 
   get "/stocks" => "stocks#index"
-  post "/stocks/picker" => "stocks#new"
+  post "/stocks/picker" => "stocks#picker"
   get "/stocks/picker" => "stocks#picker"
   get "/stocks/results" => "stocks#results"
   root :to => 'stocks#index'
