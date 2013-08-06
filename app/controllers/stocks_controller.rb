@@ -4,13 +4,11 @@ class StocksController < ApplicationController
     
   end
 
-  def new
+  def picker
      @stock_ticker_symbol = params
-
-
   end
 
-  def show
+  def results
 
   end
 

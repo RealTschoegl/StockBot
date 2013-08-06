@@ -4,8 +4,8 @@ StockPickApp::Application.routes.draw do
 
   get "/stocks" => "stocks#index"
   post "/stocks/picker" => "stocks#new"
-  get "/stocks/picker" => "stocks#new"
-  get "/stocks/results" => "stocks#show"
+  get "/stocks/picker" => "stocks#picker"
+  get "/stocks/results" => "stocks#results"
   root :to => 'stocks#index'
             
 

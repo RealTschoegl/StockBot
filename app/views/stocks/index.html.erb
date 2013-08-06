@@ -11,18 +11,7 @@
   </head>
   <body>
   	<div id="text">Enter a company in the StockBot, follow the steps, and get a customized stock quote. <br /><br />  Try it now, Hal ...</div>
-    <div id="bulb"></div>
-    <div id="antenna"></div>
-    <div id="dome"></div>
-    <div id="leftear"></div>
-    <div id="rightear"></div>
-    <div id="wrapper">
-      <div id="lefteyering">
-        <div class="highlight" id="lefteye"></div>
-      </div>
-      <div id="righteyering">
-        <div class="highlight" id="righteye"></div>
-      </div>
+    <div id="wrapper"> 
       <form method="POST" action="/stocks/picker" onkeypress="return event.keyCode != 13;">
         <button type="submit" class="bubble">Submit!</button>
         <input type="text" id="ac-input" placeholder="Input Your Stock!" name="stock_tbd"></input>
