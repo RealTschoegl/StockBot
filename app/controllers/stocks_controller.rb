@@ -5,7 +5,8 @@ class StocksController < ApplicationController
   end
 
   def picker
-     @stock_ticker_symbol = params
+     @stock_proper_name = params[:stock_symbol]
+     @stock_symbol_name = params[:stock_tbd]
   end
 
   def results

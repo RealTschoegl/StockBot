@@ -4,11 +4,14 @@
 
 <h2>Customize Your Stock Quote</h2>
 
-<p><%= @stock_ticker_symbol %></p>
+<h3>You selected: <%= @stock_proper_name %> (<%= @stock_symbol_name %>)</h3>
 
-<%= params %>
+The market values this stock at: <strong><%= get_stock_prices(@stock_symbol_name) %></strong>
 
-<br />
-<br />
+<br /><br />
 
-<input id="talkbubble" type="submit" value="Submit!"></input>
+We value this stock at: <strong><%= Stock.get_stock_prices(@stock_symbol_name) %></strong>
+
+<br /><br />
+
+What do you think the stock is worth?  Take the test below and submit your results to get your customized stock price. 
