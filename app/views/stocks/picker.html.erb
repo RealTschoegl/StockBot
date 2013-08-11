@@ -15,3 +15,8 @@ We value this stock at: <strong><%= Stock.get_stock_prices(@stock_symbol_name) %
 <br /><br />
 
 What do you think the stock is worth?  Take the test below and submit your results to get your customized stock price. 
+
+<form method="POST" action="/stocks/results" \>
+  <input type="text" placeholder="Input Your Stock!" name="mod_stock"></input>
+  <button type="submit">Submit!</button>
+</form>
