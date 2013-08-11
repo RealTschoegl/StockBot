@@ -11,13 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709233924) do
-
-  create_table "cake_mixes", :force => true do |t|
-    t.string   "StockSymbol"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
+ActiveRecord::Schema.define(:version => 20130703174744) do
 
   create_table "stocks", :force => true do |t|
     t.datetime "created_at",            :null => false
