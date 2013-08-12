@@ -11,6 +11,10 @@ class Stock < ActiveRecord::Base
       end
     end 
 
+    def self.naming_test(stock_symbol_name)
+    	Stock.where(:stock_ticker => stock_symbol_name).first.stock_ticker
+    end
+
   	# @company_data = {
   	# 	 :stock_ticker_m => # @stock_ticker_symbol,
   	# 	 :company_m => # SELECT :company FROM Stocks WHERE :stock_ticker_m == :stock_ticker, 

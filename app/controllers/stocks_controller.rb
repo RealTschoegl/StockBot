@@ -8,6 +8,7 @@ class StocksController < ApplicationController
   	@stock_proper_name = params[:stock_symbol]
     @stock_symbol_name = params[:stock_tbd]
     @our_stock_price = Stock.get_stock_price(params[:stock_tbd])
+    @database_name = Stock.naming_test(params[:stock_tbd]) 
   end
 
   def results
