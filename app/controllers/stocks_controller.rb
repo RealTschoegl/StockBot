@@ -10,8 +10,11 @@ class StocksController < ApplicationController
   end
 
   def results
+    require "#{Rails.root}/lib/modules/valuation_engine.rb"
+
   	@mod_stock_name = params[:mod_stock_fullName]
   	@mod_stock_symbol = params[:mod_stock_fullSymbol]
+  	@mod_stock_value = ValuationEngine::Value.final_stock_value(params[:mod_stock_fullSymbol])
   end
 
 end
