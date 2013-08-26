@@ -9,17 +9,16 @@ gem 'haml-rails', '>= 0.3.4'
 
 group :development do
     gem 'sqlite3'
+    gem 'better_errors'
+	gem 'pry'
 end
 group :production do
     gem 'pg'
 end
 
 gem 'yahoofinance'
-
 gem 'hirb'
 gem 'shotgun'
-gem 'better_errors'
-gem 'pry'
 
 
 # Gems used only for assets and not required

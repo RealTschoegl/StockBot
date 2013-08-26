@@ -5,10 +5,12 @@ class StocksController < ApplicationController
   end
 
   def picker
+    require "#{Rails.root}/lib/modules/valuation_engine.rb"
+    
   	@stock_proper_name = params[:stock_symbol]
     @stock_symbol_name = params[:stock_tbd]
-    @our_stock_price = Stock.get_stock_price(params[:stock_tbd])
-    @database_name = Stock.naming_test(params[:stock_tbd]) 
+    picked_stock = ValuationEngine::Value.new(params[:stock_tbd])
+    @our_stock_price = picked_stock.get_stock_price
   end
 
   def results
