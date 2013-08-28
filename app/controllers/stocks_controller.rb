@@ -10,7 +10,7 @@ class StocksController < ApplicationController
   	@stock_proper_name = params[:stock_symbol]
     @stock_symbol_name = params[:stock_tbd]
     picked_stock = ValuationEngine::Value.new(params[:stock_tbd])
-    @our_stock_price = picked_stock.get_stock_price
+    @our_stock_price = picked_stock.compute_stock_price
   end
 
   def results
@@ -18,7 +18,8 @@ class StocksController < ApplicationController
 
   	@mod_stock_name = params[:mod_stock_fullName]
   	@mod_stock_symbol = params[:mod_stock_fullSymbol]
-  	@mod_stock_value = ValuationEngine::Value.final_stock_value(params[:mod_stock_fullSymbol])
+    mod_stock = ValuationEngine::ModValue.new(params[:mod_stock_fullSymbol])
+  	@mod_stock_value = mod_stock.compute_stock_price
   end
 
 end
