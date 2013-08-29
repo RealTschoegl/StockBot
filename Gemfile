@@ -12,6 +12,7 @@ group :development do
     gem 'better_errors'
 	gem 'pry'
 end
+
 group :production do
     gem 'pg'
 end
@@ -19,6 +20,7 @@ end
 gem 'yahoofinance'
 gem 'hirb'
 gem 'shotgun'
+gem 'pure-rails'
 
 
 # Gems used only for assets and not required

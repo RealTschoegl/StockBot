@@ -4,47 +4,47 @@
 <head>
 	<%= javascript_include_tag 'application' %>
 </head>
-<body>
-	<h2>Customize Your Stock Quote</h2>
+<body class="picker">
+		<div class="pure-g-r">
+			<h2 class="pure-u-1">Customize Your Stock Quote</h2>
+		</div>
+		<h3>You selected: <%= @stock_proper_name %> (<%= @stock_symbol_name %>)</h3>
 
-	<h3>You selected: <%= @stock_proper_name %> (<%= @stock_symbol_name %>)</h3>
+		The market values this stock at: <strong><%= get_stock_prices(@stock_symbol_name) %></strong>
 
-	The market values this stock at: <strong><%= get_stock_prices(@stock_symbol_name) %></strong>
-
-	<br /><br />
-
-	We value <%= @stock_proper_name %>  at: <strong><%= @our_stock_price %></strong>
-
-	<br /><br />
-
-	What do you think the stock is worth?  Take the test below and submit your results to get your customized stock price. 
-
-	<br /><br />
-
-	<form method="POST" action="/stocks/results" id="pickerForm"\>
-		<label>How many years do you want to keep the stock for?</label>
-		<br /><br />
-		<input type="number" name="mod_stock_yearHorizon" min="1" max="30"></input>
 		<br /><br />
 
-		<label>How much better (or worse) do you think the economy will be over that period of time?</label>
-		<br /><br />
-		-50% <input type="range" name="mod_stock_marketGrowthRate" min="-50" max="50" onchange="updateTextInput(this.value);"> 50%</input>
-		<br /><br />
-		<input type="text" id="textInput" value=""></input>
+		We value <%= @stock_proper_name %>  at: <strong><%= @our_stock_price %></strong>
+
 		<br /><br />
 
-		<label>Do you think the United States will manage its monetary policy...</label>
-		<br /><br />
-		<select name="mod_stock_riskFreeRate" form="pickerForm">
-			<option value="0.8">Badly</option>
-			<option value="1.0">OK</option>
-			<option value="1.2">Well</option>
-		</select>
+		What do you think the stock is worth?  Answer the questions below and submit your results to get your customized stock price. 
+
 		<br /><br />
 
-	  <input type="hidden" id='hiddenField' name="mod_stock_fullName" value="<%= @stock_proper_name %>"></input>
-	  <input type="hidden" id='hiddenField' name="mod_stock_fullSymbol" value="<%= @stock_symbol_name %>"></input>
-	  <button type="submit">Submit!</button>
-	</form>
+		<form  class="pure-form pure-form-stacked" method="POST" action="/stocks/results" id="pickerForm"\>
+			<fieldset>
+				<legend>Questions</legend>
+				<ol>
+					<li><label>How many years do you want to keep the stock for?</label>
+					<input type="number" name="mod_stock_yearHorizon" min="1" max="30"></input></li><br />
+
+					<li><label>How much better (or worse) do you think the economy will be over that period of time?</label>
+					-50% <input type="range" name="mod_stock_marketGrowthRate" min="-50" max="50" onchange="updateTextInput(this.value);"> 50%</input>
+					<input type="text" id="textInput" value=""></input></li><br />
+
+					<li><label>Do you think the United States will manage its monetary policy...</label>
+					<select style="width: 15em;" name="mod_stock_riskFreeRate" form="pickerForm">
+						<option value="0.8">Badly</option>
+						<option value="1.0">OK</option>
+						<option value="1.2">Well</option>
+					</select></li><br />
+				</ol>
+
+			  <input type="hidden" id='hiddenField' name="mod_stock_fullName" value="<%= @stock_proper_name %>"></input>
+			  <input type="hidden" id='hiddenField' name="mod_stock_fullSymbol" value="<%= @stock_symbol_name %>"></input>
+
+			  <button class="pure-button pure-button-primary" type="submit">Submit!</button>
+			</fieldset>
+		</form>
 </body>
