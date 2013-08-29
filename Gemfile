@@ -20,7 +20,7 @@ end
 gem 'yahoofinance'
 gem 'hirb'
 gem 'shotgun'
-gem 'pure-rails'
+gem 'purecss'
 
 
 # Gems used only for assets and not required

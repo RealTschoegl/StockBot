@@ -86,7 +86,7 @@ module ValuationEngine
       puts @market_growth_rate
       puts @years_horizon
 
-      return @composite_share_value
+      return (@composite_share_value).round(2)
 
     end
 

@@ -5,7 +5,7 @@ module ApplicationHelper
 		quote_type = YahooFinance::StandardQuote
 		quote_symbols = stock_symbol_name
 		YahooFinance::get_quotes( quote_type, quote_symbols ) do |qt|
-    		return "#{qt.lastTrade}"
+    		return "#{(qt.lastTrade).round(2)}"
 		end
 	end	
 end

@@ -2,22 +2,23 @@
 <head>
 	<%= javascript_include_tag 'application' %>
 </head>
-<body>
-<h2> Stock Prices</h2>
-	<%= params %>
-	<br /><br />
-	<%= @stuffington.class.years_horizon%>
-	<br /><br />
-	<%= @stuffington.class.risk_free_rate %>
-	<br /><br />
-	<%= @stuffington.class.market_growth_rate %>
+<body class="results">
+	<h2> The Stock Price</h2>
+  <hr>
+  <br />
+  <table class="pure-table pure-table-bordered ">
+    <tbody>
+      <tr>
+        <td>The market values <strong><%= @mod_stock_name %></strong> stock at:</td> 
+        <td><strong><%= get_stock_prices(@mod_stock_symbol) %></strong></td>
 
-	<br /><br />
-
-	<p>The market values this stock at: <strong><%= get_stock_prices(@mod_stock_symbol) %></strong></p>
-
-	<br /><br />
-
-	<p>You value <strong><%= @mod_stock_name %></strong> stock at: <strong><%= @mod_stock_value %></strong></p>
-
+      </tr>
+      <tr>
+        <td>You value <strong><%= @mod_stock_name %></strong> stock at:</td> 
+        <td><strong><%= @mod_stock_value %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <%= link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" } %>
 </body>
