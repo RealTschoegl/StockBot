@@ -1,0 +1,7 @@
+Wed, 28 Aug 2013 13:25:04 -0500
+doc/README_FOR_APP	Sun, 11 Aug 2013 15:01:00 -0500
+app/controllers/application_controller.rb	Sun, 11 Aug 2013 15:01:00 -0500
+app/controllers/stocks_controller.rb	Wed, 28 Aug 2013 11:04:58 -0500
+app/helpers/application_helper.rb	Sun, 11 Aug 2013 15:01:00 -0500
+app/models/stock.rb	Tue, 27 Aug 2013 09:33:42 -0500
+lib/modules/valuation_engine.rb	Wed, 28 Aug 2013 13:08:44 -0500

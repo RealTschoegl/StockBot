@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class ValuationEngine::Value - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/modules/valuation_engine.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-compute_stock_price">#compute_stock_price</a>
+    
+    <li><a href="#method-i-divide_by_num_shares">#divide_by_num_shares</a>
+    
+    <li><a href="#method-i-get_capm_share_value">#get_capm_share_value</a>
+    
+    <li><a href="#method-i-get_complex_constants">#get_complex_constants</a>
+    
+    <li><a href="#method-i-get_composite_share_value">#get_composite_share_value</a>
+    
+    <li><a href="#method-i-get_cost_of_equity">#get_cost_of_equity</a>
+    
+    <li><a href="#method-i-get_current_stock_price">#get_current_stock_price</a>
+    
+    <li><a href="#method-i-get_dividend_share_value">#get_dividend_share_value</a>
+    
+    <li><a href="#method-i-get_fcf_share_value">#get_fcf_share_value</a>
+    
+    <li><a href="#method-i-get_rate_of_return">#get_rate_of_return</a>
+    
+    <li><a href="#method-i-get_time_value_of_money">#get_time_value_of_money</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../ValuationEngine.html">ValuationEngine</a>
+  
+    <li><a href="../ValuationEngine/ModValue.html">ValuationEngine::ModValue</a>
+  
+    <li><a href="../ValuationEngine/Value.html">ValuationEngine::Value</a>
+  
+    <li><a href="../ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="../ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="../Stock.html">Stock</a>
+  
+    <li><a href="../StocksController.html">StocksController</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class ValuationEngine::Value</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-c-market_growth_rate" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">market_growth_rate</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-c-risk_free_rate" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">risk_free_rate</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-c-years_horizon" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">years_horizon</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-PE_ratio" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">PE_ratio</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-beta" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">beta</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-capm_share_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">capm_share_value</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-company" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">company</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-composite_share_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">composite_share_value</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-cost_of_equity" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">cost_of_equity</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-current_stock_price" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">current_stock_price</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-dividend_growth_rate" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">dividend_growth_rate</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-dividend_per_share" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">dividend_per_share</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-dividend_share_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">dividend_share_value</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-fcf_share_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">fcf_share_value</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-free_cash_flow" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">free_cash_flow</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-num_shares" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">num_shares</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-rate_of_return" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">rate_of_return</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-stock_ticker" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">stock_ticker</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(submitted_stock)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 17</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">submitted_stock</span>)
+<span class="ruby-ivar">@stock_ticker</span> = <span class="ruby-identifier">submitted_stock</span>
+<span class="ruby-ivar">@current_stock_price</span> = <span class="ruby-identifier">get_current_stock_price</span>(<span class="ruby-identifier">submitted_stock</span>)
+<span class="ruby-ivar">@free_cash_flow</span> = <span class="ruby-constant">Stock</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:stock_ticker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submitted_stock</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">free_cash_flow</span>
+<span class="ruby-ivar">@num_shares</span> = <span class="ruby-constant">Stock</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:stock_ticker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submitted_stock</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">num_shares</span>
+<span class="ruby-ivar">@PE_ratio</span> = <span class="ruby-constant">Stock</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:stock_ticker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submitted_stock</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">free_cash_flow</span> <span class="ruby-operator">/</span> <span class="ruby-value">100</span>
+<span class="ruby-ivar">@dividend_per_share</span> = <span class="ruby-constant">Stock</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:stock_ticker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submitted_stock</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">dividend_per_share</span>
+<span class="ruby-ivar">@dividend_growth_rate</span> = <span class="ruby-constant">Stock</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:stock_ticker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submitted_stock</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">dividend_growth_rate</span>
+<span class="ruby-ivar">@beta</span> = <span class="ruby-constant">Stock</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:stock_ticker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submitted_stock</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">beta</span>
+<span class="ruby-ivar">@cost_of_equity</span> = <span class="ruby-value">0</span>
+<span class="ruby-ivar">@rate_of_return</span> = <span class="ruby-value">0</span>
+<span class="ruby-ivar">@fcf_share_value</span> = <span class="ruby-value">0</span>
+<span class="ruby-ivar">@capm_share_value</span> = <span class="ruby-value">0</span>
+<span class="ruby-ivar">@dividend_share_value</span> = <span class="ruby-value">0</span>
+<span class="ruby-ivar">@composite_share_value</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-compute_stock_price" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">compute_stock_price</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method is used to computer the StockBot “house” valuation</p>
+          
+
+          
+          <div class="method-source-code" id="compute_stock_price-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">compute_stock_price</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_complex_constants</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_composite_share_value</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_time_value_of_money</span>
+
+  <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@risk_free_rate</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@market_growth_rate</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@years_horizon</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@composite_share_value</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- compute_stock_price-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- compute_stock_price-method -->
+
+    
+      <div id="method-i-divide_by_num_shares" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">divide_by_num_shares</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="divide_by_num_shares-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">divide_by_num_shares</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fcf_share_value</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fcf_share_value</span> <span class="ruby-operator">/</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">num_shares</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- divide_by_num_shares-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- divide_by_num_shares-method -->
+
+    
+      <div id="method-i-get_capm_share_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_capm_share_value</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_capm_share_value-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_capm_share_value</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">capm_share_value</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">cost_of_equity</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) * <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">years_horizon</span> * <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_stock_price</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_capm_share_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_capm_share_value-method -->
+
+    
+      <div id="method-i-get_complex_constants" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_complex_constants</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_complex_constants-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_complex_constants</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_cost_of_equity</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_rate_of_return</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_complex_constants-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_complex_constants-method -->
+
+    
+      <div id="method-i-get_composite_share_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_composite_share_value</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_composite_share_value-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_composite_share_value</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dividend_per_share</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">composite_share_value</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_fcf_share_value</span> <span class="ruby-operator">+</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_capm_share_value</span>) <span class="ruby-operator">/</span> <span class="ruby-value">2</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">composite_share_value</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_fcf_share_value</span> <span class="ruby-operator">+</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_dividend_share_value</span> <span class="ruby-operator">+</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_capm_share_value</span>) <span class="ruby-operator">/</span> <span class="ruby-value">3</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_composite_share_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_composite_share_value-method -->
+
+    
+      <div id="method-i-get_cost_of_equity" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_cost_of_equity</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_cost_of_equity-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_cost_of_equity</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cost_of_equity</span> =  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">risk_free_rate</span> <span class="ruby-operator">+</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">beta</span> * (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">market_growth_rate</span> <span class="ruby-operator">-</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">risk_free_rate</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_cost_of_equity-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_cost_of_equity-method -->
+
+    
+      <div id="method-i-get_current_stock_price" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_current_stock_price</span><span
+            class="method-args">(stock_symbol_name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method is used to get the current stock price in the market</p>
+          
+
+          
+          <div class="method-source-code" id="get_current_stock_price-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_current_stock_price</span>(<span class="ruby-identifier">stock_symbol_name</span>)
+  <span class="ruby-identifier">quote_type</span> = <span class="ruby-constant">YahooFinance</span><span class="ruby-operator">::</span><span class="ruby-constant">StandardQuote</span>
+  <span class="ruby-identifier">quote_symbol</span> = <span class="ruby-identifier">stock_symbol_name</span>
+  <span class="ruby-constant">YahooFinance</span><span class="ruby-operator">::</span><span class="ruby-identifier">get_quotes</span>(<span class="ruby-identifier">quote_type</span>,<span class="ruby-identifier">quote_symbol</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">qt</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">qt</span>.<span class="ruby-identifier">lastTrade</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_current_stock_price-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_current_stock_price-method -->
+
+    
+      <div id="method-i-get_dividend_share_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_dividend_share_value</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_dividend_share_value-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_dividend_share_value</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dividend_share_value</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dividend_per_share</span><span class="ruby-operator">/</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">rate_of_return</span> <span class="ruby-operator">-</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dividend_growth_rate</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_dividend_share_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_dividend_share_value-method -->
+
+    
+      <div id="method-i-get_fcf_share_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_fcf_share_value</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_fcf_share_value-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_fcf_share_value</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fcf_share_value</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">free_cash_flow</span> <span class="ruby-operator">/</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">cost_of_equity</span> <span class="ruby-operator">-</span> <span class="ruby-keyword">self</span>.<span class="ruby-constant">PE_ratio</span>)
+  <span class="ruby-identifier">divide_by_num_shares</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_fcf_share_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_fcf_share_value-method -->
+
+    
+      <div id="method-i-get_rate_of_return" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_rate_of_return</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_rate_of_return-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_rate_of_return</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rate_of_return</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">dividend_per_share</span> <span class="ruby-operator">/</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_stock_price</span>) <span class="ruby-operator">+</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dividend_growth_rate</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_rate_of_return-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_rate_of_return-method -->
+
+    
+      <div id="method-i-get_time_value_of_money" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_time_value_of_money</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_time_value_of_money-source">
+            <pre><span class="ruby-comment"># File lib/modules/valuation_engine.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_time_value_of_money</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">composite_share_value</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">composite_share_value</span> <span class="ruby-operator">/</span> ((<span class="ruby-value">1</span> <span class="ruby-operator">+</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">market_growth_rate</span>)<span class="ruby-operator">**</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">years_horizon</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_time_value_of_money-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_time_value_of_money-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

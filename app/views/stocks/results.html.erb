@@ -1,9 +1,23 @@
 <!-- Display the results -->
-
+<head>
+	<%= javascript_include_tag 'application' %>
+</head>
+<body>
 <h2> Stock Prices</h2>
+	<%= params %>
+	<br /><br />
+	<%= @stuffington.class.years_horizon%>
+	<br /><br />
+	<%= @stuffington.class.risk_free_rate %>
+	<br /><br />
+	<%= @stuffington.class.market_growth_rate %>
 
-The market values this stock at: <strong><%= get_stock_prices(@mod_stock_symbol) %></strong>
+	<br /><br />
 
-<br /><br />
+	<p>The market values this stock at: <strong><%= get_stock_prices(@mod_stock_symbol) %></strong></p>
 
-You value <strong><%= @mod_stock_name %></strong> stock at: <%= @mod_stock_value %>
+	<br /><br />
+
+	<p>You value <strong><%= @mod_stock_name %></strong> stock at: <strong><%= @mod_stock_value %></strong></p>
+
+</body>
