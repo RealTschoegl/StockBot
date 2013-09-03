@@ -44,19 +44,18 @@ YUI({
         source: oDS
     });  
 
+    // Public: This function adds the user selected stock to a form on /index to be sent to /picker. 
+    //  
+    // 'button' - the css button that will display when the stock is selected
+    // 'e.result.raw.name' - the string that is the selected stock's ticker symbol
+    // 'hiddenField' - the id of an input field in the form
+    //
+    // Return - Shows the submit button once the user has selected a value.  It then takes the value that the user has selected and adds it to a hidden input field.
+
     acNode.ac.on("select", function (e) {
         $('button').show();
         var users_stock_name = e.result.raw.name;
         document.getElementById("hiddenField").value = users_stock_name;
-        // alert(e.result.raw.symbol);
-        // $.ajax({
-        //   type: "POST",
-        //   url: "/stocks/picker",
-        //   data: {stock_tbd: stock_symbol}
-        // });
     });
-
-    
-    
 
 });

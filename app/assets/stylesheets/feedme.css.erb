@@ -1,31 +1,46 @@
+/*The font for the front page */
 @import url(http://fonts.googleapis.com/css?family=Iceland);
+
+/*The background image */
 body {
   background-image: url(<%=asset_path "squairy_light.png"%>);
 }
+
+/*A wrapper for the body content in the picker view*/
 body.picker {
   margin: auto; /* center in viewport */
   width: 960px;
   margin-top: 2%;
 }
+
+/*A wrapper for the body content in the results view*/
 body.results {
   margin: auto; /* center in viewport */
   width: 960px;
   margin-top: 2%;
 }
+
+/*The selector for forms*/
 form {
   padding-bottom: 10%;
 }
+
+/*The list that the autocomplete displays*/
 .yui3-aclist {
   width: 35em;
   background-color: red;
   font-family: 'Iceland', cursive;
   border: 1px dotted white;
 }
+
+/*The Stockbot image on the index page*/
 img.stockbot {
   margin-left: 28%;
   width: 50%;
   height: 50%;
 }
+
+/*The submit button on the index page*/
 .bubble 
 {
   position: absolute;
@@ -45,6 +60,8 @@ img.stockbot {
   cursor: pointer;
   border: 1px solid red;
 }
+
+/*The arrow underneath the submit button on the index page*/
 .bubble:after 
 {
   content: "";
@@ -58,6 +75,8 @@ img.stockbot {
   width: 0;
   z-index: 1;
 }
+
+/*The explainer text on the index page*/
 #text {
   position: absolute;
   top: 50px;
@@ -68,9 +87,13 @@ img.stockbot {
   font-weight: bold;
   font-family: 'Iceland', cursive;
 }
+
+/*The placeholder text for the input field on the index page*/
 ::-webkit-input-placeholder { /* WebKit browsers */
     color: #191919;
 }
+
+/*The formatting for the input field on the front page*/
 input[type="text"].front_page {
  box-shadow: inset 0px 0px 15px #1A0000;
  text-align: center;

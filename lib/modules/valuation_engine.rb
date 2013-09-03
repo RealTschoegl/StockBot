@@ -1,6 +1,23 @@
 require 'yahoofinance'
 
+# Public - Contains methods that, when combined, can be used to value an inputed stock.
+#
+# Examples
+#
+#   ValuationEngine::Value.years_horizon
+#   # => 10
+#
+#   ValuationEngine::ModValue.years_horizon
+#   # => nil
+
 module ValuationEngine
+
+  # Public: 
+  #
+  # Examples
+  #
+  #   ValuationEngine::Value.new(params[:stock_tbd])
+  #   # => #<ValuationEngine::Value:0x007fcbc2d77590 @stock_ticker="MSFT", @current_stock_price=33.4, @free_cash_flow=31626, @num_shares=8350, @PE_ratio=316, @dividend_per_share=0.92, @dividend_growth_rate=0.028, @beta=1.1, @cost_of_equity=0, @rate_of_return=0, @fcf_share_value=0, @capm_share_value=0, @dividend_share_value=0, @composite_share_value=0>
 
   class Value
     # Public: Gets/Sets the String name of the stock's DBA name.
@@ -59,12 +76,8 @@ module ValuationEngine
       @dividend_per_share = Stock.where(:stock_ticker => submitted_stock).first.dividend_per_share
       @dividend_growth_rate = Stock.where(:stock_ticker => submitted_stock).first.dividend_growth_rate
       @beta = Stock.where(:stock_ticker => submitted_stock).first.beta
-      @cost_of_equity = 0
-      @rate_of_return = 0
-      @fcf_share_value = 0
-      @capm_share_value = 0
-      @dividend_share_value = 0
-      @composite_share_value = 0
+      @cost_of_equity = self.get_cost_of_equity
+      @rate_of_return = self.get_rate_of_return
   	end
 
     # # This method is used to get the current stock price in the market
@@ -78,21 +91,10 @@ module ValuationEngine
 
     # This method is used to computer the StockBot "house" valuation
     def compute_stock_price
-      self.get_complex_constants
-      self.get_composite_share_value
-      self.get_time_value_of_money
-
-      puts @risk_free_rate
-      puts @market_growth_rate
-      puts @years_horizon
+      self.get_present_value
 
       return (@composite_share_value).round(2)
 
-    end
-
-    def get_complex_constants
-      self.get_cost_of_equity
-      self.get_rate_of_return
     end
 
     def get_cost_of_equity
@@ -124,8 +126,8 @@ module ValuationEngine
         end
     end
 
-    def get_time_value_of_money
-      self.composite_share_value = (self.composite_share_value / ((1 + self.class.market_growth_rate)**self.class.years_horizon)).round(2)
+    def get_present_value
+      self.composite_share_value = (self.get_composite_share_value / ((1 + self.class.market_growth_rate)**self.class.years_horizon)).round(2)
     end
 
     def divide_by_num_shares
@@ -134,6 +136,12 @@ module ValuationEngine
 
   end
 
+  # Public: A class that generates a customized stock valuation using methods inherited from the Value class and user input.
+  #
+  # Examples
+  #
+  #   ValuationEngine::ModValue.new(params[:mod_stock_fullSymbol])
+  #   # => #<ValuationEngine::ModValue:0x007fcbc71000c8 @stock_ticker="MSFT", @current_stock_price=33.4, @free_cash_flow=31626, @num_shares=8350, @PE_ratio=316, @dividend_per_share=0.92, @dividend_growth_rate=0.028, @beta=1.1, @cost_of_equity=0, @rate_of_return=0, @fcf_share_value=0, @capm_share_value=0, @dividend_share_value=0, @composite_share_value=0> 
   class ModValue < Value
     
   end
