@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+	  = javascript_include_tag \ 
+    'application'
+  body class="results"
+    h2 The Stock Price
+    hr
+    br 
+    table class="pure-table pure-table-bordered"
+      tbody
+        tr
+          td The market values <strong>#{@mod_stock_name}</strong> at: 
+          td =get_stock_prices(@mod_stock_symbol)  
+        tr
+          td You value <strong>#{@mod_stock_name}</strong> at:      
+          td =@mod_stock_value 
+    br
+    =(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })

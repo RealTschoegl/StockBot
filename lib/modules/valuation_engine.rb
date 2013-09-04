@@ -12,7 +12,7 @@ require 'yahoofinance'
 
 module ValuationEngine
 
-  # Public: 
+  # Public:
   #
   # Examples
   #
@@ -51,6 +51,7 @@ module ValuationEngine
     # Public: Gets/Sets the Float value of the stock's value as a composite of the fcf_share_value, capm_share_value, and dividend_share_value.
     attr_accessor :composite_share_value
 
+    # Public: Assigns the below attributes to the class. 
     class << self
       # Public: Gets/Sets the @risk_free_rate.
       attr_accessor :risk_free_rate
@@ -61,12 +62,15 @@ module ValuationEngine
     end
 
   	# Public: A float value to four digits that represents the lowest possible borrowing value.  Here we use the 5 year treasury yield at market as that value.
-    @risk_free_rate = 0.0141 
+    @risk_free_rate = 0.0141
     # Public: A float value to four digits that represents the amount that the market grew in the previous year.  Here we use the S&P500 1 year growth rate.
-    @market_growth_rate = 0.2038 
+    @market_growth_rate = 0.2038
     # Public: An integer value that represents the number of years from now that we would intend to sell the stock.
     @years_horizon = 10
 
+    # Public: This method initializes a Value object with instance variable values.
+    #
+    # submitted_stock - A String value that is the user submitted stock's stock symbol
   	def initialize(submitted_stock)
       @stock_ticker = submitted_stock
       @current_stock_price = get_current_stock_price(submitted_stock)
@@ -80,7 +84,11 @@ module ValuationEngine
       @rate_of_return = self.get_rate_of_return
   	end
 
-    # # This method is used to get the current stock price in the market
+    # Public: This method takes in the stock symbol picked by the user and returns the last traded price of that stock.  It takes that stock price from Yahoo Finance's API.
+    #
+    # stock_symbol_name - A String value that is the user submitted stock's stock symbol
+    #
+    # Returns a Float value.
     def get_current_stock_price(stock_symbol_name)
       quote_type = YahooFinance::StandardQuote
       quote_symbol = stock_symbol_name
@@ -89,35 +97,54 @@ module ValuationEngine
       end
     end
 
-    # This method is used to computer the StockBot "house" valuation
+    # Public: This method computes a stock price based on our valuation model. 
+    #
+    # Returns a Float value.
     def compute_stock_price
       self.get_present_value
 
       return (@composite_share_value).round(2)
-
     end
 
+    # Public:  This method computes the cost of equity for the stock.
+    #
+    # Returns a Float value.
     def get_cost_of_equity
-      self.cost_of_equity =  (self.class.risk_free_rate + self.beta * (self.class.market_growth_rate - self.class.risk_free_rate)).round(2)
+      self.cost_of_equity = (self.class.risk_free_rate + self.beta * (self.class.market_growth_rate - self.class.risk_free_rate)).round(2)
     end
 
+    # Public: This method computes the Free Cash Flow Method value per share of a stock.
+    #
+    # Returns a Float value.
     def get_fcf_share_value
       self.fcf_share_value = (self.free_cash_flow / (self.cost_of_equity - self.PE_ratio)).round(2)
       divide_by_num_shares
     end
 
+    # Public: This method computes the CAPM Method value per share of a stock.
+    #
+    # Returns a Float value.
     def get_capm_share_value
       self.capm_share_value = ((self.cost_of_equity + 1) * self.class.years_horizon * self.current_stock_price).round(2)
     end
 
+    # Public: This method computes the rate of return of a stock.
+    #
+    # Returns a Float value.
     def get_rate_of_return
       self.rate_of_return = ((self.dividend_per_share / self.current_stock_price) + self.dividend_growth_rate).round(2)
     end
 
+    # Public: This method computes the Dividend Method value per share of a stock.
+    #
+    # Returns a Float value.
     def get_dividend_share_value
       self.dividend_share_value = (self.dividend_per_share/(self.rate_of_return - self.dividend_growth_rate)).round(2)
     end
 
+    # Public: This method aggregates the methods of valuing stocks into one single composite share value.
+    #
+    # Returns a Float value.
     def get_composite_share_value
         if self.dividend_per_share == 0
           self.composite_share_value = ((self.get_fcf_share_value + self.get_capm_share_value) / 2).round(2)
@@ -126,13 +153,19 @@ module ValuationEngine
         end
     end
 
+    # Public: This method accounts for time value to get the present value of the stock.
+    #
+    # Returns a Float value.
     def get_present_value
       self.composite_share_value = (self.get_composite_share_value / ((1 + self.class.market_growth_rate)**self.class.years_horizon)).round(2)
     end
 
+    # Public: This method takes the Free Cash Flow of and divides it up by the share.
+    #
+    # Returns a Float value.
     def divide_by_num_shares
       self.fcf_share_value = (self.fcf_share_value / self.num_shares).round(2)
-    end 
+    end
 
   end
 
@@ -141,9 +174,16 @@ module ValuationEngine
   # Examples
   #
   #   ValuationEngine::ModValue.new(params[:mod_stock_fullSymbol])
-  #   # => #<ValuationEngine::ModValue:0x007fcbc71000c8 @stock_ticker="MSFT", @current_stock_price=33.4, @free_cash_flow=31626, @num_shares=8350, @PE_ratio=316, @dividend_per_share=0.92, @dividend_growth_rate=0.028, @beta=1.1, @cost_of_equity=0, @rate_of_return=0, @fcf_share_value=0, @capm_share_value=0, @dividend_share_value=0, @composite_share_value=0> 
+  #   # => #<ValuationEngine::ModValue:0x007fcbc71000c8 @stock_ticker="MSFT", @current_stock_price=33.4, @free_cash_flow=31626, @num_shares=8350, @PE_ratio=316, @dividend_per_share=0.92, @dividend_growth_rate=0.028, @beta=1.1, @cost_of_equity=0, @rate_of_return=0, @fcf_share_value=0, @capm_share_value=0, @dividend_share_value=0, @composite_share_value=0>
   class ModValue < Value
-    
+
+    # Public: A float value to four digits that represents the lowest possible borrowing value.  Here we use the 5 year treasury yield at market as that value.
+    @risk_free_rate = 0.0141
+    # Public: A float value to four digits that represents the amount that the market grew in the previous year.  Here we use the S&P500 1 year growth rate.
+    @market_growth_rate = 0.2038
+    # Public: An integer value that represents the number of years from now that we would intend to sell the stock.
+    @years_horizon = 10
+
   end
 
 end

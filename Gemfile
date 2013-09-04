@@ -11,6 +11,7 @@ group :development do
     gem 'sqlite3'
     gem 'better_errors'
 	gem 'pry'
+	gem 'shotgun'
 end
 
 group :production do
@@ -19,9 +20,8 @@ end
 
 gem 'yahoofinance'
 gem 'hirb'
-gem 'shotgun'
 gem 'purecss'
-
+gem 'slim'
 
 # Gems used only for assets and not required
 # in production environments by default.
