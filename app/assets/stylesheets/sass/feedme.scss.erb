@@ -6,6 +6,8 @@ body {
   background-image: url(<%=asset_path "squairy_light.png"%>);
 }
 
+$input_width: 55%;
+
 /*A wrapper for the body content in the index view*/
 body.index {
   margin: auto; /* center in viewport */
@@ -47,9 +49,9 @@ form {
 /*The submit button on the index page*/
 .bubble 
 {
-  position: absolute;
-  width: 15.625em;
-  height: 7.500em;
+  position: fixed;
+  width: $input_width * 0.8;
+  height: 5.000em;
   background: #FF0000;
   -webkit-border-radius: 0.625em;
   -moz-border-radius: 0.625em;
@@ -60,11 +62,14 @@ form {
   display: none;
   cursor: pointer;
   border: 1px solid red;
+  bottom: 29%;
+  margin-left: 26%;
 }
 
 /*The arrow underneath the submit button on the index page*/
 .bubble:after 
 {
+  position: absolute;
   content: "";
   bottom: -0.938em;
   border-style: solid;
@@ -73,6 +78,7 @@ form {
   display: block;
   width: 0;
   z-index: 1;
+  margin-left: 40%;
 }
 
 /*The explainer text on the index page*/
@@ -97,7 +103,7 @@ input[type="text"].front_page {
   text-align: center;
   padding: 0.938em;
   height: 8%;
-  width: 55%; 
+  width: $input_width; 
   font-size: 1.6em;
   font-weight: bold;
   background-color: #FF0000;
@@ -106,6 +112,8 @@ input[type="text"].front_page {
 
 /*For all non-mobile viewports */
 @media (min-width: 767px) {
+  $input_width_2: 27%;
+
   /*A container for the form on the index page*/
   .container_form {
     width: 100%;
@@ -114,8 +122,8 @@ input[type="text"].front_page {
   /*The formatting for the input field on the front page*/
   input[type="text"].front_page {
     position: fixed;
-    margin-left: 20%;
-    width: 27%;
+    margin-left: 21%;
+    width: $input_width_2;
   }
 
   /*A class that modifies the stockbot image on the index page*/
@@ -123,9 +131,14 @@ input[type="text"].front_page {
     display: inline;
     position: fixed;
     margin-top: -6%;
-    width: 60%;
+    width: 55%;
     height: 88%;
-    margin-left: 5%;
+    margin-left: 9%;
+  }
+
+  .bubble {
+  position: fixed;
+  width: $input_width_2 * 0.7;
   }
 }
 

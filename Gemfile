@@ -6,6 +6,7 @@ gem 'hirb'
 gem 'purecss'
 gem 'slim'
 gem 'jquery-rails'
+gem 'sass'
 
 group :development, :test do
   gem 'sqlite3'

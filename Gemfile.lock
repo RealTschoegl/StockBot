@@ -154,6 +154,7 @@ DEPENDENCIES
   purecss
   rails (= 3.2.13)
   rspec-rails
+  sass
   sass-rails (~> 3.2.3)
   shotgun
   slim
