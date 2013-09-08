@@ -1,0 +1,73 @@
+doctype html
+html
+	head
+	= javascript_include_tag \
+	'application'
+	= stylesheet_link_tag \ 
+	"application" 
+	body class="picker"
+		div class="pure-g-r"
+			h2 class="pure-u-1"
+				|
+					Customize Your Stock Quote
+		hr
+		br
+		div class="pure-g-r"
+			table class="pure-u-1 pure-table pure-table-bordered"
+				tbody
+					tr
+						td You selected #{@stock_proper_name}
+						td The market values #{@stock_proper_name} at:
+						td We value #{@stock_proper_name} at: 
+					tr
+						td <strong>#{@stock_symbol_name}</strong>
+						td <strong>#{get_stock_prices(@stock_symbol_name)} </strong>
+						td <strong>#{@our_stock_price}</strong>
+		br
+
+		div class="pure-g-r"
+			h3 class="pure-u-1"
+				|
+					What do you think the stock is worth?  Answer the questions below and submit your results to get your customized stock price.
+
+		form  class="pure-form pure-form-stacked" method="POST" action="/stocks/results" id="pickerForm"
+			fieldset
+				legend Questions
+				hr
+				ol
+					li 
+						label 
+							|
+								How many years do you want to keep the stock for?
+					br
+					input type="number" name="mod_stock_yearHorizon" min="1" max="30"
+					br
+
+					li 
+						label 
+							|
+								How much better (or worse) do you think the economy will be over that period of time?
+					br
+					input type="range" name="mod_stock_marketGrowthRate" min="-50" max="50" onchange="updateTextInput(this.value);" 
+					input type="text" id="textInput" value=""
+					br 
+
+					li 
+						label 
+							|
+								Do you think the United States will manage its monetary policy...
+					br 
+					select style="width: 15em;" name="mod_stock_riskFreeRate" form="pickerForm"
+						option value="0.8" Badly 
+						option value="1.0" OK 
+						option value="1.2" Well
+					br 
+
+			input type="hidden" id="hiddenField" name="mod_stock_fullName" value="#{@stock_proper_name}"
+
+			input type="hidden" id="hiddenField" name="mod_stock_fullSymbol" value="#{@stock_symbol_name}"
+
+			button class="pure-button pure-button-primary" type="submit" Submit
+			p 
+			=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })
+	

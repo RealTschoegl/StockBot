@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"
+    = javascript_include_tag \ 
+    'application'
+    = stylesheet_link_tag \ 
+    "application" 
+  body class="index"
+    div id="text"
+      |
+        Enter a company in the StockBot, follow the steps, and get a customized stock quote. 
+      br
+      br
+        |
+          Try it now, Hal ...
+    img class="stockbot" src==asset_path('stockbot.png')
+    div class="container_form"
+      form method="POST" action="/stocks/picker" onkeypress="return event.keyCode != 13;"
+        button type="submit" class="bubble"
+          |
+            Submit!
+        input type="text" class="front_page" id="ac-input" placeholder="Input A Stock!" name="stock_tbd"
+        input type='hidden' id='hiddenField' name='stock_symbol' value=''

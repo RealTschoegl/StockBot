@@ -6,17 +6,28 @@ body {
   background-image: url(<%=asset_path "squairy_light.png"%>);
 }
 
+/*A wrapper for the body content in the index view*/
+body.index {
+  margin: auto; /* center in viewport */
+  width: 70%;
+  margin-top: 2%;
+}
+
+/*A class that modifies the stockbot image on the index page*/
+.stockbot {
+  display: none;
+}
 /*A wrapper for the body content in the picker view*/
 body.picker {
   margin: auto; /* center in viewport */
-  width: 960px;
+  width: 80%;
   margin-top: 2%;
 }
 
 /*A wrapper for the body content in the results view*/
 body.results {
   margin: auto; /* center in viewport */
-  width: 960px;
+  width: 80%;
   margin-top: 2%;
 }
 
@@ -30,31 +41,21 @@ form {
   width: 35em;
   background-color: red;
   font-family: 'Iceland', cursive;
-  border: 1px dotted white;
-}
-
-/*The Stockbot image on the index page*/
-img.stockbot {
-  margin-left: 28%;
-  width: 50%;
-  height: 50%;
+  border: 0.063em dotted white;
 }
 
 /*The submit button on the index page*/
 .bubble 
 {
   position: absolute;
-  width: 250px;
-  height: 120px;
-  padding: 0px;
+  width: 15.625em;
+  height: 7.500em;
   background: #FF0000;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 0.625em;
+  -moz-border-radius: 0.625em;
+  border-radius: 0.625em;
   font-size: 1.8em;
   font-weight: bold;
-  top: 345px;
-  left: 600px;
   font-family: 'Iceland', cursive;
   display: none;
   cursor: pointer;
@@ -65,11 +66,9 @@ img.stockbot {
 .bubble:after 
 {
   content: "";
-  position: absolute;
-  bottom: -15px;
-  left: 110px;
+  bottom: -0.938em;
   border-style: solid;
-  border-width: 15px 15px 0;
+  border-width: 0.938em 0.938em 0em;
   border-color: #FF0000 transparent;
   display: block;
   width: 0;
@@ -78,11 +77,8 @@ img.stockbot {
 
 /*The explainer text on the index page*/
 #text {
-  position: absolute;
-  top: 50px;
-  left: 50px;
-  width: 300px;
-  word-wrap: break-word;
+  margin-top: 3%;
+  width: 100%;
   font-size: 1.8em;
   font-weight: bold;
   font-family: 'Iceland', cursive;
@@ -95,18 +91,42 @@ img.stockbot {
 
 /*The formatting for the input field on the front page*/
 input[type="text"].front_page {
- box-shadow: inset 0px 0px 15px #1A0000;
- text-align: center;
- padding: 15px;
- height: 8%;
- width: 25%; 
- font-size: 1.6em;
- font-weight: bold;
- background-color: #FF0000;
- bottom: 12%;
- left: 21em;
- position: absolute;
- font-family: 'Iceland', cursive;
+  position: absolute;
+  bottom: 10%;
+  box-shadow: inset 0em 0em 0.938em #1A0000;
+  text-align: center;
+  padding: 0.938em;
+  height: 8%;
+  width: 55%; 
+  font-size: 1.6em;
+  font-weight: bold;
+  background-color: #FF0000;
+  font-family: 'Iceland', cursive;
+}
+
+/*For all non-mobile viewports */
+@media (min-width: 767px) {
+  /*A container for the form on the index page*/
+  .container_form {
+    width: 100%;
+  }
+
+  /*The formatting for the input field on the front page*/
+  input[type="text"].front_page {
+    position: fixed;
+    margin-left: 20%;
+    width: 27%;
+  }
+
+  /*A class that modifies the stockbot image on the index page*/
+  .stockbot {
+    display: inline;
+    position: fixed;
+    margin-top: -6%;
+    width: 60%;
+    height: 88%;
+    margin-left: 5%;
+  }
 }
 
 
