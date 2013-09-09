@@ -1,12 +1,14 @@
 /*The font for the front page */
 @import url(http://fonts.googleapis.com/css?family=Iceland);
 
+$input_width: 55%;
+$input_bottom: 10%;
+$input_height: 8%;
+
 /*The background image */
 body {
   background-image: url(<%=asset_path "squairy_light.png"%>);
 }
-
-$input_width: 55%;
 
 /*A wrapper for the body content in the index view*/
 body.index {
@@ -62,8 +64,8 @@ form {
   display: none;
   cursor: pointer;
   border: 1px solid red;
-  bottom: 29%;
-  margin-left: 26%;
+  bottom: $input_bottom + $input_height * 3;
+  margin-left: (100 - ($input_width * 0.8))/4;
 }
 
 /*The arrow underneath the submit button on the index page*/
@@ -78,7 +80,7 @@ form {
   display: block;
   width: 0;
   z-index: 1;
-  margin-left: 40%;
+  margin-left: (100 - ($input_width * 0.8))/2;
 }
 
 /*The explainer text on the index page*/
@@ -98,11 +100,11 @@ form {
 /*The formatting for the input field on the front page*/
 input[type="text"].front_page {
   position: absolute;
-  bottom: 10%;
+  bottom: $input_bottom;
   box-shadow: inset 0em 0em 0.938em #1A0000;
   text-align: center;
   padding: 0.938em;
-  height: 8%;
+  height: $input_height;
   width: $input_width; 
   font-size: 1.6em;
   font-weight: bold;
@@ -139,6 +141,11 @@ input[type="text"].front_page {
   .bubble {
   position: fixed;
   width: $input_width_2 * 0.7;
+  bottom: $input_bottom + $input_height * 2.5;
+  margin-left: (100 - ($input_width_2 * 0.8))/3;
+  }
+  .bubble:after {
+  margin-left: (100 - ($input_width_2 * 0.8))/2;
   }
 }
 
