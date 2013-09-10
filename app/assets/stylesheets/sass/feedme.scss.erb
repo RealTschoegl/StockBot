@@ -1,9 +1,19 @@
 /*The font for the front page */
 @import url(http://fonts.googleapis.com/css?family=Iceland);
 
+// SASS variables 
 $input_width: 55%;
 $input_bottom: 10%;
 $input_height: 8%;
+$box-shadow-color: #1A0000;
+$index_page_font: 'Iceland', cursive, sans-serif;
+
+// SASS mixins
+@mixin body-position {
+  margin: auto; /* center in viewport */
+  width: 80%;
+  margin-top: 2%;
+}
 
 /*The background image */
 body {
@@ -21,18 +31,15 @@ body.index {
 .stockbot {
   display: none;
 }
+
 /*A wrapper for the body content in the picker view*/
 body.picker {
-  margin: auto; /* center in viewport */
-  width: 80%;
-  margin-top: 2%;
+  @include body-position;
 }
 
 /*A wrapper for the body content in the results view*/
 body.results {
-  margin: auto; /* center in viewport */
-  width: 80%;
-  margin-top: 2%;
+  @include body-position;
 }
 
 /*The selector for forms*/
@@ -44,7 +51,7 @@ form {
 .yui3-aclist {
   width: 35em;
   background-color: red;
-  font-family: 'Iceland', cursive;
+  font-family: $index_page_font;
   border: 0.063em dotted white;
 }
 
@@ -58,9 +65,11 @@ form {
   -webkit-border-radius: 0.625em;
   -moz-border-radius: 0.625em;
   border-radius: 0.625em;
-  font-size: 1.8em;
-  font-weight: bold;
-  font-family: 'Iceland', cursive;
+  font: {
+    size: 1.8em;
+    weight: bold;
+    family: $index_page_font;
+  }
   display: none;
   cursor: pointer;
   border: 1px solid red;
@@ -89,7 +98,7 @@ form {
   width: 100%;
   font-size: 1.8em;
   font-weight: bold;
-  font-family: 'Iceland', cursive;
+  font-family: $index_page_font;
 }
 
 /*The placeholder text for the input field on the index page*/
@@ -101,7 +110,7 @@ form {
 input[type="text"].front_page {
   position: absolute;
   bottom: $input_bottom;
-  box-shadow: inset 0em 0em 0.938em #1A0000;
+  box-shadow: inset 0em 0em 0.938em $box-shadow-color;
   text-align: center;
   padding: 0.938em;
   height: $input_height;
@@ -109,7 +118,7 @@ input[type="text"].front_page {
   font-size: 1.6em;
   font-weight: bold;
   background-color: #FF0000;
-  font-family: 'Iceland', cursive;
+  font-family: $index_page_font;
 }
 
 /*For all non-mobile viewports */
@@ -138,12 +147,15 @@ input[type="text"].front_page {
     margin-left: 9%;
   }
 
+  /*The submit button on the index page*/
   .bubble {
   position: fixed;
   width: $input_width_2 * 0.7;
   bottom: $input_bottom + $input_height * 2.5;
   margin-left: (100 - ($input_width_2 * 0.8))/3;
   }
+
+  /*The arrow underneath the submit button on the index page*/
   .bubble:after {
   margin-left: (100 - ($input_width_2 * 0.8))/2;
   }

@@ -5,7 +5,7 @@ html
     = javascript_include_tag \ 
     'application'
     = stylesheet_link_tag \ 
-    "application" 
+    "application"             
   body class="index"
     div id="text"
       |
@@ -20,5 +20,5 @@ html
         button type="submit" class="bubble"
           |
             Submit!
-        input type="text" class="front_page" id="ac-input" placeholder="Input A Stock!" name="stock_tbd"
+        input type="text" class="front_page" id="ac-input" placeholder="Input A Stock!" name="stock_tbd"  onkeydown="hideButtonFunction()"
         input type='hidden' id='hiddenField' name='stock_symbol' value=''

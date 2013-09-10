@@ -51,11 +51,12 @@ YUI({
     // 'hiddenField' - the id of an input field in the form
     //
     // Return - Shows the submit button once the user has selected a value.  It then takes the value that the user has selected and adds it to a hidden input field.
-
     acNode.ac.on("select", function (e) {
         $('button').show();
         var users_stock_name = e.result.raw.name;
         document.getElementById("hiddenField").value = users_stock_name;
+        
     });
+
 
 });
