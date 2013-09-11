@@ -18,10 +18,14 @@ class StocksController < ApplicationController
     @stock_symbol_name = params[:stock_tbd]
 
     # Public: This create a new Value object, picked_stock, using the stock symbol string that the user selected. 
-    picked_stock = ValuationEngine::Value.new(params[:stock_tbd])
+    if !Stock.where(:stock_ticker => @stock_symbol_name).empty? 
+      @picked_stock = ValuationEngine::Value.new(params[:stock_tbd])
+    else 
+      return false
+    end
 
     # Public: This calls the compute_stock_price method on the Value object, picked_stock, and assigns the float value that the method generates to the variable @our_stock_price.
-    @our_stock_price = picked_stock.compute_stock_price
+    @our_stock_price = @picked_stock.compute_stock_price
   end
 
   # Public: The page where the user's final valuation is displayed.
