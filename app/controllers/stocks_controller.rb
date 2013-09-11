@@ -17,7 +17,7 @@ class StocksController < ApplicationController
     # Public: Assigns the user inputed stock's stock symbol as a string to the variable @stock_symbol_name
     @stock_symbol_name = params[:stock_tbd]
 
-    # Public: This create a new Value object, picked_stock, using the stock symbol string that the user selected. 
+    # Public: This checks whether a stock is currently in the database.  If it is, then this create a new Value object, picked_stock, using the stock symbol string that the user selected. 
     if !Stock.where(:stock_ticker => @stock_symbol_name).empty? 
       @picked_stock = ValuationEngine::Value.new(params[:stock_tbd])
     else 
