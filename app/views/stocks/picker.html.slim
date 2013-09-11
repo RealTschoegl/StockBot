@@ -1,10 +1,10 @@
 doctype html
 html
 	head
-	= javascript_include_tag \
-	'application'
-	= stylesheet_link_tag \ 
-	"application" 
+		= stylesheet_link_tag \
+    	"application"
+    	= javascript_include_tag \
+    	"application"
 	body class="picker"
 		- if check_database_for_stock(@stock_symbol_name)	
 			div class="pure-g-r"

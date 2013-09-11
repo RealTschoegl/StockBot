@@ -1,5 +1,7 @@
 class StocksController < ApplicationController
 
+  layout 'application'
+
   # Public: The front page of the site where the user inputs the stock. 
   def index
     
