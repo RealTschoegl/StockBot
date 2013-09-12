@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+  	title StockBot
+  	= javascript_include_tag \
+    "http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js" 
+    = stylesheet_link_tag \
+    "application" 
+    = javascript_include_tag \
+    'application'
+  	= csrf_meta_tags 
+  body
+	= yield 
+
