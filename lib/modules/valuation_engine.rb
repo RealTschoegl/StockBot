@@ -68,34 +68,12 @@ module ValuationEngine
     # Public: An integer value that represents the number of years from now that we would intend to sell the stock.
     @years_horizon = 10
 
-    # Public: This method initializes a Value object with instance variable values.
+    # Public: This method initializes a Value object with an instance variable value.
     #
     # submitted_stock - A String value that is the user submitted stock's stock symbol
-  	def initialize(submitted_stock)
+    def initialize(submitted_stock)
       @stock_ticker = submitted_stock
-      @current_stock_price = get_current_stock_price(submitted_stock)
-      @free_cash_flow = Stock.where(:stock_ticker => submitted_stock).first.free_cash_flow
-      @num_shares = Stock.where(:stock_ticker => submitted_stock).first.num_shares
-      @PE_ratio = Stock.where(:stock_ticker => submitted_stock).first.free_cash_flow / 100
-      @dividend_per_share = Stock.where(:stock_ticker => submitted_stock).first.dividend_per_share
-      @dividend_growth_rate = Stock.where(:stock_ticker => submitted_stock).first.dividend_growth_rate
-      @beta = Stock.where(:stock_ticker => submitted_stock).first.beta
-      @cost_of_equity = self.get_cost_of_equity
-      @rate_of_return = self.get_rate_of_return
   	end
-
-    # Public: This method takes in the stock symbol picked by the user and returns the last traded price of that stock.  It takes that stock price from Yahoo Finance's API.
-    #
-    # stock_symbol_name - A String value that is the user submitted stock's stock symbol
-    #
-    # Returns a Float value.
-    def get_current_stock_price(stock_symbol_name)
-      quote_type = YahooFinance::StandardQuote
-      quote_symbol = stock_symbol_name
-      YahooFinance::get_quotes(quote_type,quote_symbol) do |qt|
-        return qt.lastTrade
-      end
-    end
 
     # Public: This method computes a stock price based on our valuation model. 
     #
@@ -106,51 +84,74 @@ module ValuationEngine
       return (@composite_share_value).round(2)
     end
 
+    # Public: This method assigns the free_cash_flow value for that stock, from the Stocks database, to the new Value object as an attribute. 
+    #
+    # Returns an Integer value
+    def get_free_cash_flow
+      @free_cash_flow = Stock.where(:stock_ticker => self.stock_ticker).first.free_cash_flow
+    end
+
+    # Public: This method assigns the num_shares value for that stock, from the Stocks database, to the new Value object as an attribute. 
+    #
+    # Returns an Integer value
+    def get_num_shares
+      @num_shares = Stock.where(:stock_ticker => self.stock_ticker).first.num_shares
+    end
+
+    # Public: This method assigns the PE_ratio value for that stock, from the Stocks database, to the new Value object as an attribute. It is divided here by 100 because it is used as a proxy for growth and therefore needs to be rendered as a percentage.
+    #
+    # Returns a Float value
+    def get_PE_ratio
+      @PE_ratio = Stock.where(:stock_ticker => self.stock_ticker).first.PE_ratio / 100
+    end
+
+    # Public: This method assigns the beta value for that stock, from the Stocks database, to the new Value object as an attribute. 
+    #
+    # Returns a Float value
+    def get_beta
+      @beta = Stock.where(:stock_ticker => self.stock_ticker).first.beta
+    end
+
+    # Public: This method takes in the stock symbol picked by the user and returns the last traded price of that stock.  It takes that stock price from Yahoo Finance's API.
+    #
+    # stock_symbol_name - A String value that is the user submitted stock's stock symbol
+    #
+    # Returns a Float value.
+    def get_current_stock_price(stock_symbol_name)
+      quote_type = YahooFinance::StandardQuote
+      quote_symbol = stock_symbol_name
+      YahooFinance::get_quotes(quote_type,quote_symbol) do |qt|
+        @current_stock_price = qt.lastTrade
+        return @current_stock_price
+      end
+    end
+
     # Public:  This method computes the cost of equity for the stock.
     #
     # Returns a Float value.
     def get_cost_of_equity
-      self.cost_of_equity = (self.class.risk_free_rate + self.beta * (self.class.market_growth_rate - self.class.risk_free_rate)).round(2)
+      @cost_of_equity = (self.class.risk_free_rate + self.get_beta * (self.class.market_growth_rate - self.class.risk_free_rate)).round(2)
     end
 
     # Public: This method computes the Free Cash Flow Method value per share of a stock.
     #
     # Returns a Float value.
     def get_fcf_share_value
-      self.fcf_share_value = (self.free_cash_flow / (self.cost_of_equity - self.PE_ratio)).round(2)
-      divide_by_num_shares
+      @fcf_share_value = ((self.get_free_cash_flow / (self.get_cost_of_equity - self.get_PE_ratio)) / self.get_num_shares).round(2)
     end
 
     # Public: This method computes the CAPM Method value per share of a stock.
     #
     # Returns a Float value.
     def get_capm_share_value
-      self.capm_share_value = ((self.cost_of_equity + 1) * self.class.years_horizon * self.current_stock_price).round(2)
-    end
-
-    # Public: This method computes the rate of return of a stock.
-    #
-    # Returns a Float value.
-    def get_rate_of_return
-      self.rate_of_return = ((self.dividend_per_share / self.current_stock_price) + self.dividend_growth_rate).round(2)
-    end
-
-    # Public: This method computes the Dividend Method value per share of a stock.
-    #
-    # Returns a Float value.
-    def get_dividend_share_value
-      self.dividend_share_value = (self.dividend_per_share/(self.rate_of_return - self.dividend_growth_rate)).round(2)
+      @capm_share_value = ((self.cost_of_equity + 1) * self.class.years_horizon * self.get_current_stock_price(self.stock_ticker)).round(2)
     end
 
     # Public: This method aggregates the methods of valuing stocks into one single composite share value.
     #
     # Returns a Float value.
     def get_composite_share_value
-        if self.dividend_per_share == 0
-          self.composite_share_value = ((self.get_fcf_share_value + self.get_capm_share_value) / 2).round(2)
-        else
-          self.composite_share_value = ((self.get_fcf_share_value + self.get_dividend_share_value + self.get_capm_share_value) / 3).round(2)
-        end
+      @composite_share_value = ((self.get_fcf_share_value + self.get_capm_share_value) / 2).round(2)
     end
 
     # Public: This method accounts for time value to get the present value of the stock.
@@ -158,13 +159,6 @@ module ValuationEngine
     # Returns a Float value.
     def get_present_value
       self.composite_share_value = (self.get_composite_share_value / ((1 + self.class.market_growth_rate)**self.class.years_horizon)).round(2)
-    end
-
-    # Public: This method takes the Free Cash Flow of and divides it up by the share.
-    #
-    # Returns a Float value.
-    def divide_by_num_shares
-      self.fcf_share_value = (self.fcf_share_value / self.num_shares).round(2)
     end
 
   end

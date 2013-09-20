@@ -15,20 +15,6 @@ module ApplicationHelper
     		return "#{(qt.lastTrade).round(2)}"
 		end
 	end	
-
-	# Public: This method determines whether a given stock is in the database already.
-	#
-	# Examples
-	#
-	#  	check_database_for_stock("YHOO")
-	# 	# => true
-	def check_database_for_stock(stock_symbol_name)
-		if !Stock.where(:stock_ticker => stock_symbol_name).empty? 
-			return true
-		else
-			return false
-		end
-	end
 end
 
 

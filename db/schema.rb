@@ -18,17 +18,14 @@ ActiveRecord::Schema.define(:version => 20130703174744) do
     t.datetime "updated_at",            :null => false
     t.string   "company"
     t.string   "stock_ticker"
+    t.float    "current_stock_price"
     t.integer  "free_cash_flow"
     t.integer  "num_shares"
     t.float    "PE_ratio"
-    t.float    "dividend_per_share"
-    t.float    "dividend_growth_rate"
     t.float    "beta"
     t.float    "cost_of_equity"
-    t.float    "current_stock_price"
-    t.float    "expected_share_value"
+    t.float    "fcf_share_value"
     t.float    "capm_share_value"
-    t.float    "dividend_share_value"
     t.float    "composite_share_value"
   end
 
