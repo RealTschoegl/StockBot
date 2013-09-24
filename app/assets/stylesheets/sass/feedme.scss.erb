@@ -53,6 +53,7 @@ form {
   background-color: red;
   font-family: $index_page_font;
   border: 0.063em dotted white;
+  position: fixed;
 }
 
 /*The submit button on the index page*/
@@ -158,6 +159,40 @@ input[type="text"].front_page {
   /*The arrow underneath the submit button on the index page*/
   .bubble:after {
   margin-left: (100 - ($input_width_2 * 0.8))/2;
+  }
+
+  .sidebar {
+    position: fixed;
+    height: 102%;
+    top: -.25em;
+    left: 0;
+    width: 3.5em;
+    background-color: red;
+    box-shadow: 4px 0px 6px -2px $box-shadow-color ;
+  }
+  .sidebarText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 12.5em;
+    margin-left: -6.75em;
+    padding: .3em;
+    font: {
+      size: 1.5em;
+      weight: bold;
+      family: $index_page_font;
+    }
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    /* Opera */
+    -o-transform: rotate(-90deg); 
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    z-index: 1;
   }
 }
 

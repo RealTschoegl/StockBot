@@ -10,5 +10,17 @@ html
     'application'
   	= csrf_meta_tags 
   body
-	= yield 
+    p class="sidebarText"
+      |
+        Email | 
+      | 
+        About | 
+      |
+        Stockbot.io &copy; #{Time.now.year}
+	= yield
+    div class="sidebar"
 
+
+
+    
+    
