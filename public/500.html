@@ -3,23 +3,35 @@
 <head>
   <title>We're sorry, but something went wrong (500)</title>
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+    body {
+      margin: auto; /* center in viewport */
+      width: 70%;
+      margin-top: 2%;
+      background-image: url('/squairy_light.png');
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    h1 {
+      font
+    }
+    p {
+      font-size: 1.4em;
+    }
+    button {
+      width: 20%;
+      height: 3.5em;
+      font-size: 1.2em;
+    }
   </style>
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
+  <div>
+    <h1>500 - Internal Server Error</h1>
+    <hr>
+    <br>
+    <p>We're sorry, but something went wrong.  Press the button below to head back to the main page or hit the back button in your browser and retry your previous action.</p>
+    <br>
+    <br>
+    <button onclick="window.location.assign('http://stockbot.io')">Back To Homepage</button>
   </div>
 </body>
 </html>
