@@ -14,6 +14,10 @@ module ApplicationHelper
 		YahooFinance::get_quotes( quote_type, quote_symbols ) do |qt|
     		return "#{(qt.lastTrade).round(2)}"
 		end
+	end
+
+	def title(page_title)
+  	content_for :title, page_title.to_s
 	end	
 end
 

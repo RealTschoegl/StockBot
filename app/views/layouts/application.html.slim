@@ -1,7 +1,14 @@
 doctype html
 html
   head
-  	title StockBot
+  	title =yield(:title)
+
+    meta name="description" content="StockBot is a tool to help ordinary investors make accurate valuations of stocks in the equity markets."
+    meta charset="UTF-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="keywords" content="Stock Valuation,Stock Value"
+    meta name="author" content="Matthew Tschoegl"
+
   	= javascript_include_tag \
     "http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js" 
     = stylesheet_link_tag \
@@ -9,6 +16,7 @@ html
     = javascript_include_tag \
     'application'
   	= csrf_meta_tags 
+
   body
     p class="sidebarText"
       |
@@ -19,6 +27,8 @@ html
         Stockbot.io &copy; #{Time.now.year}
 	= yield
     div class="sidebar"
+    
+  footer
 
 
 
