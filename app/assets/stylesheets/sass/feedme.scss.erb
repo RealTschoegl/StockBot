@@ -15,6 +15,11 @@ $index_page_font: 'Iceland', cursive, sans-serif;
   margin-top: 2%;
 }
 
+.front_page_link {
+  color: black;
+  text-decoration: none;
+}
+
 /*The background image */
 body {
   background-image: url(<%=asset_path "squairy_light.png"%>);
@@ -95,7 +100,7 @@ form {
 
 /*The explainer text on the index page*/
 #text {
-  margin-top: 3%;
+  margin-top: 40%;
   width: 100%;
   font-size: 1.8em;
   font-weight: bold;
@@ -120,6 +125,31 @@ input[type="text"].front_page {
   font-weight: bold;
   background-color: #FF0000;
   font-family: $index_page_font;
+}
+
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 1.75em;
+  width: 150%;
+  background-color: red;
+  box-shadow: 0px 4px 6px -2px $box-shadow-color ;
+}
+
+.sidebarText {
+  position: fixed;
+  left: .5em;
+  top: 0;
+  margin: 0 auto;
+  padding: .3em;
+  font: {
+    size: 1.2em;
+    weight: bold;
+    family: $index_page_font;
+  }
+  z-index: 1;
 }
 
 /*For all non-mobile viewports */
@@ -161,6 +191,7 @@ input[type="text"].front_page {
   margin-left: (100 - ($input_width_2 * 0.8))/2;
   }
 
+  // The sidebar background that runs on the left side of the large screen pages
   .sidebar {
     position: fixed;
     height: 102%;
@@ -170,6 +201,8 @@ input[type="text"].front_page {
     background-color: red;
     box-shadow: 4px 0px 6px -2px $box-shadow-color ;
   }
+
+  // The text that is found on the sidebar on the left side of the large screen pages
   .sidebarText {
     position: fixed;
     top: 0;
@@ -193,6 +226,14 @@ input[type="text"].front_page {
     /* Internet Explorer */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     z-index: 1;
+  }
+  /*The explainer text on the index page*/
+  #text {
+    margin-top: 3%;
+    width: 100%;
+    font-size: 1.8em;
+    font-weight: bold;
+    font-family: $index_page_font;
   }
 }
 

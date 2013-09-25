@@ -18,19 +18,20 @@ html
   	= csrf_meta_tags 
 
   body
+    div class="sidebar"
     p class="sidebarText"
       |
-      a href="mailto:contact@stockbot.io" target="_blank" Email 
+      a href="mailto:contact@stockbot.io" target="_blank" class="front_page_link" Email 
       |
         |  
       |
-      a href="https://github.com/RealTschoegl/StockBot#stockbot" target="_blank" About 
+      a href="https://github.com/RealTschoegl/StockBot#stockbot" target="_blank" class="front_page_link" About 
       |
         |  
       |
         Stockbot.io &copy; #{Time.now.year}
 	= yield
-    div class="sidebar"
+
 
   footer
     = render 'layouts/footer' 

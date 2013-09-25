@@ -13,9 +13,9 @@ Tasks to complete:
 
 - [ ] Add a "buy stock" button
 
-- [ ] Include a "start again" button on error form and a contact button
-
 - [ ] Create company pages
+
+- [x] Include a "start again" button on error form and a contact button
 
 - [x] Add a function that pulls real-time stock prices
 

@@ -62,9 +62,12 @@ body class="picker"
 
 			input type="hidden" id="hiddenField" name="mod_stock_fullSymbol" value="#{@stock_symbol_name}"
 
-			button class="pure-button pure-button-primary" type="submit" Submit
-			p 
-			=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })
+			p
+				|
+				button class="pure-button pure-button-primary" type="submit" Submit
+				|
+					&nbsp; &nbsp;
+				=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" }) 
 	- else 
 		div class="pure-g-r"
 			h2 class="pure-u-1"
@@ -76,7 +79,14 @@ body class="picker"
 		br
 		p  He's trying, but there is only so much that Stockbot can do.  Poor Stockbot &nbsp; &nbsp; ಥ_ಥ 
 		br
-		p Use the button below to head back to the front page where you can try again with a new stock.
+		p Use the "Start Again" button below to head back to the front page where you can try again with a new stock.  If you really think we goofed by not having the stock you requested, hit the contact button and send us an email.
 		br
-		=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })
+		p 
+			|
+			=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" }) 
+			|
+				&nbsp; &nbsp;
+			|
+			a href="mailto:contact@stockbot.io" target="_blank" class="pure-button pure-button-primary" Contact 
+
 
