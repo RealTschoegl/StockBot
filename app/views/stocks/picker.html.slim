@@ -69,10 +69,14 @@ body class="picker"
 		div class="pure-g-r"
 			h2 class="pure-u-1"
 				|
-					Error!
+					Error! Error!
 		hr
 		br
-		p Sorry, but Stockbot does not currently support the stock you have selected, #{@stock_proper_name}
+		p Sorry, but Stockbot does not currently support the stock you have selected, <strong>#{@stock_proper_name}</strong>
 		br
-		p He's trying, but there is only so much that Stockbot can do.  Poor Stockbot :(
+		p  He's trying, but there is only so much that Stockbot can do.  Poor Stockbot &nbsp; &nbsp; ಥ_ಥ 
+		br
+		p Use the button below to head back to the front page where you can try again with a new stock.
+		br
+		=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })
 
