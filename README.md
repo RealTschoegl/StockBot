@@ -5,15 +5,15 @@ This is an application that takes user inputs in real language and puts them int
 
 Tasks to complete:
 
-- [ ] Improve headers - SEO, tags, etc.  
+- [ ] Add a "buy stock" button
 
 - [ ] Add method to update the stock data regularly
 
 - [ ] Use Nokogiri as a backup data source
 
-- [ ] Add a "buy stock" button
-
 - [ ] Create company pages
+
+- [x] Improve headers - SEO, tags, etc.  
 
 - [x] Include a "start again" button on error form and a contact button
 
