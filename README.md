@@ -5,8 +5,6 @@ This is an application that takes user inputs in real language and puts them int
 
 Tasks to complete:
 
-- [ ] Add method to update the stock data regularly
-
 - [ ] Use Nokogiri as a backup data source
 
 - [ ] Create company pages
