@@ -7,4 +7,6 @@ Tasks to complete:
 
 - [ ] Use Nokogiri as a backup data source
 
+- [ ] Add Stocktwit Widget to Results page
+
 - [ ] Create company pages

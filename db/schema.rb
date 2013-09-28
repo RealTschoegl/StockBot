@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703174744) do
+ActiveRecord::Schema.define(:version => 20130927205020) do
 
   create_table "stocks", :force => true do |t|
     t.datetime "created_at",            :null => false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20130703174744) do
     t.float    "fcf_share_value"
     t.float    "capm_share_value"
     t.float    "composite_share_value"
+    t.boolean  "complete"
   end
 
 end

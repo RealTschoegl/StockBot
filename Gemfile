@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
+gem 'awesome_print'
 gem 'yahoofinance'
 gem 'hirb'
 gem 'purecss'
@@ -8,7 +9,6 @@ gem 'slim'
 gem 'jquery-rails'
 gem 'sass'
 gem 'httparty'
-gem 'fastercsv'
 gem 'smarter_csv'
 
 group :development, :test do

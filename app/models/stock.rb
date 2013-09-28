@@ -1,5 +1,5 @@
 class Stock < ActiveRecord::Base
-  attr_accessible :company, :stock_ticker, :current_stock_price, :free_cash_flow, :num_shares, :PE_ratio, :beta, :cost_of_equity, :fcf_share_value, :capm_share_value, :composite_share_value  
+  attr_accessible :company, :stock_ticker, :current_stock_price, :free_cash_flow, :num_shares, :PE_ratio, :beta, :cost_of_equity, :fcf_share_value, :capm_share_value, :composite_share_value, :complete 
 
   # Public: A method that gets a stock from Quandl's API.
 
@@ -78,15 +78,25 @@ class Stock < ActiveRecord::Base
   end
 
   # Public: A scope that gets all of the stocks that were updated before the time indicated in the parameter
-
+  #
   # time - DateTime, the time before which we want all of the stocks
-
+  #
   # Example
-
+  #
   #       Stock.updated_before(time).first
-
+  #
   # Returns the stock's active record relation
   scope :updated_before, ->(time) { where("updated_at < ?", time) }
+
+  # Public: A scope that gets all of the stocks that are incomplete
+  #
+  # Example
+  #
+  #       Stock.incomplete.first
+  #
+  # Returns the stock's active record relation
+  scope :incomplete, -> { where(complete: false) }
+
 
 
 end

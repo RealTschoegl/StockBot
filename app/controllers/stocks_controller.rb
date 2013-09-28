@@ -106,8 +106,12 @@ class StocksController < ApplicationController
   def is_stock_complete(stock_symbol_name)
     properties = Stock.where(:stock_ticker => stock_symbol_name)
     if properties[0].beta.nil? || properties[0].PE_ratio.nil? || properties[0].free_cash_flow.nil? || properties[0].num_shares.nil?
+      properties[0].complete = false
+      properties[0].save
       return false
     else 
+      properties[0].complete = true
+      properties[0].save
       return true
     end
   end
