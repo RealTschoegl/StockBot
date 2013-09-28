@@ -5,8 +5,4 @@ This is an application that takes user inputs in real language and puts them int
 
 Tasks to complete:
 
-- [ ] Use Nokogiri as a backup data source
-
-- [ ] Add Stocktwit Widget to Results page
-
 - [ ] Create company pages
