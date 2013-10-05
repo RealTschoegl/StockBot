@@ -7,7 +7,7 @@ Tasks to complete:
 
 - [x] Create company database table
 
-- [ ] Create a method that assigns the stock valuation to a company database field
+- [x] Create a method that assigns the stock valuation to a company database field
 
 - [ ] Create a list of all the stocks on the index page
 
@@ -20,5 +20,7 @@ Tasks to complete:
 - [ ] Add a search function for the companies - https://we.riseup.net/rails/simple-search-tutorial
 
 - [ ] Add an autocomplete for the companies search function - https://github.com/crowdint/rails3-jquery-autocomplete
+
+- [ ] Add method that shows the compeletness of a Company entry
 
 - [ ] Put in check for 404 failure for new stocks
