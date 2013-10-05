@@ -1,0 +1,18 @@
+body class="index"
+  h1 Companies Covered
+  hr
+  h4 Below is a list of all of the companies that we have produced valuation for.  Click on the button next to company to see the valuation we produced.
+
+  table
+    tr
+      th 
+        |
+          Stock ticker
+  - @companies.each do |company|
+    tr
+      td
+      = company.stock_ticker 
+      td
+      = link_to 'Show', company 
+      td
+    br
