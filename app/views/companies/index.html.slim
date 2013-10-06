@@ -1,18 +1,33 @@
 body class="index"
-  h1 Companies Covered
-  hr
-  h4 Below is a list of all of the companies that we have produced valuation for.  Click on the button next to company to see the valuation we produced.
-
-  table
-    tr
-      th 
-        |
-          Stock ticker
-  - @companies.each do |company|
-    tr
-      td
-      = company.stock_ticker 
-      td
-      = link_to 'Show', company 
-      td
-    br
+  div class="pure-g-r"
+    h2 class="pure-u-1"
+      |
+        Companies Covered
+    hr
+  div class="pure-g-r"
+    p class="pure-u-1"
+      |
+        Below is a list of all of the companies that we have produced valuations for.  Click on the button next to a company to see the valuation that the Stockbot produced.
+  div class="pure-g-r"
+    table class="pure-u-1 pure-table pure-table-bordered"
+      thead
+        tr
+          th 
+            |
+              <strong>Company Name</strong>
+          th
+            |
+              <strong>Ticker Symbol</strong>
+          th
+            |
+              <strong>Link</strong>
+      tbody
+        - @companies.each do |company|
+          tr
+            td
+              = company.company_name
+            td
+              = company.stock_ticker 
+            td
+              = link_to 'Show', company, { :class=>"pure-button pure-button-active" } 
+            
