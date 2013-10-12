@@ -9,9 +9,9 @@ Tasks to complete:
 
 - [x] Create a method that assigns the stock valuation to a company database field
 
-- [ ] Create a list of all the stocks on the index page
+- [x] Create a list of all the stocks on the index page
 
-- [ ] Each stock listed on index page should direct to a show page
+- [x] Each stock listed on index page should direct to a show page
 
 - [ ] Turn the show page into a template for the company valuation
 
@@ -21,6 +21,8 @@ Tasks to complete:
 
 - [ ] Add an autocomplete for the companies search function - https://github.com/crowdint/rails3-jquery-autocomplete
 
-- [ ] Add method that shows the compeletness of a Company entry
+- [ ] Add stocks controller method that switches the completeness of a Company entry and have that shown on the company page.  
+
+- [ ] Make the Company pages responsive
 
 - [ ] Put in check for 404 failure for new stocks

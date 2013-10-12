@@ -1,0 +1,73 @@
+body class="picker"
+	h3
+		| 
+			Our Valuation of 
+		|
+		= @company.company_name
+	hr
+	p
+	  b Stock Ticker Symbol: &nbsp;
+	  = @company.stock_ticker
+	  br
+	p 
+		b Current Stock Price: &nbsp;
+		= @company.current_stock_price
+		br
+	p
+		b Number Of Shares: &nbsp;
+		= @company.num_shares
+		br
+	p
+		b PE Ratio: &nbsp;
+		= @company.PE_ratio
+		br
+	p
+		b Beta: &nbsp;
+	 	= @company.beta
+	 	br
+	p
+		b Cost of Equity: &nbsp;
+		= @company.cost_of_equity
+		br
+	p 
+		b Free Cash Flow Share Valuation: &nbsp;
+		= @company.fcf_share_value
+		br
+	p 
+		b CAPM Share Valuation: &nbsp;
+		= @company.capm_share_value
+		br
+	p 
+		b Composite Share Valuation: &nbsp;
+		= @company.composite_share_value
+		br
+	p
+		b Valuation Confidence: &nbsp;
+		- if @company.complete == "yes"
+			|
+				100%
+		- else 
+			| 
+				0%
+	p 
+		b Time Horizon: &nbsp;
+		= ValuationEngine::Value.years_horizon 
+		|
+			&nbsp; years
+		br
+	p
+		|
+			<strong>Risk Free Rate: &nbsp;</strong>
+		|
+			#{(ValuationEngine::Value.risk_free_rate * 100).round(2)}%
+		br
+	p
+		|
+			<strong>Market Growth Rate: &nbsp;</strong>
+		|
+			#{(ValuationEngine::Value.market_growth_rate * 100).round(2)}%
+		br
+
+
+
+	= link_to 'Back', companies_path, { :class=>"pure-button pure-button-primary" } 
