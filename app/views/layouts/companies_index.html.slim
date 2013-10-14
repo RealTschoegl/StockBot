@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+  	title =yield(:title)
+
+    meta name="description" content="Search the companies here to find Stockbot's house valuation for their share price."
+    meta charset="UTF-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="keywords" content="Stock Values,Stock Prices,Stock Lookup,"
+    meta name="author" content="Matthew Tschoegl"
+
+  	= javascript_include_tag \
+    "http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js" 
+    = stylesheet_link_tag \
+    "application" 
+    = javascript_include_tag \
+    'application'
+    = javascript_include_tag \
+    "http://squaresend.com/squaresend.js"
+  	= csrf_meta_tags 
+
+  body
+    div class="sidebar"
+    p class="sidebarText"
+      |
+      a href="mailto:contact@stockbot.io" target="_blank" class="sidebar_link" Email 
+      |
+        |  
+      |
+      a href="https://github.com/RealTschoegl/StockBot#stockbot" target="_blank" class="sidebar_link" About 
+      |
+        |  
+      |
+        Stockbot.io &copy; #{Time.now.year}
+	= yield
+
+
+  footer
+    = render 'layouts/footer' 
+
+
+
+    
+    

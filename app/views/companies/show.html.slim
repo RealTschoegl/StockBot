@@ -1,73 +1,101 @@
+- title "Stock Price For #{@company.stock_ticker} | StockBot"
 body class="picker"
 	h3
 		| 
 			Our Valuation of 
 		|
 		= @company.company_name
+		|
+			&nbsp; (#{@company.stock_ticker})
 	hr
-	p
-	  b Stock Ticker Symbol: &nbsp;
-	  = @company.stock_ticker
-	  br
-	p 
-		b Current Stock Price: &nbsp;
-		= @company.current_stock_price
-		br
-	p
-		b Number Of Shares: &nbsp;
-		= @company.num_shares
-		br
-	p
-		b PE Ratio: &nbsp;
-		= @company.PE_ratio
-		br
-	p
-		b Beta: &nbsp;
-	 	= @company.beta
-	 	br
-	p
-		b Cost of Equity: &nbsp;
-		= @company.cost_of_equity
-		br
-	p 
-		b Free Cash Flow Share Valuation: &nbsp;
-		= @company.fcf_share_value
-		br
-	p 
-		b CAPM Share Valuation: &nbsp;
-		= @company.capm_share_value
-		br
-	p 
-		b Composite Share Valuation: &nbsp;
-		= @company.composite_share_value
-		br
-	p
-		b Valuation Confidence: &nbsp;
-		- if @company.complete == "yes"
-			|
-				100%
-		- else 
-			| 
-				0%
-	p 
-		b Time Horizon: &nbsp;
-		= ValuationEngine::Value.years_horizon 
-		|
-			&nbsp; years
-		br
-	p
-		|
-			<strong>Risk Free Rate: &nbsp;</strong>
-		|
-			#{(ValuationEngine::Value.risk_free_rate * 100).round(2)}%
-		br
-	p
-		|
-			<strong>Market Growth Rate: &nbsp;</strong>
-		|
-			#{(ValuationEngine::Value.market_growth_rate * 100).round(2)}%
-		br
 
+	h3 Basic Data
+	table class="pure-u-2-3 pure-table pure-table-bordered"
+		thead
+			th
+				|
+					Current Stock Price
+			th
+				|
+					Number Of Shares
+			th
+				|
+					PE Ratio
+			th
+				| 
+					Beta
+		tbody
+			tr
+				td
+					= @company.current_stock_price
+				td
+					= @company.num_shares
+				td 
+					= @company.PE_ratio
+				td
+	 				= @company.beta
 
+	h3 Constants
+	table class="pure-u-2-3 pure-table pure-table-bordered"
+	 	thead
+	 		th 
+	 			|
+	 				Time Horizon
+	 		th
+	 			| 
+	 				Risk Free Rate
+	 		th
+	 			| 
+	 				Market Growth Rate
+	 	tbody
+	 		tr
+		 		td
+		 			#{ValuationEngine::Value.years_horizon} years 
+				td
+					#{(ValuationEngine::Value.risk_free_rate * 100).round(2)}%
+				td
+					#{(ValuationEngine::Value.market_growth_rate * 100).round(2)}%
 
+	h3 Computed Data
+	table class="pure-u-2-3 pure-table pure-table-bordered"
+	 	thead
+	 		th
+	 			|
+	 			b	Cost of Equity:
+	 		th
+	 			|
+	 			b Free Cash Flow Share Valuation:
+	 		th
+	 			|
+	 			b CAPM Share Valuation:
+	 		th 
+	 			|
+	 			b Composite Share Valuation:
+	 		th
+	 			|
+	 			b Valuation Confidence:
+	 	tbody
+	 		tr
+				td
+					= @company.cost_of_equity
+				td 
+					= @company.fcf_share_value
+				td
+					= @company.capm_share_value
+				td
+					= @company.composite_share_value
+				td				
+					- if @company.complete == "yes"
+						|
+							100%
+					- else 
+						| 
+							0%
+
+	h3 Actions
+	p
+    |
+    a href="https://us.etrade.com/home" target="_blank" class="pure-button pure-button-primary" Buy Shares 
+    |
+     &nbsp; &nbsp;
 	= link_to 'Back', companies_path, { :class=>"pure-button pure-button-primary" } 

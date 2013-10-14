@@ -13,9 +13,17 @@ Tasks to complete:
 
 - [x] Each stock listed on index page should direct to a show page
 
-- [ ] Turn the show page into a template for the company valuation
+- [x] Turn the show page into a template for the company valuation
 
-- [ ] Give stock page a pretty url - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid?view=asciicast
+- [x] Give stock page a pretty url - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid?view=asciicast
+
+- [x] Give company page relevant meta data
+
+- [x] Add Stockbot to Google Webmaster Tools
+
+- [ ] Nail down companies pages SEO
+
+- [ ] Add pagination for company results
 
 - [ ] Add a search function for the companies - https://we.riseup.net/rails/simple-search-tutorial
 
@@ -23,6 +31,6 @@ Tasks to complete:
 
 - [ ] Add stocks controller method that switches the completeness of a Company entry and have that shown on the company page.  
 
-- [ ] Make the Company pages responsive
+- [ ] Make the Company pages responsive - https://github.com/johnpolacek/stacktable.js/
 
-- [ ] Put in check for 404 failure for new stocks
+- [ ] Put in check for 404 failure for new stocks and make the picker page render different layouts based on responses

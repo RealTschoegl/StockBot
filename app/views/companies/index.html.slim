@@ -1,3 +1,4 @@
+- title "Welcome - Find A Stock | StockBot"
 body class="index"
   div class="pure-g-r"
     h2 class="pure-u-1"
@@ -9,7 +10,7 @@ body class="index"
       |
         Below is a list of all of the companies that we have produced valuations for.  Click on the button next to a company to see the valuation that the Stockbot produced.
   div class="pure-g-r"
-    table class="pure-u-1 pure-table pure-table-bordered"
+    table class="pure-u-2-3 pure-table pure-table-bordered"
       thead
         tr
           th 
@@ -20,7 +21,13 @@ body class="index"
               <strong>Ticker Symbol</strong>
           th
             |
-              <strong>Link</strong>
+              <strong>Current Price</strong>
+          th
+            |
+              <strong>Stockbot Price</strong>
+          th
+            |
+              <strong>The Breakdown</strong>
       tbody
         - @companies.each do |company|
           tr
@@ -29,5 +36,9 @@ body class="index"
             td
               = company.stock_ticker 
             td
-              = link_to 'Show', company, { :class=>"pure-button pure-button-active pure_button_small" } 
+              = company.current_stock_price
+            td
+              = company.composite_share_value
+            td
+              = link_to 'More...', company, { :class=>"pure-button pure-button-active pure_button_small" } 
             

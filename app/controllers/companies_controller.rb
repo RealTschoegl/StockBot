@@ -4,6 +4,7 @@ class CompaniesController < ApplicationController
   def index
     @companies = Company.all
 
+    render layout: "companies_index"
   end
 
   # GET /companies/1
@@ -11,6 +12,7 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find(params[:id])
 
+    render layout: "companies_show"
   end
 
   # GET /companies/new
