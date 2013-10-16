@@ -165,6 +165,9 @@ module ValuationEngine
       self.composite_share_value = (self.get_composite_share_value / ((1 + self.class.market_growth_rate)**self.class.years_horizon)).round(2)
     end
 
+    # Public: This method creates a new entry in the Company database table with the data produced by the compute stock price method.
+    # 
+    # Returns true or false  
     def assign_company_values
       if Company.where(:stock_ticker => self.stock_ticker).empty?
         c = Company.new
@@ -179,6 +182,7 @@ module ValuationEngine
         c.fcf_share_value = self.fcf_share_value
         c.capm_share_value = self.capm_share_value
         c.composite_share_value = self.composite_share_value
+        c.complete = true
         c.save
       else
         b = Company.where(:stock_ticker => self.stock_ticker).first
@@ -191,6 +195,7 @@ module ValuationEngine
         b.fcf_share_value = self.fcf_share_value
         b.capm_share_value = self.capm_share_value
         b.composite_share_value = self.composite_share_value
+        b.complete = true
         b.save
       end
     end

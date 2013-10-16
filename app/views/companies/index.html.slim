@@ -10,6 +10,7 @@ body class="index"
       |
         Below is a list of all of the companies that we have produced valuations for.  Click on the button next to a company to see the valuation that the Stockbot produced.
   div class="pure-g-r"
+
     table class="pure-u-2-3 pure-table pure-table-bordered"
       thead
         tr
@@ -41,4 +42,8 @@ body class="index"
               = company.composite_share_value
             td
               = link_to 'More...', company, { :class=>"pure-button pure-button-active pure_button_small" } 
+    p
+  = will_paginate @companies, { :class=>"apple_pagination"}
+  br
+
             

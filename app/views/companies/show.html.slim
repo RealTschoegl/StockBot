@@ -8,6 +8,11 @@ body class="picker"
 		|
 			&nbsp; (#{@company.stock_ticker})
 	hr
+	p 
+		|
+			<i>Last updated: &nbsp; </i>
+		|
+			<i>#{@company.updated_at}</i>
 
 	h3 Basic Data
 	table class="pure-u-2-3 pure-table pure-table-bordered"
@@ -85,12 +90,7 @@ body class="picker"
 				td
 					= @company.composite_share_value
 				td				
-					- if @company.complete == "yes"
-						|
-							100%
-					- else 
-						| 
-							0%
+					= companyComplete(@company)
 
 	h3 Actions
 	p

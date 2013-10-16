@@ -27,9 +27,7 @@ Tasks to complete:
 
 - [ ] Add a search function for the companies - https://we.riseup.net/rails/simple-search-tutorial
 
-- [ ] Add an autocomplete for the companies search function - https://github.com/crowdint/rails3-jquery-autocomplete
-
-- [ ] Add stocks controller method that switches the completeness of a Company entry and have that shown on the company page.  
+- [ ] Add an autocomplete for the companies search function - https://github.com/crowdint/rails3-jquery-autocomplete 
 
 - [ ] Make the Company pages responsive - https://github.com/johnpolacek/stacktable.js/
 
