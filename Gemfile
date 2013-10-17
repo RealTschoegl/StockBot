@@ -12,6 +12,7 @@ gem 'httparty'
 gem 'smarter_csv'
 gem 'friendly_id'
 gem 'will_paginate'
+gem 'faraday'
 
 group :development, :test do
   gem 'sqlite3'

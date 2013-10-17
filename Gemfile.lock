@@ -58,6 +58,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     ffi (1.9.0)
     ffi (1.9.0-x86-mingw32)
     figaro (0.7.0)
@@ -84,6 +86,7 @@ GEM
     mini_portile (0.5.1)
     multi_json (1.8.0)
     multi_xml (0.5.5)
+    multipart-post (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nokogiri (1.6.0-x86-mingw32)
@@ -195,6 +198,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   factory_girl_rails
+  faraday
   figaro
   friendly_id
   hirb

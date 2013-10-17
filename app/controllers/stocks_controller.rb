@@ -70,11 +70,31 @@ class StocksController < ApplicationController
       @picked_stock = ValuationEngine::Value.new(@stock_symbol_name)
     elsif check_database_for_stock(stock_symbol_name) && !is_stock_complete(stock_symbol_name)
       return false
-    elsif !check_database_for_stock(stock_symbol_name) 
-      @new_stock = Stock.find_stock(stock_symbol_name, stock_proper_name)
-      serve_stock(stock_symbol_name, stock_proper_name)
+    elsif !check_database_for_stock(stock_symbol_name)
+      if it_is_valid(stock_symbol_name) && is_in_API(stock_symbol_name)
+        @new_stock = Stock.find_stock(stock_symbol_name, stock_proper_name)
+        serve_stock(stock_symbol_name, stock_proper_name)
+      else
+        return false
+      end
     else 
       return false 
+    end
+  end
+
+  def is_in_API(stock_symbol_to_get)
+    if Faraday.head("http://www.quandl.com/api/v1/datasets/OFDP/DMDRN_#{stock_symbol_to_get}_ALLFINANCIALRATIOS.csv?auth_token=#{ENV['QUANDL_API_TOKEN']}").status == 200
+      return true
+    else
+      return false
+    end 
+  end
+
+  def it_is_valid(stock_symbol_to_get)
+    if ("http://www.quandl.com/api/v1/datasets/OFDP/DMDRN_#{stock_symbol_to_get}_ALLFINANCIALRATIOS.csv?auth_token=#{ENV['QUANDL_API_TOKEN']}" =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]) == nil
+      return false
+    else 
+      return true
     end
   end
 
