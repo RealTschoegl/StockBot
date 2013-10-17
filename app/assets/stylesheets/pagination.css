@@ -2,7 +2,8 @@
   border: 1px solid #e5e5e5;
   text-align: center;
   padding: 1em;
-  cursor: default; 
+  cursor: default;
+ 
 }
 .apple_pagination a, .apple_pagination span {
   padding: 0.3em 0.3em; 

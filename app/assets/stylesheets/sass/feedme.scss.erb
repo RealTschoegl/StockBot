@@ -16,7 +16,7 @@ $index_page_font: 'Iceland', cursive, sans-serif;
 }
 
 .searchForm {
-  max-height: 0px;
+  max-height: 5%;
 }
 // The links in the sidebar 
 .sidebar_link {
@@ -162,9 +162,32 @@ input[type="text"].front_page {
   font-size: 1.2em;
 }
 
+input[type="text"]#companies_search {
+  width: 60%;
+}
+
+.table_container {
+  overflow-x: scroll;
+  max-width: 100%;
+}
+
+.apple_pagination {
+  width: 100%;
+  margin-left: -6%;
+}
+
 /*For all non-mobile viewports */
 @media (min-width: 767px) {
   $input_width_2: 27%;
+
+  input[type="text"]#companies_search {
+    width: 25%;
+    height: 10%;
+  }
+
+  .searchForm {
+    max-height: 0;
+  }
 
   /*A container for the form on the index page*/
   .container_form {
