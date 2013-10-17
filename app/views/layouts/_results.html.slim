@@ -1,0 +1,31 @@
+table class="pure-u-2-3 pure-table pure-table-bordered"
+  thead
+    tr 
+      th 
+        |
+          <strong>Company Name</strong>
+      th
+        |
+          <strong>Ticker Symbol</strong>
+      th
+        |
+          <strong>Current Price</strong>
+      th
+        |
+          <strong>Stockbot Price</strong>
+      th 
+        |
+          <strong>The Breakdown</strong>
+  tbody
+    - @firms.each do |firm|
+      tr
+        td 
+          = firm.company_name
+        td 
+          = firm.stock_ticker 
+        td 
+          = firm.current_stock_price
+        td 
+          = firm.composite_share_value
+        td 
+          = link_to 'More...', {action: "show", id: "#{firm.slug}"}, { :class=>"pure-button pure-button-active pure_button_small" } 

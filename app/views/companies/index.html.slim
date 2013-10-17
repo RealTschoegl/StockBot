@@ -8,42 +8,12 @@ body class="index"
   div class="pure-g-r"
     p class="pure-u-1"
       |
-        Below is a list of all of the companies that we have produced valuations for.  Click on the button next to a company to see the valuation that the Stockbot produced.
+        Below is a list of all of the companies that we have produced valuations for.  Click on the button next to a company to see the valuation that the Stockbot produced.  If there is a particular stock you are looking for, use the search field to find it.
   div class="pure-g-r"
-
-    table class="pure-u-2-3 pure-table pure-table-bordered"
-      thead
-        tr
-          th 
-            |
-              <strong>Company Name</strong>
-          th
-            |
-              <strong>Ticker Symbol</strong>
-          th
-            |
-              <strong>Current Price</strong>
-          th
-            |
-              <strong>Stockbot Price</strong>
-          th
-            |
-              <strong>The Breakdown</strong>
-      tbody
-        - @companies.each do |company|
-          tr
-            td
-              = company.company_name
-            td
-              = company.stock_ticker 
-            td
-              = company.current_stock_price
-            td
-              = company.composite_share_value
-            td
-              = link_to 'More...', company, { :class=>"pure-button pure-button-active pure_button_small" } 
-    p
-  = will_paginate @companies, { :class=>"apple_pagination"}
   br
-
+  div id="search"
+    = render :partial => 'layouts/search'
+    = render :partial => 'layouts/results'
+  p
+  = will_paginate @firms, { :class=>"apple_pagination"}
             

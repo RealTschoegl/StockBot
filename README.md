@@ -21,14 +21,22 @@ Tasks to complete:
 
 - [x] Add Stockbot to Google Webmaster Tools
 
-- [ ] Nail down companies pages SEO
+- [x] Nail down companies pages SEO
 
-- [ ] Add pagination for company results
+- [x] Add pagination for company results
 
-- [ ] Add a search function for the companies - https://we.riseup.net/rails/simple-search-tutorial
+- [x] Add a search function for the companies - https://we.riseup.net/rails/simple-search-tutorial
 
-- [ ] Add an autocomplete for the companies search function - https://github.com/crowdint/rails3-jquery-autocomplete 
+- [ ] Switch to Zurb
 
 - [ ] Make the Company pages responsive - https://github.com/johnpolacek/stacktable.js/
 
-- [ ] Put in check for 404 failure for new stocks and make the picker page render different layouts based on responses
+- [ ] Put in check for 404 failure for new stocks 
+
+- [ ] Add a button for companies pages
+
+- [ ] Put in check for bad uri failure 
+
+- [ ] Make the picker page render different layouts based on responses
+
+- [ ] Make a sitemap: http://blog.remarkablelabs.com/2012/11/generating-a-sitemap-for-your-rails-sites
