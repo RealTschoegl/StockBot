@@ -10,6 +10,8 @@ gem 'jquery-rails'
 gem 'sass'
 gem 'httparty'
 gem 'smarter_csv'
+gem 'friendly_id'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'sqlite3'

@@ -1,5 +1,8 @@
 StockPickApp::Application.routes.draw do
 
+  resources :companies
+
+
   # resources :stocks
 
   get "/stocks" => "stocks#index"

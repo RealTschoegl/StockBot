@@ -3,10 +3,10 @@ html
   head
   	title =yield(:title)
 
-    meta name="description" content="StockBot's stock lookup tool helps ordinary investors get customized stock values and compares those valuations to current stock prices."
+    meta name="description" content="The company valuation page shows how much Stockbot prices a share of #{@company.company_name} stock and how it comes up with that share value."
     meta charset="UTF-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    meta name="keywords" content="Stock Values,Stock Prices,Stock Lookup,"
+    meta name="keywords" content="#{@company.company_name},#{@company.stock_ticker},#{@company.company_name} share price,#{@company.company_name} stock price,#{@company.stock_ticker} stock price."
     meta name="author" content="Matthew Tschoegl"
 
   	= javascript_include_tag \

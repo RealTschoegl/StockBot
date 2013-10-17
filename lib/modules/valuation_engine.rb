@@ -75,12 +75,16 @@ module ValuationEngine
       @stock_ticker = submitted_stock
   	end
 
+    def name_stock
+      @company = Stock.where(stock_ticker: self.stock_ticker).first.company
+    end
+
     # Public: This method computes a stock price based on our valuation model. 
     #
     # Returns a Float value.
     def compute_stock_price
       self.get_present_value
-
+      self.assign_company_values
       return (@composite_share_value).round(2)
     end
 
@@ -159,6 +163,41 @@ module ValuationEngine
     # Returns a Float value.
     def get_present_value
       self.composite_share_value = (self.get_composite_share_value / ((1 + self.class.market_growth_rate)**self.class.years_horizon)).round(2)
+    end
+
+    # Public: This method creates a new entry in the Company database table with the data produced by the compute stock price method.
+    # 
+    # Returns true or false  
+    def assign_company_values
+      if Company.where(:stock_ticker => self.stock_ticker).empty?
+        c = Company.new
+        c.stock_ticker = self.stock_ticker
+        c.company_name = self.name_stock
+        c.current_stock_price = self.current_stock_price
+        c.free_cash_flow = self.free_cash_flow
+        c.num_shares = self.num_shares
+        c.PE_ratio = self.PE_ratio
+        c.beta = self.beta
+        c.cost_of_equity = self.cost_of_equity
+        c.fcf_share_value = self.fcf_share_value
+        c.capm_share_value = self.capm_share_value
+        c.composite_share_value = self.composite_share_value
+        c.complete = true
+        c.save
+      else
+        b = Company.where(:stock_ticker => self.stock_ticker).first
+        b.current_stock_price = self.current_stock_price
+        b.free_cash_flow = self.free_cash_flow
+        b.num_shares = self.num_shares
+        b.PE_ratio = self.PE_ratio
+        b.beta = self.beta
+        b.cost_of_equity = self.cost_of_equity
+        b.fcf_share_value = self.fcf_share_value
+        b.capm_share_value = self.capm_share_value
+        b.composite_share_value = self.composite_share_value
+        b.complete = true
+        b.save
+      end
     end
 
   end
