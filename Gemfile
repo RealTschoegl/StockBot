@@ -13,6 +13,8 @@ gem 'smarter_csv'
 gem 'friendly_id'
 gem 'will_paginate'
 gem 'faraday'
+gem 'sitemap_generator'
+gem 'fog'
 
 group :development, :test do
   gem 'sqlite3'

@@ -52,6 +52,7 @@ GEM
     coffee-script-source (1.6.3)
     diff-lcs (1.2.4)
     erubis (2.7.0)
+    excon (0.27.6)
     execjs (2.0.1)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
@@ -65,6 +66,18 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    fog (1.16.0)
+      builder
+      excon (~> 0.27.0)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0)
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+      nokogiri (~> 1.5)
+      ruby-hmac
+      unicode (~> 0.4.4)
+    formatador (0.2.4)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
     hike (1.2.3)
@@ -87,6 +100,9 @@ GEM
     multi_json (1.8.0)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nokogiri (1.6.0-x86-mingw32)
@@ -143,6 +159,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-hmac (0.4.0)
     ruby_parser (3.2.2)
       sexp_processor (~> 4.1)
     rubyzip (0.9.9)
@@ -159,6 +176,8 @@ GEM
     sexp_processor (4.3.0)
     shotgun (0.9)
       rack (>= 1.0)
+    sitemap_generator (4.2.0)
+      builder
     slim (2.0.1)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -181,6 +200,7 @@ GEM
     uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    unicode (0.4.4)
     websocket (1.0.7)
     will_paginate (3.0.5)
     win32console (1.3.2-x86-mingw32)
@@ -200,6 +220,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday
   figaro
+  fog
   friendly_id
   hirb
   httparty
@@ -213,6 +234,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   selenium-webdriver
   shotgun
+  sitemap_generator
   slim
   smarter_csv
   sqlite3
