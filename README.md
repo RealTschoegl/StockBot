@@ -5,6 +5,3 @@ This is an application that takes user inputs in real language and puts them int
 
 Tasks to complete:
 
-- [ ] Add a button for companies pages
-
-- [ ] Make a sitemap: http://blog.remarkablelabs.com/2012/11/generating-a-sitemap-for-your-rails-sites

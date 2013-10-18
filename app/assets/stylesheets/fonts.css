@@ -1,0 +1,5 @@
+@font-face {
+  font-family: DOTMATRI;
+  src: url("/assets/DOTMATRI.TTF") format("truetype"); /* For IE */
+  src: local("DOTMATRI"), url("/assets/DOTMATRI.TTF") format("truetype"); /* For non-IE */
+}

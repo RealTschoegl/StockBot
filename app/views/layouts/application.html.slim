@@ -20,6 +20,7 @@ html
   	= csrf_meta_tags 
 
   body
+
     div class="sidebar"
     p class="sidebarText"
       |
@@ -34,6 +35,15 @@ html
       a href="http://stockbot.io" class="sidebar_link" Stockbot.io 
       |
         &copy; #{Time.now.year}
+    div class="sidebar_right" 
+      a href="http://stockbot.io/companies" 
+        img src==asset_path('dot_matrix.png') class="block_display"
+        img src==asset_path('dot_matrix.png') class="block_display"
+      a href="http://stockbot.io/companies"
+        p 
+          |
+            Check out a list of Stockbot's house valuations
+        
 	= yield
 
 
