@@ -55,11 +55,11 @@ body class="picker"
 	 	tbody
 	 		tr
 		 		td
-		 			#{ValuationEngine::Value.years_horizon} years 
+		 			#{@yearsConstant} years 
 				td
-					#{(ValuationEngine::Value.risk_free_rate * 100).round(2)}%
+					#{@riskFreeConstant}%
 				td
-					#{(ValuationEngine::Value.market_growth_rate * 100).round(2)}%
+					#{@marketGrowthConstant}%
 
 	h3 Computed Data
 	table class="pure-u-2-3 pure-table pure-table-bordered"
