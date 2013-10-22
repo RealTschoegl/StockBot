@@ -5,4 +5,3 @@ This is an application that takes user inputs in real language and puts them int
 
 Tasks to complete:
 
-- [ ] Schedule task
