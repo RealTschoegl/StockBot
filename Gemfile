@@ -15,6 +15,7 @@ gem 'will_paginate'
 gem 'faraday'
 gem 'sitemap_generator'
 gem 'fog'
+gem 'redis'
 
 group :development, :test do
   gem 'sqlite3'

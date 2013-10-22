@@ -62,9 +62,9 @@ module ValuationEngine
     end
 
   	# Public: A float value to four digits that represents the lowest possible borrowing value.  Here we use the 5 year treasury yield at market as that value.
-    @risk_free_rate = 0.0141
+    @risk_free_rate = ($financialConstant.get("riskFreeRate").to_f).round(4)
     # Public: A float value to four digits that represents the amount that the market grew in the previous year.  Here we use the S&P500 1 year growth rate.
-    @market_growth_rate = 0.2038
+    @market_growth_rate = ($financialConstant.get("marketGrowthRateNYSE").to_f).round(4)
     # Public: An integer value that represents the number of years from now that we would intend to sell the stock.
     @years_horizon = 10
 
@@ -211,9 +211,9 @@ module ValuationEngine
   class ModValue < Value
 
     # Public: A float value to four digits that represents the lowest possible borrowing value.  Here we use the 5 year treasury yield at market as that value.
-    @risk_free_rate = 0.0141
+    @risk_free_rate = ($financialConstant.get("riskFreeRate").to_f).round(4)
     # Public: A float value to four digits that represents the amount that the market grew in the previous year.  Here we use the S&P500 1 year growth rate.
-    @market_growth_rate = 0.2038
+    @market_growth_rate = ($financialConstant.get("marketGrowthRateNYSE").to_f).round(4)
     # Public: An integer value that represents the number of years from now that we would intend to sell the stock.
     @years_horizon = 10
 
