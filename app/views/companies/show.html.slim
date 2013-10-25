@@ -14,6 +14,32 @@ body class="picker"
 		|
 			<i>#{@company.updated_at}</i>
 
+	h3 Company Info
+	table class="pure-u-2-3 pure-table pure-table-bordered"
+		thead
+			th
+				|
+					Company Name
+			th
+				|
+					Ticker Symbol
+			th
+				| 
+					Stock Exchange
+			th
+				|
+					Industry
+		tbody
+			tr
+				td
+					= @company.company_name
+				td
+					= @company.stock_ticker
+				td
+					= @company.exchange
+				td
+					= @company.industry
+			
 	h3 Basic Data
 	table class="pure-u-2-3 pure-table pure-table-bordered"
 		thead
@@ -57,9 +83,9 @@ body class="picker"
 		 		td
 		 			#{@yearsConstant} years 
 				td
-					#{@riskFreeConstant}%
+					#{@company.risk_free_rate * 100}%
 				td
-					#{@marketGrowthConstant}%
+					#{(@company.market_growth_rate * 100).round(4)}%
 
 	h3 Computed Data
 	table class="pure-u-2-3 pure-table pure-table-bordered"
@@ -99,3 +125,5 @@ body class="picker"
     |
      &nbsp; &nbsp;
 	= link_to 'Back', companies_path, { :class=>"pure-button pure-button-primary" } 
+	p
+	

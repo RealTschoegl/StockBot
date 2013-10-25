@@ -47,7 +47,7 @@ class StocksController < ApplicationController
     mod_stock.class.risk_free_rate = (($financialConstant.get("riskFreeRate").to_f).round(4) * (params[:mod_stock_riskFreeRate]).to_f).round(4)
 
     # Public: A float value to four digits that represents the amount that the market grew in the previous year. Here we use the S&P500 1 year growth rate as the base rate and adjust it with the user's estimate of how the market will do over the period that they intend to hold the stock for.
-    mod_stock.class.market_growth_rate = (($financialConstant.get("marketGrowthRateNYSE").to_f).round(4) + (params[:mod_stock_marketGrowthRate]).to_f/100).round(4)
+    mod_stock.class.market_growth_rate = (ValuationEngine::Constants.get_exchange(params[:mod_stock_fullSymbol]) + (params[:mod_stock_marketGrowthRate]).to_f/100).round(4)
 
     # Public: This calls the compute_stock_price method on the ModValue object, mod_stock, that we had created.  It then assigns the float value that the method generates to the variable @mod_stock_value.
   	@mod_stock_value = mod_stock.compute_stock_price

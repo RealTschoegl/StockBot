@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014214837) do
+ActiveRecord::Schema.define(:version => 20131025184724) do
 
   create_table "companies", :force => true do |t|
     t.string   "stock_ticker"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(:version => 20131014214837) do
     t.float    "composite_share_value"
     t.boolean  "complete"
     t.string   "slug"
+    t.string   "industry"
+    t.integer  "sic_code"
+    t.string   "exchange"
+    t.float    "risk_free_rate"
+    t.float    "market_growth_rate"
   end
 
   create_table "friendly_id_slugs", :force => true do |t|
@@ -41,6 +46,17 @@ ActiveRecord::Schema.define(:version => 20131014214837) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "stock_infos", :force => true do |t|
+    t.string   "ticker_sign"
+    t.string   "quandl_code"
+    t.string   "proper_name"
+    t.string   "industry"
+    t.string   "exchange"
+    t.integer  "sic_code"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "stocks", :force => true do |t|
     t.datetime "created_at",            :null => false
@@ -57,6 +73,9 @@ ActiveRecord::Schema.define(:version => 20131014214837) do
     t.float    "capm_share_value"
     t.float    "composite_share_value"
     t.boolean  "complete"
+    t.string   "industry"
+    t.integer  "sic_code"
+    t.string   "exchange"
   end
 
 end

@@ -8,8 +8,6 @@ class CompaniesController < ApplicationController
   def show
     require "#{Rails.root}/lib/modules/valuation_engine.rb"
     @yearsConstant = ValuationEngine::Value.years_horizon
-    @riskFreeConstant = (ValuationEngine::Value.risk_free_rate * 100).round(2)
-    @marketGrowthConstant = (ValuationEngine::Value.market_growth_rate * 100).round(2)
     @company = Company.find(params[:id])
 
     render layout: "companies_show"

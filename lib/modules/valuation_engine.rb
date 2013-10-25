@@ -162,7 +162,7 @@ module ValuationEngine
     #
     # Returns a Float value.
     def get_present_value
-      self.composite_share_value = (self.get_composite_share_value / ((1 + self.class.market_growth_rate)**self.class.years_horizon)).round(2)
+      self.composite_share_value = (self.get_composite_share_value / ((1 + ValuationEngine::Constants.get_exchange(self.stock_ticker))**self.class.years_horizon)).round(2)
     end
 
     # Public: This method creates a new entry in the Company database table with the data produced by the compute stock price method.
@@ -171,6 +171,11 @@ module ValuationEngine
     def assign_company_values
       if Company.where(:stock_ticker => self.stock_ticker).empty?
         c = Company.new
+        c.industry = StockInfo.where(ticker_sign: self.stock_ticker).first.industry
+        c.sic_code = StockInfo.where(ticker_sign: self.stock_ticker).first.sic_code
+        c.exchange = StockInfo.where(ticker_sign: self.stock_ticker).first.exchange
+        c.risk_free_rate = self.class.risk_free_rate
+        c.market_growth_rate = self.class.market_growth_rate
         c.stock_ticker = self.stock_ticker
         c.company_name = self.name_stock
         c.current_stock_price = self.current_stock_price
@@ -186,6 +191,8 @@ module ValuationEngine
         c.save
       else
         b = Company.where(:stock_ticker => self.stock_ticker).first
+        b.risk_free_rate = ((self.class.risk_free_rate).to_f).round(4)
+        b.market_growth_rate = ((self.class.market_growth_rate).to_f).round(4)
         b.current_stock_price = self.current_stock_price
         b.free_cash_flow = self.free_cash_flow
         b.num_shares = self.num_shares
@@ -216,6 +223,29 @@ module ValuationEngine
     @market_growth_rate = ($financialConstant.get("marketGrowthRateNYSE").to_f).round(4)
     # Public: An integer value that represents the number of years from now that we would intend to sell the stock.
     @years_horizon = 10
+
+    def compute_stock_price
+      self.get_present_value
+      return (@composite_share_value).round(2)
+    end
+
+  end
+
+  class Constants
+
+    def self.get_exchange(stock_ticker)
+      if StockInfo.where(ticker_sign: stock_ticker).first.exchange == "NASDAQ"
+        exchange_growth_rate = ($financialConstant.get("marketGrowthRateNSDQ").to_f).round(4)
+        ValuationEngine::Value.market_growth_rate = exchange_growth_rate
+        ValuationEngine::ModValue.market_growth_rate = exchange_growth_rate
+        return exchange_growth_rate
+      else
+        exchange_growth_rate = ($financialConstant.get("marketGrowthRateNYSE").to_f).round(4)
+        ValuationEngine::Value.market_growth_rate = exchange_growth_rate
+        ValuationEngine::ModValue.market_growth_rate = exchange_growth_rate
+        return exchange_growth_rate
+      end
+    end
 
   end
 
