@@ -5,17 +5,13 @@ This is an application that takes user inputs in real language and puts them int
 
 Immediate tasks to complete:
 
-- [ ] Push to heroku
-
-- [ ] Add stockinfo table values to heroku through rake task
-
-- [ ] Add yui to rails install
-
 - [ ] Change existing questions to jquery 
 
-- [ ] Push to heroku
-
 - [ ] Create new stock valuation model
+
+- [ ] Add basic mailer for stock that sends the user the email and gathers their email address, stock, the price, and the date
+
+- [ ] Insert redirect screens between the index & picker as well as the picker & result pages
 
 Longer-term tasks to complete:
 

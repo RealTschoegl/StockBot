@@ -1,0 +1,23 @@
+body
+  h1 Here's Your Stockbot Quote
+  hr
+  p Find the information below on the quote produced by Stokbot's algorithm:
+  thead
+    tr
+      th
+        |
+          Date
+      th 
+        |
+          Stock
+      th
+        |
+          Price
+  tbody  
+    tr
+      td
+        = @quote.date
+      td
+        = @quote.stock_symbol
+      td
+        = @quote.price

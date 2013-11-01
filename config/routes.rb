@@ -1,5 +1,8 @@
 StockPickApp::Application.routes.draw do
 
+  resources :quotes
+
+
   resources :companies
 
 

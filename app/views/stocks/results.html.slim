@@ -38,3 +38,22 @@ body class="results"
       &nbsp; &nbsp;
     |
     =(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })
+    |
+  h3 Enter your email address below to have this Stockbot quote sent to you.
+  form class="pure-form pure-form-stacked" method="POST" data-remote='true' action="/quotes" id="quoteSend" 
+    input type="email" name="mailer_email" placeholder="Your Email Address"
+    input type="hidden" name="mailer_stock" value="#{@mod_stock_symbol}"
+    input type="hidden" name="mailer_price" value="#{@mod_stock_value}"
+    button id="results_email" class="pure-button pure-button-primary" type="submit" Submit
+    |
+      &nbsp; &nbsp;
+    |
+    img id="results_gif" src==asset_path('ajax-loader.gif')
+
+
+      
+
+
+
+
+
