@@ -1,0 +1,6 @@
+<h1 style="color: black !important;">Here's Your Stockbot Quote</h1>
+<hr style="color: black !important;">
+<p style="color: black !important;">Find the information below on the quote produced by Stockbot's algorithm.</p> 
+<p style="color: black !important;">Date: <%= (@quote.date).strftime("%D") %></p>
+<p style="color: black !important;">Stock: <%= @quote.stock_symbol %></p>
+<p style="color: black !important;">Price: <%= @quote.price %></p>

@@ -3,52 +3,74 @@ body class="results"
   h2 The Stock Price
   hr
   br 
-  table id="matchingUp" class="pure-table pure-table-bordered"
-    tbody
-      tr
-        td The market values <strong>#{@mod_stock_name}</strong> at: 
-        td =get_stock_prices(@mod_stock_symbol)  
-      tr
-        td You value <strong>#{@mod_stock_name}</strong> at:      
-        td =@mod_stock_value 
-  br
-  div id="stocktwits-widget-news"
-  = javascript_include_tag \
-  "http://stocktwits.com/addon/widget/2/widget-loader.min.js" 
-  javascript:
-    var matchWidth = $('#matchingUp').width();
-    var matchHeight = $('#matchingUp').height() * 6
-    STWT.Widget({
-      container: 'stocktwits-widget-news', 
-      symbol: '#{@mod_stock_symbol}', 
-      avatars: 0, 
-      width: matchWidth, 
-      height: matchHeight, 
-      limit: '15', 
-      scrollbars: 'true', 
-      streaming: 'true', 
-      title: 'Gossip about #{@mod_stock_symbol}', 
-      style: 
-        {username_color: 'red', link_color: '#0078e7', link_hover_color: 'red', header_text_color: '000000', border_color: 'cecece', divider_color: 'cecece', divider_color: 'cecece', divider_type: 'solid', box_color: 'transparent', stream_color: 'transparent', text_color: '000000', time_color: '999999'}
-      });   
-  p
-    |
-    a href="https://us.etrade.com/home" target="_blank" class="pure-button pure-button-primary" Buy Shares 
-    |
-      &nbsp; &nbsp;
-    |
-    =(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })
-    |
-  h3 Enter your email address below to have this Stockbot quote sent to you.
-  form class="pure-form pure-form-stacked" method="POST" data-remote='true' action="/quotes" id="quoteSend" 
-    input type="email" name="mailer_email" placeholder="Your Email Address"
-    input type="hidden" name="mailer_stock" value="#{@mod_stock_symbol}"
-    input type="hidden" name="mailer_price" value="#{@mod_stock_value}"
-    button id="results_email" class="pure-button pure-button-primary" type="submit" Submit
-    |
-      &nbsp; &nbsp;
-    |
-    img id="results_gif" src==asset_path('ajax-loader.gif')
+  div class="pure-g-r"
+    div class="pure-u-1-2"
+      p
+      table id="matchingUp" class="pure-table pure-table-bordered"
+        tbody
+          tr
+            td The market values <strong>#{@mod_stock_name}</strong> at: 
+            td =get_stock_prices(@mod_stock_symbol)  
+          tr
+            td You value <strong>#{@mod_stock_name}</strong> at:      
+            td =@mod_stock_value 
+      br
+      div id="stocktwits-widget-news"
+      = javascript_include_tag \
+      "http://stocktwits.com/addon/widget/2/widget-loader.min.js" 
+      javascript:
+        var matchWidth = $('#matchingUp').width();
+        var matchHeight = $('#matchingUp').height() * 6
+        STWT.Widget({
+          container: 'stocktwits-widget-news', 
+          symbol: '#{@mod_stock_symbol}', 
+          avatars: 0, 
+          width: matchWidth, 
+          height: matchHeight, 
+          limit: '15', 
+          scrollbars: 'true', 
+          streaming: 'true', 
+          title: 'Gossip about #{@mod_stock_symbol}', 
+          style: 
+            {username_color: 'red', link_color: '#0078e7', link_hover_color: 'red', header_text_color: '000000', border_color: 'cecece', divider_color: 'cecece', divider_color: 'cecece', divider_type: 'solid', box_color: 'transparent', stream_color: 'transparent', text_color: '000000', time_color: '999999'}
+          });   
+    div class="pure-u-1-2"
+      h3 Email The Quote
+      p <i>Enter your email address below to have this Stockbot quote sent to you.</i>
+      p class="smallSuccess"
+        |
+          <strong>Success!</strong>  Check your inbox for an email from Stockbot. Send another, if you want.  Go ahead, we won't stop you*
+      p class="smallSuccess"
+        |
+          *This is not legally binding.
+      p class="smallFail"
+        |
+          This is awkward.  Message failed...Try again?
+      form class="pure-form" method="POST" data-remote='true' action="/quotes" id="quoteSend" 
+        input type="email" name="mailer_email" placeholder="Your Email Address" 
+        |
+          &nbsp; &nbsp;
+        |
+        input type="hidden" name="mailer_stock" value="#{@mod_stock_symbol}"
+        input type="hidden" name="mailer_price" value="#{@mod_stock_value}"
+        button id="results_email" class="pure-button pure-button-primary" type="submit" Submit
+        |
+          &nbsp; &nbsp;
+        |
+        img id="results_gif" src==asset_path('ajax-loader.gif')
+      hr
+      h3 Buy Shares
+      p <i>Click on the button below to buy shares of #{@mod_stock_name}.</i>
+      p
+        |
+        a href="https://us.etrade.com/home" target="_blank" class="pure-button pure-button-primary" Buy Shares
+      hr
+      h3 Start Again
+      p <i>Having fun?  Try another.</i>
+      p
+        |
+        =(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" })
+
 
 
       

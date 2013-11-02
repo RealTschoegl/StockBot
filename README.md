@@ -9,7 +9,7 @@ Immediate tasks to complete:
 
 - [ ] Create new stock valuation model
 
-- [ ] Add basic mailer for stock that sends the user the email and gathers their email address, stock, the price, and the date
+- [ ] Add basic mailer for stock that sends the user the email and gathers their email address, stock, the price, and the date - Make sure the email looks good.    
 
 - [ ] Insert redirect screens between the index & picker as well as the picker & result pages
 
