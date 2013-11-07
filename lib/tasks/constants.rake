@@ -3,6 +3,7 @@ namespace :constants do
 	desc "Update the financial constants with an API call"
 	task :find => :environment do
 		date_today = Time.now.strftime("%F")
+		date_yesterday = Time.now.change(:day => Time.now.day - 1).strftime("%F")
 		year_ago_today = Time.now.change(:year => Time.now.year - 1).strftime("%F")
 
 		treasury10year = HTTParty.get("http://www.quandl.com/api/v1/datasets/FRED/DGS10.json?&auth_token=#{ENV['QUANDL_API_TOKEN']}&trim_start=#{year_ago_today}&trim_end=#{date_today}&collapse=annual&sort_order=desc")
@@ -13,6 +14,10 @@ namespace :constants do
 
 		NYSERate = HTTParty.get("http://www.quandl.com/api/v1/datasets/YAHOO/INDEX_NYA.json?&auth_token=#{ENV['QUANDL_API_TOKEN']}&trim_start=#{year_ago_today}&trim_end=#{date_today}&collapse=annual&transformation=rdiff&sort_order=desc")
 		$financialConstant.set("marketGrowthRateNYSE", NYSERate["data"][0][6])
+
+		discountRate = HTTParty.get("http://www.quandl.com/api/v1/datasets/OFDP/INDEX_WSJ_MONEYRATES_137.json?&trim_start=#{date_yesterday}&trim_end=#{date_yesterday}&sort_order=desc")
+		$financialConstant.set("overnightDiscountRate", discountRate["data"][0][1])
+
 
 	end
 

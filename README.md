@@ -5,15 +5,19 @@ This is an application that takes user inputs in real language and puts them int
 
 Immediate tasks to complete:
 
-- [ ] Change existing questions to jquery 
+- [ ] Create data request
 
-- [ ] Create new stock valuation model
+- [ ] Add response code check to data request
 
-- [ ] Add basic mailer for stock that sends the user the email and gathers their email address, stock, the price, and the date - Make sure the email looks good.    
+- [ ] Add database check to data request
 
-- [ ] Insert redirect screens between the index & picker as well as the picker & result pages
+- [ ] Add database recency check to data request
+
+- [ ] Add discount rate as redis constant
 
 Longer-term tasks to complete:
+
+- [ ] Change existing questions to jquery 
 
 - [ ] Make defaults for values that take into account decimals and significant digits
 
@@ -22,3 +26,13 @@ Longer-term tasks to complete:
 - [ ] Recomment everything
 
 - [ ] Testing
+
+- [ ] Insert redirect screens between the index & picker as well as the picker & result pages
+
+- [ ] Create an API
+				http://railscasts.com/episodes/348-the-rails-api-gem?view=asciicast
+				http://railscasts.com/episodes/352-securing-an-api?view=asciicast
+				http://railscasts.com/episodes/350-rest-api-versioning
+				http://railscasts.com/episodes/94-activeresource-basics
+				https://devcenter.heroku.com/articles/custom-domains
+				http://railscasts.com/episodes/221-subdomains-in-rails-3?view=asciicast
