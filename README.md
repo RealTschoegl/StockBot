@@ -5,15 +5,13 @@ This is an application that takes user inputs in real language and puts them int
 
 Immediate tasks to complete:
 
-- [ ] Create data request
-
 - [ ] Add response code check to data request
 
 - [ ] Add database check to data request
 
 - [ ] Add database recency check to data request
 
-- [ ] Add discount rate as redis constant
+- [ ] Add case test to determine whether it has the necessary data
 
 Longer-term tasks to complete:
 
