@@ -16,6 +16,7 @@ gem 'faraday'
 gem 'sitemap_generator'
 gem 'fog'
 gem 'redis'
+gem 'typhoeus'
 
 group :development, :test do
   gem 'sqlite3'

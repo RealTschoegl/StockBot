@@ -52,6 +52,9 @@ GEM
     coffee-script-source (1.6.3)
     diff-lcs (1.2.4)
     erubis (2.7.0)
+    ethon (0.6.1)
+      ffi (>= 1.3.0)
+      mime-types (~> 1.18)
     excon (0.27.6)
     execjs (2.0.1)
     factory_girl (4.2.0)
@@ -197,6 +200,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.6.6)
+      ethon (~> 0.6.1)
     tzinfo (0.3.37)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
@@ -240,6 +245,7 @@ DEPENDENCIES
   slim
   smarter_csv
   sqlite3
+  typhoeus
   uglifier (>= 1.0.3)
   will_paginate
   yahoofinance
