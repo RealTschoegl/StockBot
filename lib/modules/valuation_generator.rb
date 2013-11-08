@@ -15,7 +15,7 @@ module ValuationGenerator
 
 		def self.compute_share_value(stock_ticker_symbol)
 			get_data(stock_ticker_symbol)
-		  @composite_share_value = (get_weighted_quote(stock_ticker_symbol) + get_comparables + get_fcf_value_capm + get_fcf_value_wacc + get_dividend_value) / 5
+		  @composite_share_value = (get_weighted_quote(stock_ticker_symbol) + get_comparables + get_fcf_value_capm(stock_ticker_symbol) + get_fcf_value_wacc + get_dividend_value) / 5
 		end
 
 		## =================    Valuation Equations   =================
@@ -33,9 +33,9 @@ module ValuationGenerator
 		end
 
 	  # FCF_CAPM = ((Operating Free Cash Flow [Forward]) / (CAPM Discount Rate - Expected OFCF Growth Rate)) / Number of Shares
-	  # CAPM Discount Rate = risk free rate + beta * (risk free rate - expected market return)
-		def self.get_fcf_value_capm
-		  return 0
+		def self.get_fcf_value_capm(stock_ticker_symbol)
+			return (@yahooKeyStats["OperatingCashFlow"]["content"].to_f / (get_cost_of_equity(stock_ticker_symbol) - @quandlStockData["Expected Growth in Earnings Per Share"].to_f))/ @yahooKeyStats["float"].to_f
+		  
 		end
 
 	  # FCF_WACC = ((Operating Free Cash Flow [Forward]) / (WACC Discount Rate - Expected OFCF Growth Rate)) / Number of Shares
@@ -82,7 +82,7 @@ module ValuationGenerator
 	  	@yahooQuote = a["query"]["results"]["quote"]
 	  	@yahooKeyStats = b["query"]["results"]["stats"]
 	  	@quandlStockData = {}
-	  	headers_list.each_index { |x| @quandlStockData[headers_list[x]] = data_list[x] }
+	  	headers_list.each_index { |x| @quandlStockData[headers_list[x]] = data_list[x] } 
 
 	  end
 
@@ -108,6 +108,19 @@ module ValuationGenerator
 			return @dividend_growth_rate
 		end
 
+		def self.get_cost_of_equity(stock_ticker_symbol)
+			@get_cost_of_equity = $financialConstant.get("riskFreeRate").to_f + @quandlStockData["3-Year Regression Beta"].to_f * (get_exchange(stock_ticker_symbol) - $financialConstant.get("riskFreeRate").to_f)
+
+			return @get_cost_of_equity
+		end
+
+		def self.get_exchange(stock_ticker_symbol)
+      if StockInfo.where(ticker_sign: stock_ticker_symbol).first.exchange == "NASDAQ"
+       	return ($financialConstant.get("marketGrowthRateNSDQ").to_f).round(4)
+      else
+        return ($financialConstant.get("marketGrowthRateNYSE").to_f).round(4) 
+      end
+    end
 	end
 
 end
