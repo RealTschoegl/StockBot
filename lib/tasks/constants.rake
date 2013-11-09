@@ -18,6 +18,11 @@ namespace :constants do
 		discountRate = HTTParty.get("http://www.quandl.com/api/v1/datasets/OFDP/INDEX_WSJ_MONEYRATES_137.json?&trim_start=#{date_yesterday}&trim_end=#{date_yesterday}&sort_order=desc")
 		$financialConstant.set("overnightDiscountRate", discountRate["data"][0][1])
 
+		HYBondRate = HTTParty.get("http://www.quandl.com/api/v1/datasets/OFDP/INDEX_WSJ_BENCHMARK_32.json?&trim_start=#{date_yesterday}&trim_end=#{date_yesterday}&sort_order=desc")
+		$financialConstant.set("highYieldBond", HYBondRate["data"][0][2])
+
+		IGBondRate = HTTParty.get("http://www.quandl.com/api/v1/datasets/OFDP/INDEX_WSJ_BENCHMARK_29.json?&trim_start=#{date_yesterday}&trim_end=#{date_yesterday}&sort_order=desc")
+		$financialConstant.set("investmentGradeBond", IGBondRate["data"][0][2])
 
 	end
 

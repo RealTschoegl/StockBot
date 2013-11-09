@@ -15,7 +15,9 @@ module ValuationGenerator
 
 		def self.compute_share_value(stock_ticker_symbol)
 			get_data(stock_ticker_symbol)
-		  @composite_share_value = (get_weighted_quote(stock_ticker_symbol) + get_comparables + get_fcf_value_capm(stock_ticker_symbol) + get_fcf_value_wacc + get_dividend_value) / 5
+		  @composite_share_value = (get_weighted_quote(stock_ticker_symbol) + get_comparables + get_fcf_value_capm(stock_ticker_symbol) + get_fcf_value_wacc(stock_ticker_symbol) + get_dividend_value) / 5
+binding.pry
+		  return @composite_share_value
 		end
 
 		## =================    Valuation Equations   =================
@@ -34,14 +36,16 @@ module ValuationGenerator
 
 	  # FCF_CAPM = ((Operating Free Cash Flow [Forward]) / (CAPM Discount Rate - Expected OFCF Growth Rate)) / Number of Shares
 		def self.get_fcf_value_capm(stock_ticker_symbol)
-			return (@yahooKeyStats["OperatingCashFlow"]["content"].to_f / (get_cost_of_equity(stock_ticker_symbol) - @quandlStockData["Expected Growth in Earnings Per Share"].to_f))/ @yahooKeyStats["float"].to_f
+			@fcf_capm_share_value = (@yahooKeyStats["OperatingCashFlow"]["content"].to_f / (get_cost_of_equity_capm(stock_ticker_symbol) - @quandlStockData["Expected Growth in Earnings Per Share"].to_f)) / @yahooKeyStats["Float"].to_f
+
+			return @fcf_capm_share_value
 		  
 		end
+	  
+		def self.get_fcf_value_wacc(stock_ticker_symbol)
+			@fcf_wacc_share_value = (@yahooKeyStats["OperatingCashFlow"]["content"].to_f / (get_cost_of_equity_wacc(stock_ticker_symbol) - @quandlStockData["Expected Growth in Earnings Per Share"].to_f)) / @yahooKeyStats["Float"].to_f
 
-	  # FCF_WACC = ((Operating Free Cash Flow [Forward]) / (WACC Discount Rate - Expected OFCF Growth Rate)) / Number of Shares
-	  # WACC Discount Rate = ((Market Value of Equity) / (Equity + Debt) * Cost of Equity) + ((Market Value of Debt) / (Equity + Debt) * Cost of Debt * (1 - Effective Tax Rate))
-		def self.get_fcf_value_wacc
-		  return 0
+		  return @fcf_wacc_share_value
 		end
 
 	  # Dividend Share Value = (Dividend Per Share [Forward]) / (Discount Rate - Dividend Growth Rate)
@@ -108,11 +112,25 @@ module ValuationGenerator
 			return @dividend_growth_rate
 		end
 
-		def self.get_cost_of_equity(stock_ticker_symbol)
-			@get_cost_of_equity = $financialConstant.get("riskFreeRate").to_f + @quandlStockData["3-Year Regression Beta"].to_f * (get_exchange(stock_ticker_symbol) - $financialConstant.get("riskFreeRate").to_f)
+		def self.get_cost_of_equity_capm(stock_ticker_symbol)
+			@cost_of_equity_capm = $financialConstant.get("riskFreeRate").to_f + @quandlStockData["3-Year Regression Beta"].to_f * (get_exchange(stock_ticker_symbol) - $financialConstant.get("riskFreeRate").to_f)
 
-			return @get_cost_of_equity
+			return @cost_of_equity_capm
 		end
+
+		def self.get_cost_of_equity_wacc(stock_ticker_symbol)
+			total = @quandlStockData["Market Capitalization"].to_f + @quandlStockData["Total Debt"].to_f
+			@cost_of_equity_wacc = ((@quandlStockData["Market Capitalization"].to_f) / (total) * @cost_of_equity_capm) + (((@quandlStockData["Total Debt"].to_f) / (total)) * get_cost_of_debt * (1 - @quandlStockData["Effective Tax Rate"].to_f))
+		end
+
+		def self.get_cost_of_debt
+			if @yahooQuote["PercentChangeFromTwoHundreddayMovingAverage"].to_f < -15
+				return $financialConstant.get("highYieldBond").to_f
+			else
+				return $financialConstant.get("investmentGradeBond").to_f
+			end
+		end
+		
 
 		def self.get_exchange(stock_ticker_symbol)
       if StockInfo.where(ticker_sign: stock_ticker_symbol).first.exchange == "NASDAQ"
