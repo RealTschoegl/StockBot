@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030005020) do
+ActiveRecord::Schema.define(:version => 20131112200809) do
 
   create_table "companies", :force => true do |t|
     t.string   "stock_ticker"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20131030005020) do
     t.integer  "num_shares"
     t.float    "PE_ratio"
     t.float    "beta"
-    t.float    "cost_of_equity"
+    t.float    "cost_of_equity_CAPM"
     t.float    "fcf_share_value"
     t.float    "capm_share_value"
     t.float    "composite_share_value"
@@ -85,6 +85,16 @@ ActiveRecord::Schema.define(:version => 20131030005020) do
     t.string   "industry"
     t.integer  "sic_code"
     t.string   "exchange"
+    t.integer  "mkt_cap"
+    t.integer  "assets"
+    t.integer  "debt"
+    t.float    "earnings_growth"
+    t.float    "forw_div_rate"
+    t.float    "trail_div_rate"
+    t.float    "eff_tax_rate"
+    t.float    "cost_of_equity_WACC"
+    t.float    "cost_of_debt"
+    t.float    "div_growth_rate"
   end
 
 end

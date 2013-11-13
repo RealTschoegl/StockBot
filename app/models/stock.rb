@@ -97,6 +97,9 @@ class Stock < ActiveRecord::Base
   # Returns the stock's active record relation
   scope :incomplete, -> { where(complete: false) }
 
+  scope :sector, ->(code) { where(:sic_code => code ) }
+
+
 
 
 end

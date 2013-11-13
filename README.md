@@ -5,13 +5,13 @@ This is an application that takes user inputs in real language and puts them int
 
 Immediate tasks to complete:
 
-- [ ] Add response code check to data request
+- [ ] Complete all of the valuation methods
 
-- [ ] Add database check to data request
+- [ ] Improve the switcher
 
-- [ ] Add database recency check to data request
+- [ ] Add validations 
 
-- [ ] Add case test to determine whether it has the necessary data
+- [ ] Work on data persistence
 
 Longer-term tasks to complete:
 
@@ -21,16 +21,15 @@ Longer-term tasks to complete:
 
 - [ ] Make Company show page responsive
 
+- [ ] Make Company show page reflect current state of data available
+
+- [ ] Create an API
+
 - [ ] Recomment everything
 
 - [ ] Testing
 
 - [ ] Insert redirect screens between the index & picker as well as the picker & result pages
 
-- [ ] Create an API
-				http://railscasts.com/episodes/348-the-rails-api-gem?view=asciicast
-				http://railscasts.com/episodes/352-securing-an-api?view=asciicast
-				http://railscasts.com/episodes/350-rest-api-versioning
-				http://railscasts.com/episodes/94-activeresource-basics
-				https://devcenter.heroku.com/articles/custom-domains
-				http://railscasts.com/episodes/221-subdomains-in-rails-3?view=asciicast
+
+				
