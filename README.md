@@ -7,9 +7,7 @@ Immediate tasks to complete:
 
 - [ ] Complete all of the valuation methods
 
-- [ ] Improve the switcher
-
-- [ ] Add validations 
+- [ ] Add a database backup method 
 
 - [ ] Work on data persistence
 

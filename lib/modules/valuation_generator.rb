@@ -13,26 +13,34 @@ module ValuationGenerator
 
 		def self.compute_share_value(stock_ticker_symbol)
 
-			get_data(stock_ticker_symbol)
+			if get_data(stock_ticker_symbol)
 
-			@composite_share_value = 0
-		  counter = 0
+				@composite_share_value = 0
+			  counter = 0
 
-			@composite_share_value += method(:get_weighted_quote).call(stock_ticker_symbol); counter += 1
-			@composite_share_value += method(:get_PE_ratio_comparable).call(stock_ticker_symbol); counter += 1
-			@composite_share_value += method(:get_net_asset_value).call(stock_ticker_symbol); counter += 1
-			@composite_share_value += method(:get_fcf_value_capm).call(stock_ticker_symbol); counter += 1
-			@composite_share_value += method(:get_fcf_value_wacc).call(stock_ticker_symbol); counter += 1
-			@composite_share_value += method(:get_dividend_value).call; counter += 1 
-			
-			return (@composite_share_value / counter)
+				@composite_share_value += method(:get_weighted_quote).call(stock_ticker_symbol); counter += 1 if 
+				@composite_share_value += method(:get_PE_ratio_comparable).call(stock_ticker_symbol); counter += 1
+				@composite_share_value += method(:get_net_asset_value).call(stock_ticker_symbol); counter += 1
+				@composite_share_value += method(:get_fcf_value_capm).call(stock_ticker_symbol); counter += 1
+				@composite_share_value += method(:get_fcf_value_wacc).call(stock_ticker_symbol); counter += 1
+				@composite_share_value += method(:get_dividend_value).call; counter += 1 
+				@composite_share_value += method(:get_sentiment_value).call; counter += 1
+
+				return (@composite_share_value / counter)
+
+			else 
+
+				return false
+
+			end
 		end
 
 		## =================    Valuation Equations   =================
 
 		# Current Stock Price = (Asking Price + Bid Price + Days Low Price + Days High Price + Last Trade Price) / 5
 		def self.get_weighted_quote(stock_ticker_symbol)
-			@current_stock_price = (@yahooQuote["Ask"].to_f + @yahooQuote["Bid"].to_f + @yahooQuote["DaysLow"].to_f + @yahooQuote["DaysHigh"].to_f + @yahooQuote["LastTradePriceOnly"].to_f) / 5
+			quote_array = [@yahooQuote["Ask"].to_f, @yahooQuote["Bid"].to_f, @yahooQuote["DaysLow"].to_f, @yahooQuote["DaysHigh"].to_f, @yahooQuote["LastTradePriceOnly"].to_f]
+			@current_stock_price = quote_array.compact.reduce(:+) / quote_array.compact.count
 
 			return @current_stock_price
 		end
@@ -43,8 +51,8 @@ module ValuationGenerator
 
 			new_array = [] 
 			comparables.each {|item| new_array << item.PE_ratio;}
-			@PE_ratio_comp = @current_stock_price * ( (new_array.inject(:+) / new_array.count).to_f / @quandlStockData["Trailing PE Ratio"].to_f)
-			
+			@PE_ratio_comp = @current_stock_price * ( ((new_array.inject(:+) / new_array.count).to_f) / @quandlStockData["Trailing PE Ratio"].to_f)
+
 		  return @PE_ratio_comp
 		end
 
@@ -75,7 +83,9 @@ module ValuationGenerator
 		  return @dividend_share_value
 		end
 
-		## ===============  Computed Constants  =======================
+		def self.get_sentiment_value
+			@sentiment_share_value = (@yahooQuote["FiftydayMovingAverage"].to_f) * ((1 + (@yahooQuote["PercentChangeFromFiftydayMovingAverage"].to_f / 100))**(1 + (@quandlPsychData[1] - @quandlPsychData[2])))
+		end
 
 	  ## ===============  API Call  =================================
 
@@ -85,46 +95,73 @@ module ValuationGenerator
 	  	first_url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22#{stock_ticker_symbol}%22)&format=json%0A%09%09&env=http%3A%2F%2Fdatatables.org%2Falltables.env"
 	  	second_url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.keystats%20where%20symbol%20in%20(%22#{stock_ticker_symbol}%22)&format=json%0A%09%09&env=http%3A%2F%2Fdatatables.org%2Falltables.env"
 	  	third_url = "http://www.quandl.com/api/v1/datasets/OFDP/DMDRN_#{stock_ticker_symbol}_ALLFINANCIALRATIOS.csv?auth_token=#{ENV['QUANDL_API_TOKEN']}"
+	  	fourth_url = "http://www.quandl.com/api/v1/datasets/PSYCH/#{stock_ticker_symbol}_I.json?&auth_token=auth_token=#{ENV['QUANDL_API_TOKEN']}&trim_start=#{Time.now.change(:day => Time.now.day - 7).strftime("%F")}&trim_end=#{Time.now.strftime("%F")}&sort_order=desc"
 
-	  	first_request = Typhoeus::Request.new(first_url) if (((first_url) =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]) == 0)
-	  	second_request = Typhoeus::Request.new(second_url) if (((second_url) =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]) == 0)
-	  	third_request = Typhoeus::Request.new(third_url) if (((third_url) =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]) == 0)
+	  	(((first_url) =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]) == 0) ? first_request = Typhoeus::Request.new(first_url) : (return false)
+	  	second_request = Typhoeus::Request.new(second_url) 
+	  	third_request = Typhoeus::Request.new(third_url) 
+	  	fourth_request = Typhoeus::Request.new(fourth_url) 
 
 	  	hydra.queue first_request
 	  	hydra.queue second_request
 	  	hydra.queue third_request
+	  	hydra.queue fourth_request
 	  	
 	  	hydra.run
 
-	  	first_response = first_request.response if first_request.response.options[:response_code] == 200
-	  	second_response = second_request.response if second_request.response.options[:response_code] == 200
-	  	third_response = third_request.response if third_request.response.options[:response_code] == 200
+			first_request.response.options[:response_code] == 200 ? first_response = first_request.response :  (return false )
+	  	second_response = second_request.response
+	  	third_response = third_request.response 
+	  	fourth_response = fourth_request.response
 
-	  	a = JSON.parse(first_response.body)
-	  	b = JSON.parse(second_response.body)
-	  	headers_list = CSV.parse(third_response.body)[0]
-	  	data_list = CSV.parse(third_response.body)[1]
+	  	@quotes = JSON.parse(first_response.body) if !first_response.body.nil?
+	  	@key_stats = JSON.parse(second_response.body) 
+	  	third_request.response.options[:response_code] == 200 ? @quandl_data = CSV.parse(third_response.body) : @quandl_data = nil
+	  	fourth_request.response.options[:response_code] == 200 ? @psych_data = JSON.parse(fourth_response.body) : @psych_data = nil
 
-	  	@yahooQuote = a["query"]["results"]["quote"]
-	  	@yahooKeyStats = b["query"]["results"]["stats"]
-	  	@quandlStockData = {}
-	  	headers_list.each_index { |x| @quandlStockData[headers_list[x]] = data_list[x] } 
+	  	method(:assign_yahooQuotes).call
+	  	method(:assign_yahooKeyStats).call(stock_ticker_symbol)
+	  	method(:assign_quandlStockData).call(stock_ticker_symbol)
+	  	method(:assign_quandlPsychData).call(stock_ticker_symbol)
+	  	method(:assign_databaseValues).call(stock_ticker_symbol)
 
 	  end
 
-		## ===============  Basic Variables  ==========================
+	  ## ===============  API Variables  ============================
 
-		# stock_ticker_symbol
-	  # current_stock_price
-	  # - Ask
-	  # - Bid
-	  # - DaysLow
-	  # - DaysHigh
-	  # - LastTradePriceOnly
-		# dividend_per_share
-	  # - Forward Year
-	  # - Previous Year
-		# discount_rate (rate for borrowing from fed)
+	  def self.assign_yahooQuotes
+	  	@quotes["query"]["results"]["quote"]["ErrorIndicationreturnedforsymbolchangedinvalid"].nil? ? @yahooQuote = @quotes["query"]["results"]["quote"] : (return false)
+	  end
+
+	  def self.assign_yahooKeyStats(stock_ticker_symbol)
+	  	@key_stats["query"]["results"]["stats"]["Beta"] != nil ? @yahooKeyStats = @key_stats["query"]["results"]["stats"] : @yahooKeyStats = nil
+	  end
+
+	  def self.assign_quandlStockData(stock_ticker_symbol)
+	  	if !@quandl_data.nil?
+		  	headers_list = @quandl_data[0]
+		  	data_list = @quandl_data[1]
+		  	@quandlStockData = {}
+		  	headers_list.each_index { |x| @quandlStockData[headers_list[x]] = data_list[x] }
+		  else
+		  	@quandlStockData = nil
+		  end
+	  end
+
+	  def self.assign_quandlPsychData(stock_ticker_symbol)
+	  	if !@psych_data.nil?
+	  		@quandlPsychData = @psych_data["data"][0]
+	  	else
+	  		@quandlPsychData = nil
+	  	end
+	  end
+
+	  def self.assign_databaseValues(stock_ticker_symbol)
+	  	val = Stock.where(stock_ticker: stock_ticker_symbol).first
+	  	!val.nil? ? @databaseValues = val : (return true)
+	  end
+
+		## ===============  Basic Variables  ==========================
 
 		## ===============  Helper Variables  ========================
 
