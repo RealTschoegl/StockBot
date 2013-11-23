@@ -3,17 +3,15 @@ StockBot
 
 This is an application that takes user inputs in real language and puts them into an equity valuation model to generate customized stock prices for the user.  It aims to make it easier for average investors to generate their own stock values by taking care of the more sophisticated parts of economic calculation for them.
 
-Immediate tasks to complete:
+Tasks to complete:
 
-- [ ] Complete all of the valuation methods
+- [ ] Add more valuation methods using comparables
 
-- [ ] Add a database backup method 
+- [ ] Add backup values from other APIs
 
-- [ ] Work on data persistence
+- [ ] Revise completer method to cover new gaps and data sources
 
-Longer-term tasks to complete:
-
-- [ ] Change existing questions to jquery 
+- [ ] Change existing questions to jquery using AlloyUI 
 
 - [ ] Make defaults for values that take into account decimals and significant digits
 
@@ -23,11 +21,11 @@ Longer-term tasks to complete:
 
 - [ ] Create an API
 
-- [ ] Recomment everything
-
-- [ ] Testing
-
 - [ ] Insert redirect screens between the index & picker as well as the picker & result pages
+
+- [ ] Use a regression (statsample gem) on the stock sentiment data
+
+- [ ] Use machine learning to adjust the weights on the ValueGenerator model
 
 
 				
