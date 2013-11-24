@@ -1,6 +1,6 @@
 - title "Picker - Add Your Input | StockBot"
 body class="picker"
-	- if serve_stock(@stock_symbol_name, @stock_proper_name)
+	- if !@our_stock_price.nil?  
 		div class="pure-g-r"
 			h2 class="pure-u-1"
 				|

@@ -53,7 +53,7 @@ module ValuationGenerator
 			comparables = @sorted_comparables
 			new_array = [] 
 			comparables.each {|item| new_array << item.PE_ratio;}
-			@PE_ratio_comp = @current_stock_price * ( ((new_array.inject(:+) / new_array.count).to_f) / @PE_ratio)  
+			@PE_ratio_comp = @current_stock_price * ( ((new_array.inject(:+) / new_array.count).to_f) / @PE_ratio)
 
 		  return @PE_ratio_comp
 		end
@@ -473,7 +473,7 @@ module ValuationGenerator
 				@rough_comparables = Stock.sector(stock_identifier, @sic_code)
 				@sorted_comparables = @rough_comparables.where("? < mkt_cap < ?", stock_mkt_cap/5, stock_mkt_cap*5).all
 
-				!@sorted_comparables.nil? ? (return true) : (return false)
+				!@sorted_comparables.empty? ? (return true) : (return false)
 
 			else
 				return true
@@ -526,6 +526,61 @@ module ValuationGenerator
         return @gwthRateNYSE 
       end
     end
+	end
+
+	class ModValue < Value
+
+		def compute_share_value(risk_free_mod, market_growth_mod)
+
+			if get_data
+
+				@composite_share_value = 0
+			  counter = 0
+
+				get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables ? (@composite_share_value += method(:get_PE_ratio_comparable).call; counter += 1 ) : (@composite_share_value += 0)
+
+				get_assets && get_debt && get_num_shares ? (@composite_share_value += method(:get_net_asset_value).call; counter += 1 ) : (@composite_share_value += 0)
+
+				get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_cost_of_equity_capm ? (@composite_share_value += method(:get_fcf_value_capm).call; counter += 1 ) : (@composite_share_value += 0)
+
+				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_tax && get_cost_of_equity_capm ? (@composite_share_value += method(:get_fcf_value_wacc).call; counter += 1 ) : (@composite_share_value += 0)
+
+				get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate ? (@composite_share_value += method(:get_dividend_value).call ; counter += 1 ) : (@composite_share_value += 0)
+
+				get_Fiftyday_MA && get_50_MA_PRCT && get_bullish && get_bearish ? (@composite_share_value += method(:get_sentiment_value).call ; counter += 1 ) : (@composite_share_value += 0)
+
+				@composite_share_value != 0 ? (@composite_share_value / counter) : (return false) 
+			else 
+
+				return false
+
+			end
+		end
+
+		def get_riskFreeRate(risk_free_mod)
+			if @riskFreeRate.nil?
+				@riskFreeRate = $financialConstant.get("riskFreeRate").to_f * risk_free_mod
+			else
+				return true
+			end
+		end
+
+		def get_mktGrwthRateNSDQ(market_growth_mod)
+			if @gwthRateNSDQ.nil?
+				@gwthRateNSDQ = ($financialConstant.get("marketGrowthRateNSDQ").to_f).round(4) * market_growth_mod
+			else
+				return true
+			end
+		end
+
+		def get_mktGrwthRateNYSE(market_growth_mod)
+			if @gwthRateNYSE.nil?
+				@gwthRateNYSE = ($financialConstant.get("marketGrowthRateNYSE").to_f).round(4) * market_growth_mod
+			else 
+				return true
+			end
+		end
+
 	end
 
 end
