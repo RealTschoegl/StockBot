@@ -24,22 +24,28 @@ module ValuationGenerator
 
 			if get_data
 
-				@composite_share_value = 0
-			  counter = 0
+				get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables ? (@PE_Comparable_Valuation = get_PE_ratio_comparable) : (@PE_Comparable_Valuation = nil)
 
-				get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables ? (@composite_share_value += method(:get_PE_ratio_comparable).call; counter += 1 ) : (@composite_share_value += 0)
+				get_assets && get_debt && get_num_shares ? (@NAV_Valuation = get_net_asset_value) : (@NAV_Valuation = nil)
 
-				get_assets && get_debt && get_num_shares ? (@composite_share_value += method(:get_net_asset_value).call; counter += 1 ) : (@composite_share_value += 0)
+				get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate && get_beta && get_mktGrwthRateNSDQ && get_mktGrwthRateNYSE && get_cost_of_equity_capm ? (@CAPM_Valuation = get_fcf_value_capm) : (@CAPM_Valuation = nil)
+				
+				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate && get_beta && get_mktGrwthRateNSDQ && get_mktGrwthRateNYSE && get_tax && get_cost_of_equity_capm ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
 
-				get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate && get_beta && get_mktGrwthRateNSDQ && get_mktGrwthRateNYSE && get_cost_of_equity_capm ? (@composite_share_value += method(:get_fcf_value_capm).call; counter += 1 ) : (@composite_share_value += 0)
+				get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate ? (@Dividend_Valuation = get_dividend_value) : (@Dividend_Valuation = nil)
 
-				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate && get_beta && get_mktGrwthRateNSDQ && get_mktGrwthRateNYSE && get_tax && get_cost_of_equity_capm ? (@composite_share_value += method(:get_fcf_value_wacc).call; counter += 1 ) : (@composite_share_value += 0)
+				get_Fiftyday_MA && get_50_MA_PRCT && get_bullish && get_bearish ? (@Sentiment_Valuation = get_sentiment_value) : (@Sentiment_Valuation = nil)
 
-				get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate ? (@composite_share_value += method(:get_dividend_value).call ; counter += 1 ) : (@composite_share_value += 0)
+				@composite_share_values = Array.new.push(@PE_Comparable_Valuation, @NAV_Valuation, @CAPM_Valuation, @WACC_Valuation, @Dividend_Valuation, @Sentiment_Valuation)
 
-				get_Fiftyday_MA && get_50_MA_PRCT && get_bullish && get_bearish ? (@composite_share_value += method(:get_sentiment_value).call ; counter += 1 ) : (@composite_share_value += 0)
+				!@composite_share_values.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
-				@composite_share_value != 0 ? (@composite_share_value / counter) : (return false) 
+				package_data
+				save_stock_data
+				save_company_data
+
+				return @computed_share_value
+				
 			else 
 
 				return false
@@ -96,7 +102,7 @@ module ValuationGenerator
 	  	first_url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22#{self.stock_ticker}%22)&format=json%0A%09%09&env=http%3A%2F%2Fdatatables.org%2Falltables.env"
 	  	second_url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.keystats%20where%20symbol%20in%20(%22#{self.stock_ticker}%22)&format=json%0A%09%09&env=http%3A%2F%2Fdatatables.org%2Falltables.env"
 	  	third_url = "http://www.quandl.com/api/v1/datasets/OFDP/DMDRN_#{self.stock_ticker}_ALLFINANCIALRATIOS.csv?auth_token=#{ENV['QUANDL_API_TOKEN']}"
-	  	fourth_url = "http://www.quandl.com/api/v1/datasets/PSYCH/#{self.stock_ticker}_I.json?&auth_token=auth_token=#{ENV['QUANDL_API_TOKEN']}&trim_start=#{Time.now.change(:day => Time.now.day - 7).strftime("%F")}&trim_end=#{Time.now.strftime("%F")}&sort_order=desc"
+	  	fourth_url = "http://www.quandl.com/api/v1/datasets/PSYCH/#{self.stock_ticker}_I.json?&auth_token=auth_token=#{ENV['QUANDL_API_TOKEN']}&trim_start=#{Chronic.parse("last week").strftime("%F")}&trim_end=#{Chronic.parse("today").strftime("%F")}&sort_order=desc"
 
 	  	(((first_url) =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]) == 0) ? first_request = Typhoeus::Request.new(first_url) : (return false)
 	  	second_request = Typhoeus::Request.new(second_url) 
@@ -116,8 +122,11 @@ module ValuationGenerator
 	  	fourth_response = fourth_request.response
 
 	  	@quotes = JSON.parse(first_response.body) if !first_response.body.nil?
+
 	  	@key_stats = JSON.parse(second_response.body) 
+
 	  	third_request.response.options[:response_code] == 200 ? @quandl_data = CSV.parse(third_response.body) : @quandl_data = nil
+
 	  	fourth_request.response.options[:response_code] == 200 ? @psych_data = JSON.parse(fourth_response.body) : @psych_data = nil
 
 	  	method(:assign_yahooQuotes).call
@@ -125,7 +134,7 @@ module ValuationGenerator
 	  	method(:assign_quandlStockData).call
 	  	method(:assign_quandlPsychData).call
 	  	method(:assign_databaseValues).call
-
+	  	method(:assign_stockProfile).call
 	  end
 
 	  ## ===============  API Variables  ============================
@@ -158,8 +167,11 @@ module ValuationGenerator
 	  end
 
 	  def assign_databaseValues
-	  	val = Stock.where(stock_ticker: self.stock_ticker).first
-	  	!val.nil? ? (return @databaseValues = val) : true
+	  	@databaseValues = Stock.where(stock_ticker: self.stock_ticker).first
+	  end
+
+	  def assign_stockProfile
+			@stockProfile = StockInfo.where(ticker_sign: self.stock_ticker).first 
 	  end
 
 		## ===============  Basic Variables  ==========================
@@ -168,7 +180,7 @@ module ValuationGenerator
 			if @forwardDividendRate.nil?
 				if !@yahooKeyStats["ForwardAnnualDividendRate"].nil?
 					@forwardDividendRate = @yahooKeyStats["ForwardAnnualDividendRate"].to_f
-				elsif !@databaseValues["forw_div_rate"].nil?
+				elsif @databaseValues.respond_to?("forw_div_rate") && !@databaseValues["forw_div_rate"].nil?
 					@forwardDividendRate = @databaseValues["forw_div_rate"]
 				else 
 					return @forwardDividendRate = nil
@@ -182,7 +194,7 @@ module ValuationGenerator
 			if @trailingDividendRate.nil?
 				if !@yahooKeyStats["TrailingAnnualDividendYield"][0].nil?
 					@trailingDividendRate = @yahooKeyStats["TrailingAnnualDividendYield"][0].to_f
-				elsif !@databaseValues["trail_div_rate"].nil?
+				elsif @databaseValues.respond_to?("trail_div_rate") && !@databaseValues["trail_div_rate"].nil?
 					@trailingDividendRate = @databaseValues["trail_div_rate"]
 				else
 					return @trailingDividendRate = nil
@@ -210,7 +222,7 @@ module ValuationGenerator
 			if @freeCashFlow.nil?
 				if !@yahooKeyStats["OperatingCashFlow"]["content"].nil?
 					@freeCashFlow = @yahooKeyStats["OperatingCashFlow"]["content"].to_f
-				elsif !@databaseValues["free_cash_flow"].nil?
+				elsif @databaseValues.respond_to?("free_cash_flow") && !@databaseValues["free_cash_flow"].nil?
 					@freeCashFlow = @databaseValues["free_cash_flow"]
 				else
 					return @freeCashFlow = nil
@@ -224,7 +236,7 @@ module ValuationGenerator
 			if @companyGrowth.nil?
 				if !@quandlStockData["Expected Growth in Earnings Per Share"].nil?
 					@companyGrowth = @quandlStockData["Expected Growth in Earnings Per Share"].to_f
-				elsif !@databaseValues["earnings_growth"].nil?
+				elsif @databaseValues.respond_to?("earnings_growth") && !@databaseValues["earnings_growth"].nil?
 					@companyGrowth = @databaseValues["earnings_growth"]
 				else 
 					@companyGrowth = nil
@@ -238,7 +250,7 @@ module ValuationGenerator
 			if @PE_ratio.nil?
 				if !@quandlStockData["Trailing PE Ratio"].nil?
 					@PE_ratio = @quandlStockData["Trailing PE Ratio"].to_f
-				elsif !@databaseValues["PE_ratio"].nil?
+				elsif @databaseValues.respond_to?("PE_ratio") && !@databaseValues["PE_ratio"].nil?
 					@PE_ratio = @databaseValues["PE_ratio"]
 				else
 					@PE_ratio = nil
@@ -252,7 +264,7 @@ module ValuationGenerator
 			if @netAssets.nil?
 				if !@quandlStockData["Book Value of Assets"].nil?
 					@netAssets = @quandlStockData["Book Value of Assets"].to_i * 1_000_000
-				elsif !@databaseValues["assets"].nil?
+				elsif @databaseValues.respond_to?("assets") && !@databaseValues["assets"].nil?
 					@netAssets = @databaseValues["assets"]
 				else
 					@netAssets = nil
@@ -263,13 +275,13 @@ module ValuationGenerator
 		end
 
 		def get_beta
-			if @regBeta.nil?
+			if @threeYearBeta.nil?
 				if !@quandlStockData["3-Year Regression Beta"].nil?
-					@regBeta = @quandlStockData["3-Year Regression Beta"].to_f
-				elsif !@databaseValues["beta"].nil?
-					@regBeta = @databaseValues["beta"]
+					@threeYearBeta = @quandlStockData["3-Year Regression Beta"].to_f
+				elsif @databaseValues.respond_to?("beta") && !@databaseValues["beta"].nil?
+					@threeYearBeta = @databaseValues["beta"]
 				else
-					@regBeta = nil
+					@threeYearBeta = nil
 				end
 			else 
 				return true
@@ -280,8 +292,8 @@ module ValuationGenerator
 			if @totalDebt.nil?
 				if !@quandlStockData["Total Debt"].nil?
 					@totalDebt = @quandlStockData["Total Debt"].to_f * 1_000_000
-				elsif !@databaseValues["beta"].nil?
-					@totalDebt = @databaseValues["beta"]
+				elsif @databaseValues.respond_to?("debt") && !@databaseValues["debt"].nil?
+					@totalDebt = @databaseValues["debt"]
 				else
 					@totalDebt = nil
 				end
@@ -294,7 +306,7 @@ module ValuationGenerator
 			if @taxRate.nil?
 				if !@quandlStockData["Effective Tax Rate"].nil?
 					@taxRate = @quandlStockData["Effective Tax Rate"].to_f
-				elsif !@databaseValues["eff_tax_rate"].nil?
+				elsif @databaseValues.respond_to?("eff_tax_rate") && !@databaseValues["eff_tax_rate"].nil?
 					@taxRate = @databaseValues["eff_tax_rate"]
 				else
 					@taxRate = nil
@@ -308,7 +320,7 @@ module ValuationGenerator
 			if @marketCap.nil?
 				if !@quandlStockData["Market Capitalization"].nil?
 					@marketCap = @quandlStockData["Market Capitalization"].to_i
-				elsif !@databaseValues["mkt_cap"].nil?
+				elsif @databaseValues.respond_to?("mkt_cap") && !@databaseValues["mkt_cap"].nil?
 					@marketCap = @databaseValues["mkt_cap"]
 				else
 					@marketCap = nil
@@ -383,16 +395,16 @@ module ValuationGenerator
 		end
 
 		def get_bullish
-			if @bullish.nil?
-				!@quandlPsychData[1].nil? ? @bullish = @quandlPsychData[1].to_f : @bullish = nil
+			if @bullish.nil? 
+				defined?(@quandlPsychData[1]) && !@quandlPsychData[1].nil? ? @bullish = @quandlPsychData[1].to_f : @bullish = nil
 			else
 				return true
 			end
 		end
 
 		def get_bearish
-			if @bearish.nil?
-				!@quandlPsychData[2].nil? ? @bearish = @quandlPsychData[2].to_f : @bearish = nil
+			if @bearish.nil? 
+				defined?(@quandlPsychData[2]) && !@quandlPsychData[2].nil? ? @bearish = @quandlPsychData[2].to_f : @bearish = nil
 			else
 				return true
 			end
@@ -465,12 +477,10 @@ module ValuationGenerator
 			if @sorted_comparables.nil?
 
 				stock_mkt_cap = @marketCap
+				stock_identifier = @databaseValues.object_id
+				sic_code = @stockProfile.sic_code
 
-				our_stock = Stock.where(stock_ticker: self.stock_ticker).first
-				!our_stock.sic_code.nil? ? @sic_code = our_stock.sic_code : @sic_code = StockInfo.where(ticker_sign: self.stock_ticker).first.sic_code
-				stock_identifier = our_stock.id
-
-				@rough_comparables = Stock.sector(stock_identifier, @sic_code)
+				@rough_comparables = Stock.sector(stock_identifier, sic_code)
 				@sorted_comparables = @rough_comparables.where("? < mkt_cap < ?", stock_mkt_cap/5, stock_mkt_cap*5).all
 
 				!@sorted_comparables.empty? ? (return true) : (return false)
@@ -493,7 +503,7 @@ module ValuationGenerator
 
 		def get_cost_of_equity_capm
 			if @cost_of_equity_capm.nil?
-				@cost_of_equity_capm = @riskFreeRate + @regBeta * (get_exchange - @riskFreeRate)
+				@cost_of_equity_capm = @riskFreeRate + @threeYearBeta * (get_exchange - @riskFreeRate)
 
 				return true
 			else
@@ -520,41 +530,96 @@ module ValuationGenerator
 		
 
 		def get_exchange
-      if StockInfo.where(ticker_sign: self.stock_ticker).first.exchange == "NASDAQ"
+      if @stockProfile.exchange == "NASDAQ"
        	return @gwthRateNSDQ
       else
         return @gwthRateNYSE 
       end
     end
+
+  ## ================================  Delayed Jobs  ======================================
+
+  	def package_data
+			@hashPack = { 
+		  	"company_growth" => self.instance_variable_get(:@companyGrowth),
+		    "forward_dividend" => self.instance_variable_get(:@forwardDividendRate),
+		    "trailing_dividend" => self.instance_variable_get(:@trailingDividendRate),
+		    "tax_rate" => self.instance_variable_get(:@taxRate),
+		    "trade_name" => self.instance_variable_get(:@stockProfile).proper_name,
+		    "stock_ticker" => self.instance_variable_get(:@stock_ticker),
+		    "free_cash_flow" => self.instance_variable_get(:@freeCashFlow),
+		    "number_shares" => self.instance_variable_get(:@numShares),
+		    "pe_ratio" => self.instance_variable_get(:@PE_ratio),
+		    "beta" => self.instance_variable_get(:@threeYearBeta),
+		    "industry" => self.instance_variable_get(:@stockProfile).industry,
+		    "sic_code" => self.instance_variable_get(:@stockProfile).sic_code,
+		    "exchange" => self.instance_variable_get(:@stockProfile).exchange,
+		    "market_cap" => self.instance_variable_get(:@marketCap),
+		    "net_assets" => self.instance_variable_get(:@netAssets),
+		    "total_debt" => self.instance_variable_get(:@totalDebt),
+		    "stock_price" => self.instance_variable_get(:@current_stock_price),
+		   	"stockbot_price" => self.instance_variable_get(:@computed_share_value),
+		    "pe_value" => self.instance_variable_get(:@PE_Comparable_Valuation),
+		    "nav_value" => self.instance_variable_get(:@NAV_Valuation),
+		    "capm_value" => self.instance_variable_get(:@CAPM_Valuation),
+		    "wacc_value" => self.instance_variable_get(:@WACC_Valuation),
+		    "dividend_value" => self.instance_variable_get(:@Dividend_Valuation),
+		    "sentiment_value" => self.instance_variable_get(:@Sentiment_Valuation)
+			}
+  	end
+
+		def save_stock_data
+			data = @hashPack
+			if @databaseValues.nil?
+				Stock.delay.new_stock(data)
+			else
+				Stock.delay.update_stock(data)
+			end
+		end
+
+		def save_company_data
+			data = @hashPack
+			Company.delay.build_company(data)
+		end
+
 	end
+
+## ================================  User Input Mod  ====================================
 
 	class ModValue < Value
 
 		def compute_share_value(risk_free_mod, market_growth_mod)
-
 			if get_data
 
-				@composite_share_value = 0
-			  counter = 0
+				get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables ? (@PE_Comparable_Valuation = get_PE_ratio_comparable) : (@PE_Comparable_Valuation = nil)
 
-				get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables ? (@composite_share_value += method(:get_PE_ratio_comparable).call; counter += 1 ) : (@composite_share_value += 0)
+				get_assets && get_debt && get_num_shares ? (@NAV_Valuation = get_net_asset_value) : (@NAV_Valuation = nil)
 
-				get_assets && get_debt && get_num_shares ? (@composite_share_value += method(:get_net_asset_value).call; counter += 1 ) : (@composite_share_value += 0)
+				get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_cost_of_equity_capm ? (@CAPM_Valuation = get_fcf_value_capm) : (@CAPM_Valuation = nil)
+				
+				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_tax && get_cost_of_equity_capm ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
 
-				get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_cost_of_equity_capm ? (@composite_share_value += method(:get_fcf_value_capm).call; counter += 1 ) : (@composite_share_value += 0)
+				get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate ? (@Dividend_Valuation = get_dividend_value) : (@Dividend_Valuation = nil)
 
-				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_tax && get_cost_of_equity_capm ? (@composite_share_value += method(:get_fcf_value_wacc).call; counter += 1 ) : (@composite_share_value += 0)
+				get_Fiftyday_MA && get_50_MA_PRCT && get_bullish && get_bearish ? (@Sentiment_Valuation = get_sentiment_value) : (@Sentiment_Valuation = nil)
 
-				get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate ? (@composite_share_value += method(:get_dividend_value).call ; counter += 1 ) : (@composite_share_value += 0)
+				@composite_share_values = Array.new.push(@PE_Comparable_Valuation, @NAV_Valuation, @CAPM_Valuation, @WACC_Valuation, @Dividend_Valuation, @Sentiment_Valuation)
 
-				get_Fiftyday_MA && get_50_MA_PRCT && get_bullish && get_bearish ? (@composite_share_value += method(:get_sentiment_value).call ; counter += 1 ) : (@composite_share_value += 0)
+				if !@composite_share_values.empty?
 
-				@composite_share_value != 0 ? (@composite_share_value / counter) : (return false) 
+					@computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count
+
+					return @computed_share_value
+
+				else
+					return false
+				end
+
 			else 
 
 				return false
 
-			end
+			end	
 		end
 
 		def get_riskFreeRate(risk_free_mod)

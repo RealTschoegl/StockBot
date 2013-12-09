@@ -6,9 +6,15 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    require "#{Rails.root}/lib/modules/valuation_engine.rb"
-    @yearsConstant = ValuationEngine::Value.years_horizon
     @company = Company.find(params[:id])
+    !@company.current_stock_price.nil? ? @stock_price = (@company.current_stock_price).round(2) : @stock_price = "N/A"
+    !@company.composite_share_value.nil? ? @share_value = (@company.composite_share_value).round(2) : @share_value = "N/A"
+    !@company.PE_Comparable_Valuation.nil? ? @pe_value = (@company.PE_Comparable_Valuation).round(2) : @pe_value = "N/A"
+    !@company.NAV_Valuation.nil? ? @nav_value = (@company.NAV_Valuation).round(2) : @nav_value = "N/A"
+    !@company.CAPM_Valuation.nil? ? @capm_value = (@company.CAPM_Valuation).round(2) : @capm_value = "N/A"
+    !@company.WACC_Valuation.nil? ? @wacc_value = (@company.WACC_Valuation).round(2) : @wacc_value = "N/A"
+    !@company.Dividend_Valuation.nil? ? @dividend_value = (@company.Dividend_Valuation).round(2) : @dividend_value = "N/A"
+    !@company.Sentiment_Valuation.nil? ? @sentiment_value  = (@company.Sentiment_Valuation).round(2) : @sentiment_value = "N/A"
 
     render layout: "companies_show"
   end

@@ -15,115 +15,101 @@ body class="picker"
 			<i>#{@company.updated_at}</i>
 
 	h3 Company Info
-	table class="pure-u-2-3 pure-table pure-table-bordered"
-		thead
-			th
-				|
-					Company Name
-			th
-				|
-					Ticker Symbol
-			th
-				| 
-					Stock Exchange
-			th
-				|
-					Industry
-		tbody
-			tr
-				td
-					= @company.company_name
-				td
-					= @company.stock_ticker
-				td
-					= @company.exchange
-				td
-					= @company.industry
-			
-	h3 Basic Data
-	table class="pure-u-2-3 pure-table pure-table-bordered"
-		thead
-			th
-				|
-					Current Stock Price
-			th
-				|
-					Number Of Shares
-			th
-				|
-					PE Ratio
-			th
-				| 
-					Beta
-		tbody
-			tr
-				td
-					= @company.current_stock_price
-				td
-					= @company.num_shares
-				td 
-					= @company.PE_ratio
-				td
-	 				= @company.beta
+	div class="pure-g-r"
+		table class="pure-u-1-2 pure-table pure-table-bordered"
+			thead
+				th
+					|
+						Company Name
+				th
+					|
+						Ticker Symbol
+				th
+					| 
+						Stock Exchange
+				th
+					|
+						Industry
+				th
+					|
+						SIC Code
+			tbody
+				tr
+					td
+						= @company.company_name
+					td
+						= @company.stock_ticker
+					td
+						= @company.exchange
+					td
+						= @company.industry
+					td 
+						= @company.sic_code
 
-	h3 Constants
-	table class="pure-u-2-3 pure-table pure-table-bordered"
-	 	thead
-	 		th 
-	 			|
-	 				Time Horizon
-	 		th
-	 			| 
-	 				Risk Free Rate
-	 		th
-	 			| 
-	 				Market Growth Rate
-	 	tbody
-	 		tr
-		 		td
-		 			#{@yearsConstant} years 
-				td
-					#{@company.risk_free_rate * 100}%
-				td
-					#{(@company.market_growth_rate * 100).round(4)}%
-
-	h3 Computed Data
-	table class="pure-u-2-3 pure-table pure-table-bordered"
+	h3 The Result
+	table class="pure-u-1-2 pure-table pure-table-bordered"
 	 	thead
 	 		th
 	 			|
-	 			b	Cost of Equity:
+	 			b Market's Share Value:
 	 		th
 	 			|
-	 			b Free Cash Flow Share Valuation:
+	 			b	Our Share Value:
 	 		th
 	 			|
-	 			b CAPM Share Valuation:
-	 		th 
-	 			|
-	 			b Composite Share Valuation:
-	 		th
-	 			|
-	 			b Valuation Confidence:
+	 			b Confidence Level:
 	 	tbody
 	 		tr
 				td
-					= @company.cost_of_equity
+					= @stock_price
 				td 
-					= @company.fcf_share_value
+					= @share_value
 				td
-					= @company.capm_share_value
-				td
-					= @company.composite_share_value
-				td				
-					= companyComplete(@company)
+					- data = @company
+					= companyComplete(data)
 
-	h3 Actions
+	h3 The Breakdown
+	table class="pure-u-1 pure-table pure-table-bordered"
+	 	thead
+	 		th
+	 			|
+	 			b	PE Comparable:
+	 		th
+	 			|
+	 			b NAV Valuation:
+	 		th
+	 			|
+	 			b CAPM Valuation:
+	 		th
+	 			|
+	 			b WACC Valuation:
+	 		th
+	 			|
+	 			b Dividend Valuation:
+	 		th
+	 			|
+	 			b Sentiment Valuation:
+	 	tbody
+	 		tr
+				td
+					= @pe_value
+				td 
+					= @nav_value
+				td
+					= @capm_value
+				td
+					= @wacc_value
+				td
+				  = @dividend_value
+				td
+					= @sentiment_value
+
+	h3 Next
 	p
     |
     a href="https://us.etrade.com/home" target="_blank" class="pure-button pure-button-primary" Buy Shares 
     |
      &nbsp; &nbsp;
-	= link_to 'Back', companies_path, { :class=>"pure-button pure-button-primary" } 
+	= link_to 'Back To Companies List', companies_path, { :class=>"pure-button pure-button-primary" } 
 	p
 	

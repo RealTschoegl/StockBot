@@ -11,30 +11,42 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131112200809) do
+ActiveRecord::Schema.define(:version => 20131206173826) do
 
   create_table "companies", :force => true do |t|
     t.string   "stock_ticker"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.string   "company_name"
     t.float    "current_stock_price"
-    t.integer  "free_cash_flow"
-    t.integer  "num_shares"
-    t.float    "PE_ratio"
-    t.float    "beta"
-    t.float    "cost_of_equity"
-    t.float    "fcf_share_value"
-    t.float    "capm_share_value"
     t.float    "composite_share_value"
-    t.boolean  "complete"
     t.string   "slug"
     t.string   "industry"
     t.integer  "sic_code"
     t.string   "exchange"
-    t.float    "risk_free_rate"
-    t.float    "market_growth_rate"
+    t.float    "PE_Comparable_Valuation"
+    t.float    "NAV_Valuation"
+    t.float    "CAPM_Valuation"
+    t.float    "WACC_Valuation"
+    t.float    "Dividend_Valuation"
+    t.float    "Sentiment_Valuation"
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0, :null => false
+    t.integer  "attempts",   :default => 0, :null => false
+    t.text     "handler",                   :null => false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -68,20 +80,14 @@ ActiveRecord::Schema.define(:version => 20131112200809) do
   end
 
   create_table "stocks", :force => true do |t|
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "company"
     t.string   "stock_ticker"
-    t.float    "current_stock_price"
     t.integer  "free_cash_flow"
     t.integer  "num_shares"
     t.float    "PE_ratio"
     t.float    "beta"
-    t.float    "cost_of_equity_CAPM"
-    t.float    "fcf_share_value"
-    t.float    "capm_share_value"
-    t.float    "composite_share_value"
-    t.boolean  "complete"
     t.string   "industry"
     t.integer  "sic_code"
     t.string   "exchange"
@@ -92,9 +98,6 @@ ActiveRecord::Schema.define(:version => 20131112200809) do
     t.float    "forw_div_rate"
     t.float    "trail_div_rate"
     t.float    "eff_tax_rate"
-    t.float    "cost_of_equity_WACC"
-    t.float    "cost_of_debt"
-    t.float    "div_growth_rate"
   end
 
 end

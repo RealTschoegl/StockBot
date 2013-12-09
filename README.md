@@ -9,19 +9,17 @@ Tasks to complete:
 
 - [ ] Add backup values from other APIs
 
-- [ ] Revise completer method to cover new gaps and data sources
-
 - [ ] Change existing questions to jquery using AlloyUI 
 
 - [ ] Make defaults for values that take into account decimals and significant digits
 
 - [ ] Make Company show page responsive
 
-- [ ] Make Company show page reflect current state of data available
-
 - [ ] Create an API
 
 - [ ] Insert redirect screens between the index & picker as well as the picker & result pages
+
+- [ ] Change all asynchronous tasks to be handled by Resque 
 
 - [ ] Use a regression (statsample gem) on the stock sentiment data
 

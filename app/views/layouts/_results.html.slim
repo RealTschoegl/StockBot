@@ -25,8 +25,8 @@ div class="table_container"
           td 
             = firm.stock_ticker 
           td 
-            = firm.current_stock_price
+            = !firm.current_stock_price.nil? ? (firm.current_stock_price).round(2) : "N/A"
           td 
-            = firm.composite_share_value
+            = !firm.composite_share_value.nil? ? (firm.composite_share_value).round(2) : "N/A"
           td 
             = link_to 'More...', {action: "show", id: "#{firm.slug}"}, { :class=>"pure-button pure-button-active pure_button_small" } 
