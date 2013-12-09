@@ -475,16 +475,14 @@ module ValuationGenerator
 
 		def get_comparables
 			if @sorted_comparables.nil?
-
 				stock_mkt_cap = @marketCap
+
 				stock_identifier = @databaseValues.object_id
 				sic_code = @stockProfile.sic_code
 
 				@rough_comparables = Stock.sector(stock_identifier, sic_code)
-				@sorted_comparables = @rough_comparables.where("? < mkt_cap < ?", stock_mkt_cap/5, stock_mkt_cap*5).all
-
+				@sorted_comparables = @rough_comparables.where("mkt_cap > ? AND mkt_cap < ?", stock_mkt_cap/5, stock_mkt_cap*5).all
 				!@sorted_comparables.empty? ? (return true) : (return false)
-
 			else
 				return true
 			end
