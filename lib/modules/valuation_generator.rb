@@ -78,7 +78,7 @@ module ValuationGenerator
 		end
 
 		def get_fcf_value_wacc
-			@fcf_wacc_share_value = (@freeCashFlow / (@cost_of_equity_capm - @companyGrowth)) / @numShares
+			@fcf_wacc_share_value = (@freeCashFlow / (@cost_of_equity_wacc - @companyGrowth)) / @numShares
 
 		  return @fcf_wacc_share_value
 		end
