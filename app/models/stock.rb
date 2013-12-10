@@ -25,7 +25,7 @@ class Stock < ActiveRecord::Base
   end
 
   def self.update_stock(computed)
-    updated_stock = Stock.where(stock_ticker: computed.stock_ticker).first
+    updated_stock = Stock.where(stock_ticker: computed["stock_ticker"]).first
 
     updated_stock.mkt_cap = computed["market_cap"]
     updated_stock.assets = computed["net_assets"]

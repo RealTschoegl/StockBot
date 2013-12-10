@@ -33,7 +33,7 @@ class Company < ActiveRecord::Base
 
       new_company.save
     else
-      update_company = Company.where(:stock_ticker => computed.stock_ticker).first
+      update_company = Company.where(:stock_ticker => computed["stock_ticker"]).first
 
       update_company.stock_ticker = computed["stock_ticker"]
       update_company.current_stock_price = computed["stock_price"]
