@@ -221,7 +221,7 @@ module ValuationGenerator
 		def get_free_cash_flow
 			if @freeCashFlow.nil?
 				if !@yahooKeyStats["OperatingCashFlow"]["content"].nil?
-					@freeCashFlow = @yahooKeyStats["OperatingCashFlow"]["content"].to_f
+					@freeCashFlow = (@yahooKeyStats["OperatingCashFlow"]["content"].to_f).to_i
 				elsif @databaseValues.respond_to?("free_cash_flow") && !@databaseValues["free_cash_flow"].nil?
 					@freeCashFlow = @databaseValues["free_cash_flow"]
 				else
@@ -291,7 +291,7 @@ module ValuationGenerator
 		def get_debt
 			if @totalDebt.nil?
 				if !@quandlStockData["Total Debt"].nil?
-					@totalDebt = @quandlStockData["Total Debt"].to_f * 1_000_000
+					@totalDebt = (@quandlStockData["Total Debt"].to_f * 1_000_000).to_i
 				elsif @databaseValues.respond_to?("debt") && !@databaseValues["debt"].nil?
 					@totalDebt = @databaseValues["debt"]
 				else
