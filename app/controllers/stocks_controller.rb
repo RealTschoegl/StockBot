@@ -21,7 +21,8 @@ class StocksController < ApplicationController
     @picked_stock = ValuationGenerator::Value.new("#{@stock_symbol_name}")
 
     # Public: This calls the compute_stock_price method on the Value object, picked_stock, and assigns the float value that the method generates to the variable @our_stock_price.  It only does this if @picked_stock can be used in a valuation.
-    @our_stock_price = '%.2f' % @picked_stock.compute_share_value 
+    val = @picked_stock.compute_share_value
+    val ? @our_stock_price = '%.2f' % val : (return false)
     
   end
 
