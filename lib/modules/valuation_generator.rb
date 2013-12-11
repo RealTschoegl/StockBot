@@ -41,8 +41,7 @@ module ValuationGenerator
 				!@composite_share_values.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
 				package_data
-				save_stock_data
-				save_company_data
+				BackgroundWorker.perform_async(@hashPack)
 
 				return @computed_share_value
 				
@@ -565,20 +564,6 @@ module ValuationGenerator
 		    "sentiment_value" => self.instance_variable_get(:@Sentiment_Valuation)
 			}
   	end
-
-		def save_stock_data
-			data = @hashPack
-			if @databaseValues.nil?
-				Stock.new_stock(data)
-			else
-				Stock.update_stock(data)
-			end
-		end
-
-		def save_company_data
-			data = @hashPack
-			Company.build_company(data)
-		end
 
 	end
 

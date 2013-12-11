@@ -18,7 +18,8 @@ gem 'fog'
 gem 'redis'
 gem 'typhoeus'
 gem 'chronic'
-gem "delayed_job_active_record"
+gem 'sidekiq'
+gem 'autoscaler'
 
 group :development, :test do
   gem 'sqlite3'
