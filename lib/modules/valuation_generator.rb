@@ -511,11 +511,8 @@ module ValuationGenerator
 
 		def get_cost_of_equity_wacc
 			if @cost_of_equity_wacc.nil?
-binding.pry
 				total = @marketCap + @totalDebt
-binding.pry
 				@cost_of_equity_wacc = ((@marketCap) / (total) * @cost_of_equity_capm) + (((@totalDebt) / (total)) * @cost_of_debt * (1 - @taxRate))
-binding.pry
 			else
 				return true
 			end
