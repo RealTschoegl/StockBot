@@ -594,8 +594,8 @@ module ValuationGenerator
 				get_assets && get_debt && get_num_shares ? (@NAV_Valuation = get_net_asset_value) : (@NAV_Valuation = nil)
 
 				get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_cost_of_equity_capm ? (@CAPM_Valuation = get_fcf_value_capm) : (@CAPM_Valuation = nil)
-				
-				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_tax && get_cost_of_equity_capm && get_cost_of_debt ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
+
+				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_tax && get_cost_of_debt && get_cost_of_equity_capm && get_cost_of_equity_wacc ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
 
 				get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate ? (@Dividend_Valuation = get_dividend_value) : (@Dividend_Valuation = nil)
 
