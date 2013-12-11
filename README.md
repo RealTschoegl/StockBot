@@ -5,6 +5,8 @@ This is an application that takes user inputs in real language and puts them int
 
 Tasks to complete:
 
+- [ ] Refactor ValuationGenerator to simplify getting equation variables
+
 - [ ] Add more valuation methods using comparables
 
 - [ ] Add backup values from other APIs
