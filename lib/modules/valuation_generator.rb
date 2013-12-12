@@ -4,7 +4,7 @@
 
 ## =================	  Notes   ===============================
 
-#  1 - Link: require "#{Rails.root}/lib/modules/valuation_generator.rb"
+#  1 - Link: load "#{Rails.root}/lib/modules/valuation_generator.rb"
 
 module ValuationGenerator
 
@@ -24,19 +24,19 @@ module ValuationGenerator
 
 			if get_data
 
-				pe_comp_val_kosher? ? (@PE_Comparable_Valuation = get_PE_ratio_comparable) : (@PE_Comparable_Valuation = nil)
+				@composite_share_values = []
 
-				nav_val_kosher? ? (@NAV_Valuation = get_net_asset_value) : (@NAV_Valuation = nil)
+				pe_comp_val_kosher? ? @composite_share_values << (@PE_Comparable_Valuation = get_PE_ratio_comparable) : @composite_share_values << (@PE_Comparable_Valuation = nil)
 
-				capm_val_kosher? ? (@CAPM_Valuation = get_fcf_value_capm) : (@CAPM_Valuation = nil)
+				nav_val_kosher? ? @composite_share_values << (@NAV_Valuation = get_net_asset_value) : @composite_share_values << (@NAV_Valuation = nil)
+
+				capm_val_kosher? ? @composite_share_values << (@CAPM_Valuation = get_fcf_value_capm) : @composite_share_values << (@CAPM_Valuation = nil)
 				
-				wacc_val_kosher? ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
+				wacc_val_kosher? ? @composite_share_values << (@WACC_Valuation = get_fcf_value_wacc) : @composite_share_values << (@WACC_Valuation = nil)
 
-				dividend_val_kosher? ? (@Dividend_Valuation = get_dividend_value) : (@Dividend_Valuation = nil)
+				dividend_val_kosher? ? @composite_share_values << (@Dividend_Valuation = get_dividend_value) : @composite_share_values << (@Dividend_Valuation = nil)
 
-				sentiment_val_kosher? ? (@Sentiment_Valuation = get_sentiment_value) : (@Sentiment_Valuation = nil)
-
-				@composite_share_values = Array.new.push(@PE_Comparable_Valuation, @NAV_Valuation, @CAPM_Valuation, @WACC_Valuation, @Dividend_Valuation, @Sentiment_Valuation)
+				sentiment_val_kosher? ? @composite_share_values << (@Sentiment_Valuation = get_sentiment_value) : @composite_share_values << (@Sentiment_Valuation = nil)
 
 				!@composite_share_values.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
@@ -602,19 +602,19 @@ module ValuationGenerator
 		def compute_share_value(risk_free_mod, market_growth_mod)
 			if get_data
 
-				pe_comp_val_kosher? ? (@PE_Comparable_Valuation = get_PE_ratio_comparable) : (@PE_Comparable_Valuation = nil)
+				@composite_share_values = []
 
-				nav_val_kosher? ? (@NAV_Valuation = get_net_asset_value) : (@NAV_Valuation = nil)
+				pe_comp_val_kosher? ? @composite_share_values << (@PE_Comparable_Valuation = get_PE_ratio_comparable) : @composite_share_values << (@PE_Comparable_Valuation = nil)
 
-				capm_val_kosher?(risk_free_mod, market_growth_mod) ? (@CAPM_Valuation = get_fcf_value_capm) : (@CAPM_Valuation = nil)
+				nav_val_kosher? ? @composite_share_values << (@NAV_Valuation = get_net_asset_value) : @composite_share_values << (@NAV_Valuation = nil)
 
-				wacc_val_kosher?(risk_free_mod, market_growth_mod) ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
+				capm_val_kosher?(risk_free_mod, market_growth_mod) ? @composite_share_values << (@CAPM_Valuation = get_fcf_value_capm) : @composite_share_values << (@CAPM_Valuation = nil)
 
-				dividend_val_kosher? ? (@Dividend_Valuation = get_dividend_value) : (@Dividend_Valuation = nil)
+				wacc_val_kosher?(risk_free_mod, market_growth_mod) ? @composite_share_values << (@WACC_Valuation = get_fcf_value_wacc) : @composite_share_values << (@WACC_Valuation = nil)
 
-				sentiment_val_kosher? ? (@Sentiment_Valuation = get_sentiment_value) : (@Sentiment_Valuation = nil)
+				dividend_val_kosher? ? @composite_share_values << (@Dividend_Valuation = get_dividend_value) : @composite_share_values << (@Dividend_Valuation = nil)
 
-				@composite_share_values = Array.new.push(@PE_Comparable_Valuation, @NAV_Valuation, @CAPM_Valuation, @WACC_Valuation, @Dividend_Valuation, @Sentiment_Valuation)
+				sentiment_val_kosher? ? @composite_share_values << (@Sentiment_Valuation = get_sentiment_value) : @composite_share_values << (@Sentiment_Valuation = nil)
 
 				if !@composite_share_values.empty?
 
