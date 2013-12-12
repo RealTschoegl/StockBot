@@ -41,7 +41,7 @@ module ValuationGenerator
 				!@composite_share_values.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
 				package_data
-				# BackgroundWorker.perform_async(@hashPack)
+				BackgroundWorker.perform_async(@hashPack)
 
 				return @computed_share_value
 				
