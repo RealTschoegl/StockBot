@@ -41,7 +41,7 @@ module ValuationGenerator
 				!@composite_share_values.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
 				package_data
-				BackgroundWorker.perform_async(@hashPack)
+				# BackgroundWorker.perform_async(@hashPack)
 
 				return @computed_share_value
 				
@@ -537,7 +537,7 @@ module ValuationGenerator
 		def get_cost_of_equity_wacc
 			if @cost_of_equity_wacc.nil?
 				total = @marketCap + @totalDebt
-				@cost_of_equity_wacc = ((@marketCap) / (total) * @cost_of_equity_capm) + (((@totalDebt) / (total)) * @cost_of_debt * (1 - @taxRate))
+				total != 0 ? @cost_of_equity_wacc = ((@marketCap) / (total) * @cost_of_equity_capm) + (((@totalDebt) / (total)) * @cost_of_debt * (1 - @taxRate)) : (return false)
 			else
 				return true
 			end
@@ -597,20 +597,22 @@ module ValuationGenerator
 
 	class ModValue < Value
 
+		## =================    The Call   ============================
+
 		def compute_share_value(risk_free_mod, market_growth_mod)
 			if get_data
 
-				get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables ? (@PE_Comparable_Valuation = get_PE_ratio_comparable) : (@PE_Comparable_Valuation = nil)
+				pe_comp_val_kosher? ? (@PE_Comparable_Valuation = get_PE_ratio_comparable) : (@PE_Comparable_Valuation = nil)
 
-				get_assets && get_debt && get_num_shares ? (@NAV_Valuation = get_net_asset_value) : (@NAV_Valuation = nil)
+				nav_val_kosher? ? (@NAV_Valuation = get_net_asset_value) : (@NAV_Valuation = nil)
 
-				get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_cost_of_equity_capm ? (@CAPM_Valuation = get_fcf_value_capm) : (@CAPM_Valuation = nil)
+				capm_val_kosher?(risk_free_mod, market_growth_mod) ? (@CAPM_Valuation = get_fcf_value_capm) : (@CAPM_Valuation = nil)
 
-				get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_tax && get_cost_of_debt && get_cost_of_equity_capm && get_cost_of_equity_wacc ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
+				wacc_val_kosher?(risk_free_mod, market_growth_mod) ? (@WACC_Valuation = get_fcf_value_wacc) : (@WACC_Valuation = nil)
 
-				get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate ? (@Dividend_Valuation = get_dividend_value) : (@Dividend_Valuation = nil)
+				dividend_val_kosher? ? (@Dividend_Valuation = get_dividend_value) : (@Dividend_Valuation = nil)
 
-				get_Fiftyday_MA && get_50_MA_PRCT && get_bullish && get_bearish ? (@Sentiment_Valuation = get_sentiment_value) : (@Sentiment_Valuation = nil)
+				sentiment_val_kosher? ? (@Sentiment_Valuation = get_sentiment_value) : (@Sentiment_Valuation = nil)
 
 				@composite_share_values = Array.new.push(@PE_Comparable_Valuation, @NAV_Valuation, @CAPM_Valuation, @WACC_Valuation, @Dividend_Valuation, @Sentiment_Valuation)
 
@@ -630,6 +632,34 @@ module ValuationGenerator
 
 			end	
 		end
+
+		## ===============  Equation Pre-Requisites  ==================
+
+		def pe_comp_val_kosher?
+	  	get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables
+	  end
+
+	  def nav_val_kosher?
+	  	get_assets && get_debt && get_num_shares
+	  end
+
+	  def capm_val_kosher?(risk_free_mod, market_growth_mod)
+	  	get_free_cash_flow && get_company_growth && get_num_shares && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_cost_of_equity_capm
+	  end
+
+	  def wacc_val_kosher?(risk_free_mod, market_growth_mod)
+	  	get_free_cash_flow && get_company_growth && get_num_shares && get_market_cap && get_debt && get_250_MA_PRCT && get_hy_rate && get_ig_rate && get_riskFreeRate(risk_free_mod) && get_beta && get_mktGrwthRateNSDQ(market_growth_mod) && get_mktGrwthRateNYSE(market_growth_mod) && get_tax && get_cost_of_debt && get_cost_of_equity_capm && get_cost_of_equity_wacc
+	  end
+
+	  def dividend_val_kosher?
+	  	get_forward_dividend_rate && get_trailing_dividend_rate && get_overnightDiscountRate && get_dividend_growth_rate
+	  end
+
+	  def sentiment_val_kosher?
+	  	 get_Fiftyday_MA && get_50_MA_PRCT && get_bullish && get_bearish
+	  end
+
+	  ## ===============  Basic Variables  ==========================
 
 		def get_riskFreeRate(risk_free_mod)
 			if @riskFreeRate.nil?
