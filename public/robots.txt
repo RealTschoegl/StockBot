@@ -1,7 +1,1 @@
-# See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
-#
-# To ban all spiders from the entire site uncomment the next two lines:
-# User-Agent: *
-# Disallow: /
-
-Sitemap: https://s3-us-west-2.amazonaws.com/#{ENV['FOG_DIRECTORY']}/sitemaps/sitemap.xml.gz
+Sitemap: https://stockbot-sitemaps.s3-us-west-2.amazonaws.com/sitemaps/sitemap.xml.gz
