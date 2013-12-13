@@ -4,4 +4,4 @@
 # User-Agent: *
 # Disallow: /
 
-Sitemap: https://s3-us-west-2.amazonaws.com/stockbot-sitemaps/sitemaps/sitemap.xml.gz
+Sitemap: http://www.stockbot.io/sitemaps/sitemap.xml.gz
