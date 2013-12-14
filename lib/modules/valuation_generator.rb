@@ -38,11 +38,11 @@ module ValuationGenerator
 
 				sentiment_val_kosher? ? @composite_share_values << (@Sentiment_Valuation = get_sentiment_value) : @composite_share_values << (@Sentiment_Valuation = nil)
 
-				!@composite_share_values.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
+				!@composite_share_values.compact.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
 				package_data
-				BackgroundWorker.perform_async(@hashPack)
-
+				# BackgroundWorker.perform_async(@hashPack)
+binding.pry
 				return @computed_share_value
 				
 			else 
@@ -203,7 +203,7 @@ module ValuationGenerator
 
 		def get_forward_dividend_rate
 			if @forwardDividendRate.nil?
-				if !@yahooKeyStats["ForwardAnnualDividendRate"].nil?
+				if !@yahooKeyStats.nil? && @yahooKeyStats.has_key?("ForwardAnnualDividendRate") && !@yahooKeyStats["ForwardAnnualDividendRate"].nil?
 					@forwardDividendRate = @yahooKeyStats["ForwardAnnualDividendRate"].to_f
 				elsif @databaseValues.respond_to?("forw_div_rate") && !@databaseValues["forw_div_rate"].nil?
 					@forwardDividendRate = @databaseValues["forw_div_rate"]
@@ -217,7 +217,7 @@ module ValuationGenerator
 
 		def get_trailing_dividend_rate
 			if @trailingDividendRate.nil?
-				if !@yahooKeyStats["TrailingAnnualDividendYield"][0].nil?
+				if !@yahooKeyStats.nil? && @yahooKeyStats.fetch("TrailingAnnualDividendYield")[0] && !@yahooKeyStats["TrailingAnnualDividendYield"][0].nil?
 					@trailingDividendRate = @yahooKeyStats["TrailingAnnualDividendYield"][0].to_f
 				elsif @databaseValues.respond_to?("trail_div_rate") && !@databaseValues["trail_div_rate"].nil?
 					@trailingDividendRate = @databaseValues["trail_div_rate"]
@@ -231,9 +231,9 @@ module ValuationGenerator
 
 		def get_num_shares
 			if @numShares.nil?
-				if !@yahooKeyStats["Float"].nil?
+				if !@yahooKeyStats.nil? && @yahooKeyStats.has_key?("Float") && !@yahooKeyStats["Float"].nil?
 					@numShares = @yahooKeyStats["Float"].to_i
-				elsif !@databaseValues["num_shares"].nil?
+				elsif @databaseValues.respond_to?("num_shares") && !@databaseValues["num_shares"].nil?
 					@numShares = @databaseValues["num_shares"]
 				else
 					return @numShares = nil
@@ -245,7 +245,7 @@ module ValuationGenerator
 
 		def get_free_cash_flow
 			if @freeCashFlow.nil?
-				if !@yahooKeyStats["OperatingCashFlow"]["content"].nil?
+				if !@yahooKeyStats.nil? && @yahooKeyStats.fetch("OperatingCashFlow")["content"] && !@yahooKeyStats["OperatingCashFlow"]["content"].nil?
 					@freeCashFlow = (@yahooKeyStats["OperatingCashFlow"]["content"].to_f).to_i
 				elsif @databaseValues.respond_to?("free_cash_flow") && !@databaseValues["free_cash_flow"].nil?
 					@freeCashFlow = @databaseValues["free_cash_flow"]
@@ -259,7 +259,7 @@ module ValuationGenerator
 
 		def get_company_growth
 			if @companyGrowth.nil?
-				if !@quandlStockData["Expected Growth in Earnings Per Share"].nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("Expected Growth in Earnings Per Share") && !@quandlStockData["Expected Growth in Earnings Per Share"].nil?
 					@companyGrowth = @quandlStockData["Expected Growth in Earnings Per Share"].to_f
 				elsif @databaseValues.respond_to?("earnings_growth") && !@databaseValues["earnings_growth"].nil?
 					@companyGrowth = @databaseValues["earnings_growth"]
@@ -273,7 +273,7 @@ module ValuationGenerator
 
 		def get_PE_ratio
 			if @PE_ratio.nil?
-				if !@quandlStockData["Trailing PE Ratio"].nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("Trailing PE Ratio") && !@quandlStockData["Trailing PE Ratio"].nil?
 					@PE_ratio = @quandlStockData["Trailing PE Ratio"].to_f
 				elsif @databaseValues.respond_to?("PE_ratio") && !@databaseValues["PE_ratio"].nil?
 					@PE_ratio = @databaseValues["PE_ratio"]
@@ -287,7 +287,7 @@ module ValuationGenerator
 
 		def get_assets
 			if @netAssets.nil?
-				if !@quandlStockData["Book Value of Assets"].nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("Book Value of Assets") && !@quandlStockData["Book Value of Assets"].nil?
 					@netAssets = @quandlStockData["Book Value of Assets"].to_i * 1_000_000
 				elsif @databaseValues.respond_to?("assets") && !@databaseValues["assets"].nil?
 					@netAssets = @databaseValues["assets"]
@@ -301,7 +301,7 @@ module ValuationGenerator
 
 		def get_beta
 			if @threeYearBeta.nil?
-				if !@quandlStockData["3-Year Regression Beta"].nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("3-Year Regression Beta") && !@quandlStockData["3-Year Regression Beta"].nil?
 					@threeYearBeta = @quandlStockData["3-Year Regression Beta"].to_f
 				elsif @databaseValues.respond_to?("beta") && !@databaseValues["beta"].nil?
 					@threeYearBeta = @databaseValues["beta"]
@@ -315,7 +315,7 @@ module ValuationGenerator
 
 		def get_debt
 			if @totalDebt.nil?
-				if !@quandlStockData["Total Debt"].nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("Total Debt") && !@quandlStockData["Total Debt"].nil?
 					@totalDebt = (@quandlStockData["Total Debt"].to_f * 1_000_000).to_i
 				elsif @databaseValues.respond_to?("debt") && !@databaseValues["debt"].nil?
 					@totalDebt = @databaseValues["debt"]
@@ -329,7 +329,7 @@ module ValuationGenerator
 
 		def get_tax
 			if @taxRate.nil?
-				if !@quandlStockData["Effective Tax Rate"].nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("Effective Tax Rate") && @quandlStockData["Effective Tax Rate"].nil?
 					@taxRate = @quandlStockData["Effective Tax Rate"].to_f
 				elsif @databaseValues.respond_to?("eff_tax_rate") && !@databaseValues["eff_tax_rate"].nil?
 					@taxRate = @databaseValues["eff_tax_rate"]
@@ -343,7 +343,7 @@ module ValuationGenerator
 		
 		def get_market_cap
 			if @marketCap.nil?
-				if !@quandlStockData["Market Capitalization"].nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("Market Capitalization") && !@quandlStockData["Market Capitalization"].nil?
 					@marketCap = @quandlStockData["Market Capitalization"].to_i
 				elsif @databaseValues.respond_to?("mkt_cap") && !@databaseValues["mkt_cap"].nil?
 					@marketCap = @databaseValues["mkt_cap"]
@@ -357,7 +357,7 @@ module ValuationGenerator
 
 		def get_Fiftyday_MA
 			if @Fiftyday_MA.nil?
-				!@yahooQuote["FiftydayMovingAverage"].nil? ? @Fiftyday_MA = @yahooQuote["FiftydayMovingAverage"].to_f : @Fiftyday_MA = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("FiftydayMovingAverage") && !@yahooQuote["FiftydayMovingAverage"].nil? ? @Fiftyday_MA = @yahooQuote["FiftydayMovingAverage"].to_f : @Fiftyday_MA = nil
 			else
 				return true
 			end
@@ -365,7 +365,7 @@ module ValuationGenerator
 
 		def get_50_MA_PRCT
 			if @Fifty_MA_PRCT.nil?
-				!@yahooQuote["PercentChangeFromFiftydayMovingAverage"].nil? ? @Fifty_MA_PRCT = (@yahooQuote["PercentChangeFromFiftydayMovingAverage"].to_f / 100) : @Fifty_MA_PRCT = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("PercentChangeFromFiftydayMovingAverage") && !@yahooQuote["PercentChangeFromFiftydayMovingAverage"].nil? ? @Fifty_MA_PRCT = (@yahooQuote["PercentChangeFromFiftydayMovingAverage"].to_f / 100) : @Fifty_MA_PRCT = nil
 			else
 				return true
 			end
@@ -373,7 +373,7 @@ module ValuationGenerator
 
 		def get_250_MA_PRCT
 			if @TwoFifty_MA_PRCT.nil?
-				!@yahooQuote["PercentChangeFromTwoHundreddayMovingAverage"].nil? ? @TwoFifty_MA_PRCT = @yahooQuote["PercentChangeFromTwoHundreddayMovingAverage"].to_f : @TwoFifty_MA_PRCT = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("PercentChangeFromTwoHundreddayMovingAverage") && !@yahooQuote["PercentChangeFromTwoHundreddayMovingAverage"].nil? ? @TwoFifty_MA_PRCT = @yahooQuote["PercentChangeFromTwoHundreddayMovingAverage"].to_f : @TwoFifty_MA_PRCT = nil
 			else
 				return true
 			end
@@ -381,7 +381,7 @@ module ValuationGenerator
 
 		def get_ask
 			if @priceAsk.nil?
-				!@yahooQuote["Ask"].nil? ? @priceAsk = @yahooQuote["Ask"].to_f : @priceAsk = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("Ask") && !@yahooQuote["Ask"].nil? ? @priceAsk = @yahooQuote["Ask"].to_f : @priceAsk = nil
 			else
 				return true
 			end
@@ -389,7 +389,7 @@ module ValuationGenerator
 
 		def get_bid
 			if @priceBid.nil?
-				!@yahooQuote["Bid"].nil? ? @priceBid = @yahooQuote["Bid"].to_f : @priceBid = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("Bid") && !@yahooQuote["Bid"].nil? ? @priceBid = @yahooQuote["Bid"].to_f : @priceBid = nil
 			else
 				return true
 			end
@@ -397,7 +397,7 @@ module ValuationGenerator
 
 		def get_low
 			if @priceLow.nil?
-				!@yahooQuote["DaysLow"].nil? ? @priceLow = @yahooQuote["DaysLow"].to_f : @priceLow = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("DaysLow") && !@yahooQuote["DaysLow"].nil? ? @priceLow = @yahooQuote["DaysLow"].to_f : @priceLow = nil
 			else
 				return true
 			end
@@ -405,7 +405,7 @@ module ValuationGenerator
 
 		def get_high
 			if @priceHigh.nil?
-				!@yahooQuote["DaysHigh"].nil? ? @priceHigh = @yahooQuote["DaysHigh"].to_f : @priceHigh = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("DaysHigh") && !@yahooQuote["DaysHigh"].nil? ? @priceHigh = @yahooQuote["DaysHigh"].to_f : @priceHigh = nil
 			else
 				return true
 			end
@@ -413,7 +413,7 @@ module ValuationGenerator
 
 		def get_last
 			if @priceLast.nil?
-				!@yahooQuote["LastTradePriceOnly"].nil? ? @priceLast = @yahooQuote["LastTradePriceOnly"].to_f : @priceLast = nil
+				!@yahooQuote.nil? && @yahooQuote.has_key?("LastTradePriceOnly") && !@yahooQuote["LastTradePriceOnly"].nil? ? @priceLast = @yahooQuote["LastTradePriceOnly"].to_f : @priceLast = nil
 			else
 				return true
 			end

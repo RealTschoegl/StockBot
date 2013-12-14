@@ -19,8 +19,6 @@ Tasks to complete:
 
 - [ ] Insert redirect screens between the index & picker as well as the picker & result pages
 
-- [ ] Change all asynchronous tasks to be handled by Resque 
-
 - [ ] Use a regression (statsample gem) on the stock sentiment data
 
 - [ ] Use machine learning to adjust the weights on the ValueGenerator model

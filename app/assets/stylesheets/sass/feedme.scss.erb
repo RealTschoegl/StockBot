@@ -54,6 +54,12 @@ body.picker {
   @include body-position;
 }
 
+body.company_picker {
+  margin: auto; /* center in viewport */
+  width: 80%;
+  margin-top: 10%;
+}
+
 /*A wrapper for the body content in the results view*/
 body.results {
   @include body-position;
@@ -191,6 +197,10 @@ input[type="text"]#companies_search {
 /*For all non-mobile viewports */
 @media (min-width: 767px) {
   $input_width_2: 27%;
+
+  body.company_picker {
+    margin-top: 4%;
+  }
 
   .sidebar_right {
     top: 0;
