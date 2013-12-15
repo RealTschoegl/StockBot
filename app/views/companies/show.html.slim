@@ -8,108 +8,129 @@ body class="company_picker"
 		|
 			&nbsp; (#{@company.stock_ticker})
 	hr
-	p 
+	p class="generic_small"
+		|
+			&nbsp; &nbsp;
 		|
 			<i>Last updated: &nbsp; </i>
 		|
 			<i>#{@company.updated_at}</i>
 
-	h3 Company Info
 	div class="pure-g-r"
-		table class="pure-u-1-2 pure-table pure-table-bordered"
-			thead
-				th
-					|
-						Company Name
-				th
-					|
-						Ticker Symbol
-				th
-					| 
-						Stock Exchange
-				th
-					|
-						Industry
-				th
-					|
-						SIC Code
-			tbody
-				tr
-					td
-						= @company.company_name
-					td
-						= @company.stock_ticker
-					td
-						= @company.exchange
-					td
-						= @company.industry
-					td 
-						= @company.sic_code
+		div class="pure-u-1-2"
+			h3 Company Info
+			div class="table_container"
+					table class="pure-table pure-table-bordered"
+						thead
+							th
+								|
+									Company Name
+							th
+								|
+									Ticker Symbol
+							th
+								| 
+									Stock Exchange
+							th
+								|
+									Industry
+							th
+								|
+									SIC Code
+						tbody
+							tr
+								td
+									= @company.company_name
+								td
+									= @company.stock_ticker
+								td
+									= @company.exchange
+								td
+									= @company.industry
+								td 
+									= @company.sic_code
 
-	h3 The Result
-	table class="pure-u-1-2 pure-table pure-table-bordered"
-	 	thead
-	 		th
-	 			|
-	 			b Market's Share Value:
-	 		th
-	 			|
-	 			b	Our Share Value:
-	 		th
-	 			|
-	 			b Confidence Level:
-	 	tbody
-	 		tr
-				td
-					= @stock_price
-				td 
-					= @share_value
-				td
-					- data = @company
-					= companyComplete(data)
+			h3 The Result
+			div class="table_container"
+				table class="pure-table pure-table-bordered"
+				 	thead
+				 		th
+				 			|
+				 			b Market's Share Value:
+				 		th
+				 			|
+				 			b	Our Share Value:
+				 		th
+				 			|
+				 			b Confidence Level:
+				 	tbody
+				 		tr
+							td
+								= @stock_price
+							td 
+								= @share_value
+							td
+								- data = @company
+								= companyComplete(data)
 
-	h3 The Breakdown
-	table class="pure-u-1 pure-table pure-table-bordered"
-	 	thead
-	 		th
-	 			|
-	 			b	PE Comparable:
-	 		th
-	 			|
-	 			b NAV Valuation:
-	 		th
-	 			|
-	 			b CAPM Valuation:
-	 		th
-	 			|
-	 			b WACC Valuation:
-	 		th
-	 			|
-	 			b Dividend Valuation:
-	 		th
-	 			|
-	 			b Sentiment Valuation:
-	 	tbody
-	 		tr
-				td
-					= @pe_value
-				td 
-					= @nav_value
-				td
-					= @capm_value
-				td
-					= @wacc_value
-				td
-				  = @dividend_value
-				td
-					= @sentiment_value
+			h3 Next
+			p
+		    |
+		    a href="https://us.etrade.com/home" target="_blank" class="pure-button pure-button-primary" Buy Shares 
+		    |
+		     &nbsp; &nbsp;
+		  	p
+				= link_to 'Back To Companies List', companies_path, { :class=>"pure-button pure-button-primary" } 
+			p
 
-	h3 Next
-	p
-    |
-    a href="https://us.etrade.com/home" target="_blank" class="pure-button pure-button-primary" Buy Shares 
-    |
-     &nbsp; &nbsp;
-	= link_to 'Back To Companies List', companies_path, { :class=>"pure-button pure-button-primary" } 
-	p
-	
+		div class="pure-u-1-2"
+			div class="pure_margin_s"
+				h3 The Breakdown
+				div class="table_container"
+					table class="pure-table pure-table-horizontal"
+					 	thead
+					 		th
+					 			|
+					 			b Measure
+					 		th
+					 			|
+					 			b Result
+					 	tbody
+					 		tr
+					 			td
+					 				|
+					 				b PE Comparable:
+								td
+									= @pe_value
+							tr
+								td
+									|
+									b NAV Valuation:
+								td 
+									= @nav_value
+							tr
+								td
+									|
+					 				b CAPM Valuation:
+								td
+									= @capm_value
+							tr
+								td
+									|
+									b WACC Valuation:
+								td
+									= @wacc_value
+							tr
+								td
+									|
+						 			b Dividend Valuation:
+								td
+								  = @dividend_value
+							tr
+								td
+									|
+									b Sentiment Valuation:
+								td
+									= @sentiment_value
+	p &nbsp;
+		

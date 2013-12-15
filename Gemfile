@@ -20,6 +20,7 @@ gem 'typhoeus'
 gem 'chronic'
 gem 'sidekiq'
 gem 'autoscaler'
+gem 'tradier'
 
 group :development, :test do
   gem 'sqlite3'

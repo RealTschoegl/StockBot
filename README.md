@@ -9,11 +9,11 @@ Tasks to complete:
 
 - [ ] Add backup values from other APIs
 
+- [ ] Use another API for stock-prices
+
 - [ ] Change existing questions to jquery using AlloyUI 
 
 - [ ] Make defaults for values that take into account decimals and significant digits
-
-- [ ] Make Company show page responsive
 
 - [ ] Create an API
 
@@ -22,6 +22,8 @@ Tasks to complete:
 - [ ] Use a regression (statsample gem) on the stock sentiment data
 
 - [ ] Use machine learning to adjust the weights on the ValueGenerator model
+
+- [ ] Add a proper sidebar with tabs for Stockbot stuff, Company stuff, and the API
 
 
 				
