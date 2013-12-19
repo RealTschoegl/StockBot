@@ -70,6 +70,8 @@ body class="picker"
 
 			input type="hidden" id="hiddenField" name="mod_stock_fullSymbol" value="#{@stock_symbol_name}"
 
+			input type="hidden" id="hiddenField" name="mod_stock_dial" value=""
+
 			p
 				|
 				button class="pure-button pure-button-primary" type="submit" Submit
@@ -105,8 +107,22 @@ javascript:
 	        max:720,
 	        stepsPerRevolution:100,
 	        value: 30,
+	        strings:{label:'Drag To Set'}
 	    });
 	    dial.render("#demo");
+
+	    function updateInput( e ){
+	        var val = e.newVal;
+	        if ( isNaN( val ) ) {
+	            // Not a valid number.
+	            return;
+	        }
+	        this.set( "value", val );
+	    }
+
+	    var theInput = Y.one(document.getElementsByName("mod_stock_dial")[0]);
+	    // Subscribe to the Dial's valueChange event, passing the input as the 'this'
+	    dial.on("valueChange", updateInput, theInput);
 
 	});
 
