@@ -3,14 +3,14 @@ html
   head
   	title =yield(:title)
 
-    meta name="description" content="StockBot's stock lookup tool helps ordinary investors get customized stock values and compares those valuations to current stock prices."
     meta charset="UTF-8"
+    meta name="description" content="StockBot's stock lookup tool helps ordinary investors get customized stock values and compares those valuations to current stock prices."
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     meta name="keywords" content="Stock Values,Stock Prices,Stock Lookup,"
     meta name="author" content="Matthew Tschoegl"
 
-  	= javascript_include_tag \
-    "#{$YUI_library_standard}" 
+    = javascript_include_tag \
+    "#{$YUI_library_standard}"
     = stylesheet_link_tag \
     "application" 
     = javascript_include_tag \

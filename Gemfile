@@ -21,6 +21,7 @@ gem 'chronic'
 gem 'sidekiq'
 gem 'autoscaler'
 gem 'tradier'
+gem 'yui-rails'
 
 group :development, :test do
   gem 'sqlite3'

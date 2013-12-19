@@ -56,7 +56,15 @@ body class="picker"
 						option value="0.8" Badly 
 						option value="1.0" OK 
 						option value="1.2" Well
-					br 
+					br
+
+					li
+						label
+							|
+								Demo Dial
+					br
+					div class="yui3-skin-sam"
+						div id="demo"
 
 			input type="hidden" id="hiddenField" name="mod_stock_fullName" value="#{@stock_proper_name}"
 
@@ -89,4 +97,16 @@ body class="picker"
 			|
 			a href="mailto:contact@stockbot.io" target="_blank" class="pure-button pure-button-primary" Contact 
 
+javascript:
+	YUI().use("dial", function(Y) {
+
+	    var dial = new Y.Dial({
+	        min:-520,
+	        max:720,
+	        stepsPerRevolution:100,
+	        value: 30,
+	    });
+	    dial.render("#demo");
+
+	});
 
