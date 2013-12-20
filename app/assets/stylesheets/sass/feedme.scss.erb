@@ -2,9 +2,9 @@
 @import url(http://fonts.googleapis.com/css?family=Iceland);
 
 // SASS variables 
-$input_width: 55%;
-$input_bottom: 10%;
-$input_height: 8%;
+$input_width: 70%;
+$input_bottom: 11%;
+$input_height: 11%;
 $box-shadow-color: #1A0000;
 $index_page_font: 'Iceland', cursive, sans-serif;
 
@@ -13,6 +13,22 @@ $index_page_font: 'Iceland', cursive, sans-serif;
   margin: auto; /* center in viewport */
   width: 80%;
   margin-top: 2%;
+}
+
+p.blank_line {
+  margin: 20px;
+}
+
+legend {
+  border-bottom: 0;
+}
+
+.container hr {
+  margin: 10px 0;
+  color: black;
+  height: 1px;
+  color: black; //old IE
+  background-color: black; //Modern Browsers
 }
 
 .generic_small {
@@ -45,7 +61,7 @@ body {
 body.index {
   margin: auto; /* center in viewport */
   width: 70%;
-  margin-top: 2%;
+  margin-top: 4%;
 }
 
 /*A class that modifies the stockbot image on the index page*/
@@ -101,8 +117,8 @@ form {
   display: none;
   cursor: pointer;
   border: 1px solid red;
-  bottom: $input_bottom + $input_height * 3;
-  margin-left: (100 - ($input_width * 0.8))/4;
+  bottom: 28%;
+  margin-left: 8%;
 }
 
 /*The arrow underneath the submit button on the index page*/
@@ -117,7 +133,7 @@ form {
   display: block;
   width: 0;
   z-index: 1;
-  margin-left: (100 - ($input_width * 0.8))/2;
+  margin-left: 33%;
 }
 
 /*The explainer text on the index page*/
@@ -158,21 +174,25 @@ input[type="text"].front_page {
   width: 150%;
   background-color: red;
   box-shadow: 0px 4px 6px -2px $box-shadow-color ;
+  z-index: 9;
 }
 
 // The text that is found on the sidebar on the left side of the large screen pages
 .sidebarText {
   position: fixed;
-  left: .5em;
+  left: 1.6em;
   top: 0;
   margin: 0 auto;
-  padding: .3em;
+  padding-top: .2em;
+  padding-bottom: .3em;
+  padding-left: .3em;
+  padding-right: .3em;
   font: {
     size: 1.2em;
     weight: bold;
     family: $index_page_font;
   }
-  z-index: 1;
+  z-index: 10;
 }
 
 .pure_button_small {
@@ -221,8 +241,8 @@ input[type="text"]#companies_search {
   .sidebar_right p {
     position: absolute;
     top: 0;
-    right: -460%;
-    margin-top: 13.5em;
+    right: -413%;
+    margin-top: 15.5em;
     margin-left: -16.75em;
     font-size: 1.5em;
     font-weight: bold;
@@ -232,7 +252,7 @@ input[type="text"]#companies_search {
     -ms-transform: rotate(-90deg);
     -o-transform: rotate(-90deg);
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-    z-index: 1;
+    z-index: 2;
     text-decoration: none;
     color: black;
   }
@@ -258,7 +278,7 @@ input[type="text"]#companies_search {
   /*The formatting for the input field on the front page*/
   input[type="text"].front_page {
     position: fixed;
-    margin-left: 21%;
+    margin-left: 23%;
     width: $input_width_2;
   }
 
@@ -275,9 +295,9 @@ input[type="text"]#companies_search {
   /*The submit button on the index page*/
   .bubble {
   position: fixed;
-  width: $input_width_2 * 0.7;
-  bottom: $input_bottom + $input_height * 2.5;
-  margin-left: (100 - ($input_width_2 * 0.8))/3;
+  width: 19%;
+  bottom: 25.5%;
+  margin-left: 27%;
   }
 
   /*The arrow underneath the submit button on the index page*/
@@ -294,6 +314,7 @@ input[type="text"]#companies_search {
     width: 3.5em;
     background-color: red;
     box-shadow: 4px 0px 6px -2px $box-shadow-color ;
+    z-index: 10;
   }
 
   // The text that is found on the sidebar on the left side of the large screen pages
@@ -319,11 +340,11 @@ input[type="text"]#companies_search {
     -o-transform: rotate(-90deg); 
     /* Internet Explorer */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-    z-index: 1;
+    z-index: 10;
   }
   /*The explainer text on the index page*/
   #text {
-    margin-top: 3%;
+    margin-top: -3%;
     width: 100%;
     font-size: 1.8em;
     font-weight: bold;

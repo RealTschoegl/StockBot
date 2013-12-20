@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/anjlab/bootstrap-rails.git
+  revision: 461121444e24cdf78357418bfca9f2b8a9a1c518
+  specs:
+    anjlab-bootstrap-rails (3.0.3.0)
+      railties (>= 3.0)
+      sass (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -123,8 +131,6 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    purecss (0.3.0)
-      rails (>= 3.1)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -226,6 +232,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  anjlab-bootstrap-rails!
   autoscaler
   awesome_print
   better_errors
@@ -242,7 +249,6 @@ DEPENDENCIES
   jquery-rails
   pg
   pry
-  purecss
   rails (= 3.2.13)
   redis
   rspec-rails

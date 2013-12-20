@@ -9,15 +9,19 @@ html
     meta name="keywords" content="Stock Values,Stock Prices,Stock Lookup,"
     meta name="author" content="Matthew Tschoegl"
 
-
+    
     = javascript_include_tag \
-    "#{$YUI_library_standard}"
+    "#{$YUI_library_standard}"  
     = stylesheet_link_tag \
     "application"
     = javascript_include_tag \
     'application'
     = javascript_include_tag \
     "http://squaresend.com/squaresend.js"
+    = stylesheet_link_tag \
+    "http://cdn.alloyui.com/2.0.0/aui-css/css/bootstrap.min.css"
+    = javascript_include_tag \
+    "http://cdn.alloyui.com/2.0.0/aui/aui-min.js"
   	= csrf_meta_tags 
 
   body

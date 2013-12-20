@@ -1,103 +1,145 @@
 - title "Picker - Add Your Input | StockBot"
-body class="picker"
-	- if !@our_stock_price.nil?  
-		div class="pure-g-r"
-			h2 class="pure-u-1"
-				|
-					Customize Your Stock Quote
-		hr
-		br
-		div class="pure-g-r"
-			table class="pure-u-1 pure-table pure-table-bordered"
-				tbody
-					tr
-						td You selected #{@stock_proper_name}
-						td The market values #{@stock_proper_name} at:
-						td We value #{@stock_proper_name} at: 
-					tr
-						td <strong>#{@stock_symbol_name}</strong>
-						td <strong>#{get_stock_prices(@stock_symbol_name)} </strong>
-						td <strong>#{@our_stock_price}</strong>
-		br
+body 
+	- if !@our_stock_price.nil?
+		div class="container"
+			div class="row"
+				div class="col-xs-12 col-sm-6 col-md-12"
+					h2 
+						|
+							Customize Your Stock Quote
+						hr
+			br
 
-		div class="pure-g-r"
-			h3 class="pure-u-1"
-				|
-					What do you think the stock is worth?  Answer the questions below and submit your results to get your customized stock price.
+			div class="row"
+				div class="col-md-12"
+					div class="table-responsive"
+						table class="table table-bordered"
+							tbody
+								tr
+									td You selected #{@stock_proper_name}
+									td The market values #{@stock_proper_name} at:
+									td We value #{@stock_proper_name} at: 
+								tr
+									td <strong>#{@stock_symbol_name}</strong>
+									td <strong>#{get_stock_prices(@stock_symbol_name)} </strong>
+									td <strong>#{@our_stock_price}</strong>
+			
+			div class="row"
+				div class="col-xs-12 col-sm-12 col-md-12"
+					h2 
+						|
+							Questions
+						hr
+			div class="row"
+				div class="col-xs-12 col-sm-12 col-md-12"
+					form role="form" method="POST" action="/stocks/results" id="pickerForm"
+						fieldset
+							legend What do you think the stock is worth?  Answer the questions below and submit your results to get your customized stock price.
+							ol 
+								div class="row"
+									li 
+										label class="label label-default"
+											|
+												How many years do you want to keep the stock for?
+									br
+									div class="col-xs-12 col-sm-6 col-md-2"
+										input type="number" class="input-lg form-control" style="height: 34px;" name="mod_stock_yearHorizon" min="1" max="30"
+								p class="blank_line"
 
-		form  class="pure-form pure-form-stacked" method="POST" action="/stocks/results" id="pickerForm"
-			fieldset
-				legend Questions
-				hr
-				ol
-					li 
-						label 
+								div class="row"
+									li 
+										label class="label label-default"
+											|
+												How much better (or worse) do you think the economy will be over that period of time?
+									br
+									div class="col-xs-12 col-sm-6 col-md-6"
+										input type="range" class="form-control" name="mod_stock_marketGrowthRate" min="-50" max="50" onchange="updateTextInput(this.value);" 
+									div class="col-xs-12 col-sm-6 col-md-2"
+										div class="input-group"
+											span class="input-group-addon" + 
+											input type="text" style="height: 34px;" class="form-control" id="textInput" value=""
+								p class="blank_line"
+
+								div class="row"
+									li 
+										label class="label label-default"
+											|
+												Do you think the United States will manage its monetary policy...
+									br 
+									div class="col-xs-12 col-sm-6 col-md-4"
+										select style="width: 15em;" name="mod_stock_riskFreeRate" form="pickerForm"
+											option value="1" 
+											option value="0.8" Badly 
+											option value="1.0" OK 
+											option value="1.2" Well
+								p class="blank_line"
+
+								div class="row"
+									li 
+										label class="label label-default"
+											|
+												Demo Dial
+									br
+									div class="col-md-4"
+										div class="yui3-skin-sam"
+											div id="demo"
+								p class="blank_line"
+
+								div class="row"
+									li
+										label class="label label-default"
+											|
+												Demo Rating
+									br
+									div class="col-md-4"
+										div id="myRating"
+											input type="radio" value="1" title="A Large Pink Rabbit" 
+											input type="radio" value="2" title="Gives me Vertigo" 
+											input type="radio" value="3" title="Headed out the Rear Window" 
+											input type="radio" value="4" title="I wanna live again" 
+											input type="radio" value="5" title="It's like all wars, I guess" 
+											input type="radio" value="6" title="A Lasso Around the Moon" 
+											input type="radio" value="7" title="Merry Christmas Building & Loan" 
+										p id="titleBox"
+								p class="blank_line"
+
+						input type="hidden" id="hiddenField" name="mod_stock_fullName" value="#{@stock_proper_name}"
+
+						input type="hidden" id="hiddenField" name="mod_stock_fullSymbol" value="#{@stock_symbol_name}"
+
+						input type="hidden" id="hiddenField" name="mod_stock_dial" value=""
+
+						p class="blank_line"
+						p
 							|
-								How many years do you want to keep the stock for?
-					br
-					input type="number" name="mod_stock_yearHorizon" min="1" max="30"
-					br
-
-					li 
-						label 
+							button class="btn btn-success btn-large" type="submit" Next
 							|
-								How much better (or worse) do you think the economy will be over that period of time?
-					br
-					input type="range" name="mod_stock_marketGrowthRate" min="-50" max="50" onchange="updateTextInput(this.value);" 
-					input type="text" id="textInput" value=""
-					br 
-
-					li 
-						label 
-							|
-								Do you think the United States will manage its monetary policy...
-					br 
-					select style="width: 15em;" name="mod_stock_riskFreeRate" form="pickerForm"
-						option value="0.8" Badly 
-						option value="1.0" OK 
-						option value="1.2" Well
-					br
-
-					li
-						label
-							|
-								Demo Dial
-					br
-					div class="yui3-skin-sam"
-						div id="demo"
-
-			input type="hidden" id="hiddenField" name="mod_stock_fullName" value="#{@stock_proper_name}"
-
-			input type="hidden" id="hiddenField" name="mod_stock_fullSymbol" value="#{@stock_symbol_name}"
-
-			input type="hidden" id="hiddenField" name="mod_stock_dial" value=""
-
-			p
-				|
-				button class="pure-button pure-button-primary" type="submit" Submit
-				|
-					&nbsp; &nbsp;
-				=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" }) 
+								&nbsp; &nbsp;
+							=(link_to 'Start Again', stocks_path, { :class=>"btn btn-danger btn-large" }) 
 	- else 
-		div class="pure-g-r"
-			h2 class="pure-u-1"
-				|
-					Error! Error!
-		hr
-		br
-		p Sorry, but Stockbot does not currently support the stock you have selected, <strong>#{@stock_proper_name}</strong>
-		br
-		p  He's trying, but there is only so much that Stockbot can do.  Poor Stockbot &nbsp; &nbsp; ಥ_ಥ 
-		br
-		p Use the "Start Again" button below to head back to the front page where you can try again with a new stock.  If you really think we goofed by not having the stock you requested, hit the contact button and send us an email.
-		br
-		p 
-			|
-			=(link_to 'Start Again', stocks_path, { :class=>"pure-button pure-button-primary" }) 
-			|
-				&nbsp; &nbsp;
-			|
-			a href="mailto:contact@stockbot.io" target="_blank" class="pure-button pure-button-primary" Contact 
+		div class="container"
+			div class="row"
+				div class="col-md-12"
+					h2 
+						|
+							Error! Error!
+			hr
+			br
+			div class="row"
+				div class="col-md-12"
+					p Sorry, but Stockbot does not currently support the stock you have selected, <strong>#{@stock_proper_name}</strong>
+					br
+					p  He's trying, but there is only so much that Stockbot can do.  Poor Stockbot &nbsp; &nbsp; ಥ_ಥ 
+					br
+					p Use the "Start Again" button below to head back to the front page where you can try again with a new stock.  If you really think we goofed by not having the stock you requested, hit the contact button and send us an email.
+					br
+					p 
+						|
+						=(link_to 'Start Again', stocks_path, { :class=>"btn btn-danger btn-large" }) 
+						|
+							&nbsp; &nbsp;
+						|
+						a href="mailto:contact@stockbot.io" target="_blank" class="pure-button pure-button-primary" Contact 
 
 javascript:
 	YUI().use("dial", function(Y) {
@@ -125,4 +167,38 @@ javascript:
 	    dial.on("valueChange", updateInput, theInput);
 
 	});
+
+	YUI().use(
+	  'aui-rating',
+	  'node',
+	  function(Y) {
+	    var titleBox = Y.one('#titleBox');
+	    var instance, title, stars;
+
+	    var rating = new Y.StarRating(
+	      {
+	        boundingBox: '#myRating',
+	        disabled: false,
+	        label: "It's OK to be honest:"
+	      }
+	    ).render();
+
+	    rating.on(
+	      'click',
+	      function(event) {
+	        instance = event.target;
+	        title = instance.get('title');
+	        stars = instance.get('value');
+
+	        if (!title) {
+	          titleBox.set('innerHTML', 'You selected <strong>0 stars</strong> - no rating!');
+	        }
+	        else {
+	          titleBox.set('innerHTML', 'You selected <strong>' + stars + ' stars</strong> - "' + title + '"!');
+	        }
+	      }
+	    );
+	  }
+	);
+
 
