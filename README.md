@@ -9,7 +9,7 @@ Tasks to complete:
 
 - [ ] Add backup values from other APIs
 
-- [ ] Use another API for stock-prices
+- [ ] Use Tradier API for stock-prices
 
 - [ ] Change existing questions to jquery using AlloyUI 
 
