@@ -2,23 +2,24 @@
 body 
   div class="container"
     div class="row"
-      div class="col-xs-12 col-sm-6 col-md-12"
+      div class="col-xs-12 col-sm-12 col-md-12"
         h2 The Stock Price
         hr
     p class="blank_line"
 
     div class="row"
-      div class="col-md-6"
+      div class="col-xs-12 col-md-6"
         div class="table-responsive"
-          table class="table table-bordered" id="matchingUp"
-            tbody
-              tr
-                td The market values <strong>#{@mod_stock_name}</strong> at: 
-                td =get_stock_prices(@mod_stock_symbol)  
-              tr
-                td You value <strong>#{@mod_stock_name}</strong> at:      
-                td =@mod_stock_value
-      div class="col-md-6"
+            table class="table table-bordered" id="matchingUp"
+              tbody
+                tr
+                  td The market values <strong>#{@mod_stock_name}</strong> at: 
+                  td =get_stock_prices(@mod_stock_symbol)  
+                tr
+                  td You value <strong>#{@mod_stock_name}</strong> at:      
+                  td =@mod_stock_value
+      
+      div class="col-xs-12 col-md-6"
         h3 
           |
             Email The Quote 

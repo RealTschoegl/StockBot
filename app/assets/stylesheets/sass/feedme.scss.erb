@@ -12,7 +12,7 @@ $index_page_font: 'Iceland', cursive, sans-serif;
 @mixin body-position {
   margin: auto; /* center in viewport */
   width: 80%;
-  margin-top: 2%;
+  margin-top: 4%;
 }
 
 p.blank_line {
@@ -43,9 +43,6 @@ legend {
   font-size: .8em;
 }
 
-.searchForm {
-  max-height: 5%;
-}
 // The links in the sidebar 
 .sidebar_link {
   color: black;
@@ -61,6 +58,12 @@ body {
 body.index {
   margin: auto; /* center in viewport */
   width: 70%;
+  margin-top: 4%;
+}
+
+body.company_index {
+  margin: auto; /* center in viewport */
+  width: 77%;
   margin-top: 4%;
 }
 
@@ -90,6 +93,10 @@ form {
   padding-bottom: 10%;
 }
 
+form.searchForm {
+  padding-bottom: 5%;
+}
+
 /*The list that the autocomplete displays*/
 .yui3-aclist {
   width: 35em;
@@ -117,7 +124,7 @@ form {
   display: none;
   cursor: pointer;
   border: 1px solid red;
-  bottom: 28%;
+  bottom: 31%;
   margin-left: 8%;
 }
 
@@ -147,11 +154,12 @@ form {
 
 /*The placeholder text for the input field on the index page*/
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color: #191919;
+    color: black !important;
 }
 
 /*The formatting for the input field on the front page*/
 input[type="text"].front_page {
+  color: black;
   position: absolute;
   bottom: $input_bottom;
   box-shadow: inset 0em 0em 0.938em $box-shadow-color;
@@ -200,9 +208,9 @@ input[type="text"].front_page {
   font-size: 1.2em;
 }
 
-input[type="text"]#companies_search {
-  width: 60%;
-}
+// input[type="text"]#companies_search {
+//   width: 60%;
+// }
 
 .table_container {
   overflow-x: scroll;
@@ -261,14 +269,10 @@ input[type="text"]#companies_search {
     display: block;
   }
 
-  input[type="text"]#companies_search {
-    width: 25%;
-    height: 10%;
-  }
-
-  .searchForm {
-    max-height: 0;
-  }
+  // input[type="text"]#companies_search {
+  //   width: 25%;
+  //   height: 10%;
+  // }
 
   /*A container for the form on the index page*/
   .container_form {
@@ -286,7 +290,7 @@ input[type="text"]#companies_search {
   .stockbot {
     display: inline;
     position: fixed;
-    margin-top: -6%;
+    margin-top: -3%;
     width: 55%;
     height: 88%;
     margin-left: 9%;
@@ -296,7 +300,7 @@ input[type="text"]#companies_search {
   .bubble {
   position: fixed;
   width: 19%;
-  bottom: 25.5%;
+  bottom: 27.5%;
   margin-left: 27%;
   }
 

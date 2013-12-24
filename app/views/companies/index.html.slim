@@ -1,19 +1,24 @@
 - title "Welcome - Find A Stock | StockBot"
-body class="index"
-  div class="pure-g-r"
-    h2 class="pure-u-1"
-      |
-        Companies Covered
-  hr
-  div class="pure-g-r"
-    p class="pure-u-1"
-      |
-        Below is a list of all of the companies that we have produced valuations for.  Click on the button next to a company to see the valuation that the Stockbot produced.  If there is a particular stock you are looking for, use the search field to find it.
-  div class="pure-g-r"
-  br
-  div id="search"
-    = render :partial => 'layouts/search'
-    = render :partial => 'layouts/results'
-  p
-  = will_paginate @firms, { :class=>"apple_pagination"}
+body class="company_index"
+  div class="container"
+    div class="row"
+      div class="col-xs-12 col-sm-6 col-md-12"
+        h2 
+          |
+            Companies Covered
+    hr
+
+    div class="row"
+      div class="col-xs-12 col-sm-6 col-md-12"
+        p 
+          |
+            Below is a list of all of the companies that we have produced valuations for.  Click on the button next to a company to see the valuation that the Stockbot produced.  If there is a particular stock you are looking for, use the search field to find it.
+  
+    div class="row"
+      br
+      / div id="search"
+      = render :partial => 'layouts/search'
+      = render :partial => 'layouts/results'
+      p
+      = will_paginate @firms, { :class=>"apple_pagination"}
             

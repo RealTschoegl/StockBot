@@ -1,32 +1,33 @@
-div class="table_container"
-  table class="pure-table pure-table-bordered" 
-    thead
-      tr 
-        th
-          |
-            <strong>Company Name</strong>
-        th
-          |
-            <strong>Ticker Symbol</strong>
-        th
-          |
-            <strong>Current Price</strong>
-        th
-          |
-            <strong>Stockbot Price</strong>
-        th 
-          |
-            <strong>The Breakdown</strong>
-    tbody
-      - @firms.each do |firm|
-        tr
-          td 
-            = firm.company_name
-          td 
-            = firm.stock_ticker 
-          td 
-            = !firm.current_stock_price.nil? ? (firm.current_stock_price).round(2) : "N/A"
-          td 
-            = !firm.composite_share_value.nil? ? (firm.composite_share_value).round(2) : "N/A"
-          td 
-            = link_to 'More...', {action: "show", id: "#{firm.slug}"}, { :class=>"pure-button pure-button-active pure_button_small" } 
+div class="col-md-12"
+  div class="table-responsive"
+    table class="table table-bordered"
+      thead
+        tr 
+          th
+            |
+              <strong>Company Name</strong>
+          th
+            |
+              <strong>Ticker Symbol</strong>
+          th
+            |
+              <strong>Current Price</strong>
+          th
+            |
+              <strong>Stockbot Price</strong>
+          th 
+            |
+              <strong>The Breakdown</strong>
+      tbody
+        - @firms.each do |firm|
+          tr
+            td 
+              = firm.company_name
+            td 
+              = firm.stock_ticker 
+            td 
+              = !firm.current_stock_price.nil? ? (firm.current_stock_price).round(2) : "N/A"
+            td 
+              = !firm.composite_share_value.nil? ? (firm.composite_share_value).round(2) : "N/A"
+            td 
+              = link_to 'More...', {action: "show", id: "#{firm.slug}"} 

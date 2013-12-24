@@ -1,93 +1,93 @@
 - title "Stock Price For #{@company.stock_ticker} | StockBot"
 body class="company_picker"
-	h3
-		| 
-			Our Valuation of 
-		|
-		= @company.company_name
-		|
-			&nbsp; (#{@company.stock_ticker})
-	hr
-	p class="generic_small"
-		|
-			&nbsp; &nbsp;
-		|
-			<i>Last updated: &nbsp; </i>
-		|
-			<i>#{@company.updated_at}</i>
+	div class="container"
+		h2
+			| 
+				Our Valuation of 
+			|
+			= @company.company_name
+			|
+				&nbsp; (#{@company.stock_ticker})
+		hr
+		p class="generic_small"
+			|
+				&nbsp; &nbsp;
+			|
+				<i>Last updated: &nbsp; </i>
+			|
+				<i>#{@company.updated_at}</i>
 
-	div class="pure-g-r"
-		div class="pure-u-1-2"
-			h3 Company Info
-			div class="table_container"
-					table class="pure-table pure-table-bordered"
-						thead
-							th
-								|
-									Company Name
-							th
-								|
-									Ticker Symbol
-							th
-								| 
-									Stock Exchange
-							th
-								|
-									Industry
-							th
-								|
-									SIC Code
-						tbody
-							tr
+		div class="row"
+			div class="col-md-6"
+				h3 Company Info
+				div class="table-responsive"
+				    table class="table table-bordered"
+							thead
+								th
+									|
+										Company Name
+								th
+									|
+										Ticker Symbol
+								th
+									| 
+										Stock Exchange
+								th
+									|
+										Industry
+								th
+									|
+										SIC Code
+							tbody
+								tr
+									td
+										= @company.company_name
+									td
+										= @company.stock_ticker
+									td
+										= @company.exchange
+									td
+										= @company.industry
+									td 
+										= @company.sic_code
+
+				h3 The Result
+				div class="table-responsive"
+			    table class="table table-bordered"
+					 	thead
+					 		th
+					 			|
+					 			b Market's Share Value:
+					 		th
+					 			|
+					 			b	Our Share Value:
+					 		th
+					 			|
+					 			b Confidence Level:
+					 	tbody
+					 		tr
 								td
-									= @company.company_name
-								td
-									= @company.stock_ticker
-								td
-									= @company.exchange
-								td
-									= @company.industry
+									= @stock_price
 								td 
-									= @company.sic_code
+									= @share_value
+								td
+									- data = @company
+									= companyComplete(data)
 
-			h3 The Result
-			div class="table_container"
-				table class="pure-table pure-table-bordered"
-				 	thead
-				 		th
-				 			|
-				 			b Market's Share Value:
-				 		th
-				 			|
-				 			b	Our Share Value:
-				 		th
-				 			|
-				 			b Confidence Level:
-				 	tbody
-				 		tr
-							td
-								= @stock_price
-							td 
-								= @share_value
-							td
-								- data = @company
-								= companyComplete(data)
+				h3 Next
+				p class="blank_line"
+				p
+					|
+					a href="https://us.etrade.com/home" target="_blank" class="btn btn-success btn-large" Buy Shares
+				p
+					|
+					=(link_to 'Back To Companies List', companies_path, { :class=>"btn btn-danger btn-large" })
 
-			h3 Next
-			p
-		    |
-		    a href="https://us.etrade.com/home" target="_blank" class="pure-button pure-button-primary" Buy Shares 
-		    |
-		     &nbsp; &nbsp;
-		  	p
-				= link_to 'Back To Companies List', companies_path, { :class=>"pure-button pure-button-primary" } 
-			p
 
-		div class="pure-u-1-2"
-			div class="pure_margin_s"
+			div class="col-md-6"
 				h3 The Breakdown
-				div class="table_container"
-					table class="pure-table pure-table-horizontal"
+				div class="table-responsive"
+			    table class="table table-bordered"
 					 	thead
 					 		th
 					 			|
@@ -132,5 +132,6 @@ body class="company_picker"
 									b Sentiment Valuation:
 								td
 									= @sentiment_value
-	p &nbsp;
-		
+	
+	p class="blank_line"
+			
