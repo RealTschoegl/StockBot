@@ -15,12 +15,29 @@ $index_page_font: 'Iceland', cursive, sans-serif;
   margin-top: 4%;
 }
 
+.container {
+  margin-top: 5%;
+  margin-right: 10% !important;
+  margin-left: 10% !important;
+  width: inherit !important;
+}
+
 p.blank_line {
   margin: 20px;
 }
 
 legend {
   border-bottom: 0;
+}
+
+.label_forms {
+  width: 100%;
+  background-color: #999;
+  border-radius: 15px;
+  padding: 4px 2px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 }
 
 .container hr {
@@ -229,6 +246,13 @@ input[type="text"].front_page {
 /*For all non-mobile viewports */
 @media (min-width: 767px) {
   $input_width_2: 27%;
+
+  .container {
+    margin-top: 3%;
+    margin-right: 10% !important;
+    margin-left: 10% !important;
+    width: inherit !important;
+  }
 
   .pure_margin_s {
     margin-left: 20%;
