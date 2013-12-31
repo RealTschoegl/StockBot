@@ -24,6 +24,3 @@ Tasks to complete:
 - [ ] Use machine learning to adjust the weights on the ValueGenerator model
 
 - [ ] Add a proper sidebar with tabs for Stockbot stuff, Company stuff, and the API
-
-
-				
