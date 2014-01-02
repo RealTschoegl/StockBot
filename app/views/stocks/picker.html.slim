@@ -38,57 +38,73 @@ body
 							|
 								What do you think the stock is worth?  Answer the questions below and submit your results to get your customized stock price.
 						p class="blank_line"
-						div class="form-group"
-							label class="label_forms"
-								|
-									How many years do you want to keep the stock for?
-							p class="blank_line"
-							input type="number" class="input-lg form-control" style="height: 34px;" name="mod_stock_yearHorizon" min="1" max="30"
+						div class="row"
+							div class="col-xs-12 col-sm-12 col-md-6"
+								div class="form-group"
+									label class="label_forms"
+										|
+											How many years do you want to keep the stock for?
+									p class="blank_line"
+									input type="number" class="input-lg form-control" style="height: 34px;" name="mod_stock_yearHorizon" min="1" max="30"
 
-						div class="form-group"
-							label class="label_forms"
-								|
-									How much better (or worse) do you think the economy will be over that period of time?
-							p class="blank_line"
-							input type="range" class="form-control" name="mod_stock_marketGrowthRate" min="-50" max="50" onchange="updateTextInput(this.value);"
-							p class="blank_line" 
-							div class="input-group"
-								span class="input-group-addon" + 
-								input type="text" style="height: 34px;" class="form-control" id="textInput" value=""
+						div class="row"
+							div class="col-xs-12 col-sm-12 col-md-6"
+								div class="form-group"
+									label class="label_forms"
+										|
+											How much better (or worse) do you think the economy will be over that period of time?
+									p class="blank_line"
+									input type="range" class="form-control" name="mod_stock_marketGrowthRate" min="-50" max="50" onchange="updateTextInput(this.value);"
+									p class="blank_line" 
+									div class="input-group"
+										span class="input-group-addon" + 
+										input type="text" style="height: 34px;" class="form-control" id="textInput" value=""
 
-						div class="form-group"
-							label class="label_forms"
-								|
-										Do you think the United States will manage its monetary policy...
-							p class="blank_line"	
-							select style="width: 15em;" class="form-control" name="mod_stock_riskFreeRate" form="pickerForm"
-								option value="1" 
-								option value="0.8" Badly 
-								option value="1.0" OK 
-								option value="1.2" Well
+						div class="row"
+							div class="col-xs-12 col-sm-12 col-md-6"
+								div class="form-group"
+									label class="label_forms"
+										|
+												Do you think the United States will manage its monetary policy...
+									p class="blank_line"
+									div class="row"
+										div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-4"
+											select style="width: 15em;" class="form-control" name="mod_stock_riskFreeRate" form="pickerForm"
+												option value="1" 
+												option value="0.8" Badly 
+												option value="1.0" OK 
+												option value="1.2" Well
 
-						div class="form-group"
-							label class="label_forms"
-								|
-									How much do you think this company will outperform/underperform its competitors?
-							p class="blank_line"
-							div class="yui3-skin-sam"
-								div id="demo"
+						div class="row"
+							div class="col-xs-12 col-sm-12 col-md-6"
+								div class="form-group"
+									label class="label_forms"
+										|
+											How much do you think this company will outperform/underperform its competitors?
+									p class="blank_line"
+									div class="row"
+										div class="col-xs-12 col-sm-12 col-md-7 col-md-offset-5"
+											div class="yui3-skin-sam"
+												div id="demo"
 
-						div class="form-group"
-							label class="label_forms"
-								|
-									Rate the quality of the company in relation to its competitors
-							p class="blank_line"
-							div id="myRating"
-								input type="radio" value="1" title="Oof" 
-								input type="radio" value="2" title="Eh" 
-								input type="radio" value="3" title="Meh" 
-								input type="radio" value="4" title="OK" 
-								input type="radio" value="5" title="Good" 
-								input type="radio" value="6" title="Great" 
-								input type="radio" value="7" title="Amazing!" 
-							p id="titleBox"
+						div class="row"
+							div class="col-xs-12 col-sm-12 col-md-6"
+								div class="form-group"
+									label class="label_forms"
+										|
+											Rate the quality of the company in relation to its competitors
+									p class="blank_line"
+									div class="row"
+										div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-4"
+											div id="myRating"
+												input type="radio" value="1" title="Oof" 
+												input type="radio" value="2" title="Eh" 
+												input type="radio" value="3" title="Meh" 
+												input type="radio" value="4" title="OK" 
+												input type="radio" value="5" title="Good" 
+												input type="radio" value="6" title="Great" 
+												input type="radio" value="7" title="Amazing!" 
+											p id="titleBox"
 
 								input type="hidden" id="hiddenField" name="mod_stock_fullName" value="#{@stock_proper_name}"
 
@@ -171,7 +187,7 @@ javascript:
 	      {
 	        boundingBox: '#myRating',
 	        disabled: false,
-	        label: "It's OK to be honest:"
+	        label: "It's OK to be honest:   "
 	      }
 	    ).render();
 
