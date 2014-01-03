@@ -41,8 +41,8 @@ module ValuationGenerator
 				!@composite_share_values.compact.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
 				package_data
-				# BackgroundWorker.perform_async(@hashPack)
-				
+				BackgroundWorker.perform_async(@hashPack)
+								
 				return @computed_share_value
 				
 			else 
@@ -128,12 +128,16 @@ module ValuationGenerator
 
 	  	fourth_request.response.options[:response_code] == 200 ? @psych_data = JSON.parse(fourth_response.body) : @psych_data = nil
 
+	  	@tradier = $tradier_client.quote(self.stock_ticker)
+
 	  	method(:assign_yahooQuotes).call
 	  	method(:assign_yahooKeyStats).call
 	  	method(:assign_quandlStockData).call
 	  	method(:assign_quandlPsychData).call
 	  	method(:assign_databaseValues).call
 	  	method(:assign_stockProfile).call
+	  	method(:assign_tradierQuote).call
+
 	  end
 
 	  ## ===============  API Variables  ============================
@@ -171,6 +175,10 @@ module ValuationGenerator
 
 	  def assign_stockProfile
 			@stockProfile = StockInfo.where(ticker_sign: self.stock_ticker).first 
+	  end
+
+	  def assign_tradierQuote
+	  	@tradierQuote = @tradier.first.attrs
 	  end
 
 	  ## ===============  Equation Pre-Requisites  ==================
@@ -381,7 +389,13 @@ module ValuationGenerator
 
 		def get_ask
 			if @priceAsk.nil?
-				!@yahooQuote.nil? && @yahooQuote.has_key?("Ask") && !@yahooQuote["Ask"].nil? ? @priceAsk = @yahooQuote["Ask"].to_f : @priceAsk = nil
+				if !@tradierQuote[:ask].nil?
+					@priceAsk = @tradierQuote[:ask]
+				elsif !@yahooQuote.nil? && @yahooQuote.has_key?("Ask") && !@yahooQuote["Ask"].nil?
+					@priceAsk = @yahooQuote["Ask"].to_f 
+				else
+					@priceAsk = nil
+				end
 			else
 				return true
 			end
@@ -389,7 +403,13 @@ module ValuationGenerator
 
 		def get_bid
 			if @priceBid.nil?
-				!@yahooQuote.nil? && @yahooQuote.has_key?("Bid") && !@yahooQuote["Bid"].nil? ? @priceBid = @yahooQuote["Bid"].to_f : @priceBid = nil
+				if !@tradierQuote[:bid].nil?
+					@priceBid = @tradierQuote[:bid]
+				elsif !@yahooQuote.nil? && @yahooQuote.has_key?("Bid") && !@yahooQuote["Bid"].nil?
+					@priceBid = @yahooQuote["Bid"].to_f 
+				else
+				  @priceBid = nil
+				end
 			else
 				return true
 			end
@@ -397,7 +417,13 @@ module ValuationGenerator
 
 		def get_low
 			if @priceLow.nil?
-				!@yahooQuote.nil? && @yahooQuote.has_key?("DaysLow") && !@yahooQuote["DaysLow"].nil? ? @priceLow = @yahooQuote["DaysLow"].to_f : @priceLow = nil
+				if !@tradierQuote[:low].nil?
+					@priceLow = @tradierQuote[:low]
+				elsif !@yahooQuote.nil? && @yahooQuote.has_key?("DaysLow") && !@yahooQuote["DaysLow"].nil? 
+					@priceLow = @yahooQuote["DaysLow"].to_f
+				else
+					@priceLow = nil
+				end
 			else
 				return true
 			end
@@ -405,7 +431,13 @@ module ValuationGenerator
 
 		def get_high
 			if @priceHigh.nil?
-				!@yahooQuote.nil? && @yahooQuote.has_key?("DaysHigh") && !@yahooQuote["DaysHigh"].nil? ? @priceHigh = @yahooQuote["DaysHigh"].to_f : @priceHigh = nil
+				if !@tradierQuote[:high].nil?
+					@priceHigh = @tradierQuote[:high]
+				elsif !@yahooQuote.nil? && @yahooQuote.has_key?("DaysHigh") && !@yahooQuote["DaysHigh"].nil?
+				  @priceHigh = @yahooQuote["DaysHigh"].to_f
+				else
+				  @priceHigh = nil
+				end
 			else
 				return true
 			end
@@ -413,7 +445,13 @@ module ValuationGenerator
 
 		def get_last
 			if @priceLast.nil?
-				!@yahooQuote.nil? && @yahooQuote.has_key?("LastTradePriceOnly") && !@yahooQuote["LastTradePriceOnly"].nil? ? @priceLast = @yahooQuote["LastTradePriceOnly"].to_f : @priceLast = nil
+				if !@tradierQuote[:last].nil?
+					@priceLast = @tradierQuote[:last]
+				elsif !@yahooQuote.nil? && @yahooQuote.has_key?("LastTradePriceOnly") && !@yahooQuote["LastTradePriceOnly"].nil?
+				  @priceLast = @yahooQuote["LastTradePriceOnly"].to_f 
+				else
+					@priceLast = nil
+				end
 			else
 				return true
 			end
@@ -481,6 +519,25 @@ module ValuationGenerator
 			else 
 				return true
 			end
+		end
+
+		def get_show_quote
+			!@yahooQuote.nil? && @yahooQuote.has_key?("Ask") && !@yahooQuote["Ask"].nil? ? asking_price = @yahooQuote["Ask"].to_f : asking_price = nil
+
+			!@yahooQuote.nil? && @yahooQuote.has_key?("Bid") && !@yahooQuote["Bid"].nil? ? bid_price = @yahooQuote["Bid"].to_f : bid_price = nil
+
+			!@yahooQuote.nil? && @yahooQuote.has_key?("DaysLow") && !@yahooQuote["DaysLow"].nil? ? low_price = @yahooQuote["DaysLow"].to_f : low_price = nil
+
+			!@yahooQuote.nil? && @yahooQuote.has_key?("DaysHigh") && !@yahooQuote["DaysHigh"].nil? ? high_price = @yahooQuote["DaysHigh"].to_f : high_price = nil
+
+			!@yahooQuote.nil? && @yahooQuote.has_key?("LastTradePriceOnly") && !@yahooQuote["LastTradePriceOnly"].nil? ? last_price = @yahooQuote["LastTradePriceOnly"].to_f : last_price = nil
+
+	    quote_array = [asking_price, bid_price, low_price, high_price, last_price]
+
+	    @public_stock_quote = quote_array.compact.reduce(:+) / quote_array.compact.count
+
+	    return @public_stock_quote
+
 		end
 		
 		## ===============  Helper Variables  ========================
@@ -580,7 +637,7 @@ module ValuationGenerator
 		    "market_cap" => self.instance_variable_get(:@marketCap),
 		    "net_assets" => self.instance_variable_get(:@netAssets),
 		    "total_debt" => self.instance_variable_get(:@totalDebt),
-		    "stock_price" => self.instance_variable_get(:@current_stock_price),
+		    "stock_price" => get_show_quote,
 		   	"stockbot_price" => self.instance_variable_get(:@computed_share_value),
 		    "pe_value" => self.instance_variable_get(:@PE_Comparable_Valuation),
 		    "nav_value" => self.instance_variable_get(:@NAV_Valuation),
