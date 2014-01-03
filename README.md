@@ -9,7 +9,7 @@ Tasks to complete:
 
 - [ ] Add backup values from other APIs
 
-- [ ] Use another API for stock-prices
+- [ ] Use Tradier API for stock-prices
 
 - [ ] Change existing questions to jquery using AlloyUI 
 
@@ -24,6 +24,3 @@ Tasks to complete:
 - [ ] Use machine learning to adjust the weights on the ValueGenerator model
 
 - [ ] Add a proper sidebar with tabs for Stockbot stuff, Company stuff, and the API
-
-
-				
