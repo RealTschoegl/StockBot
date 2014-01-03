@@ -9,9 +9,7 @@ Tasks to complete:
 
 - [ ] Add backup values from other APIs
 
-- [ ] Use Tradier API for stock-prices
-
-- [ ] Change existing questions to jquery using AlloyUI 
+- [ ] Make more questions for the Picker 
 
 - [ ] Make defaults for values that take into account decimals and significant digits
 
