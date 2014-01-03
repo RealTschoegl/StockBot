@@ -1,0 +1,17 @@
+div id="stocktwits-widget-news"
+	javascript: 
+		var matchWidth = $('#matchingUp').width();
+		var matchHeight = $('#matchingUp').height() * 10;
+		STWT.Widget({
+		  container: 'stocktwits-widget-news', 
+		  symbol: "#{@mod_stock_symbol}", 
+		  avatars: 0, 
+		  width: matchWidth, 
+		  height: matchHeight, 
+		  limit: '15', 
+		  scrollbars: 'true', 
+		  streaming: 'true', 
+		  title: "Gossip about #{@mod_stock_symbol}", 
+		  style: 
+		    {username_color: 'red', link_color: '#0078e7', link_hover_color: 'red', header_text_color: '000000', border_color: 'cecece', divider_color: 'cecece', divider_color: 'cecece', divider_type: 'solid', box_color: 'transparent', stream_color: 'transparent', text_color: '000000', time_color: '999999'}
+		});

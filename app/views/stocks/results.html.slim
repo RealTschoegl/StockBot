@@ -1,16 +1,22 @@
 - title "Results - What Is Your Valuation? | StockBot"
+- content_for :header do 
+  = javascript_include_tag 'results'
+  = javascript_include_tag 'http://stocktwits.com/addon/widget/2/widget-loader.min.js'
+  
 body 
   div class="container"
     div class="row"
       div class="col-xs-12 col-sm-12 col-md-12"
-        h2 The Stock Price
+        h2 
+          |
+            The Stock Price
         hr
     p class="blank_line"
 
     div class="row"
       div class="col-xs-12 col-md-6"
         div class="table-responsive"
-            table class="table table-bordered" id="matchingUp"
+            table class="table table-bordered" 
               tbody
                 tr
                   td The market values <strong>#{@mod_stock_name}</strong> at: 
@@ -20,12 +26,14 @@ body
                   td =@mod_stock_value
       
       div class="col-xs-12 col-md-6"
-        h3 
+        h3 id="matchingUp"
           |
             Email The Quote 
           |
           img id="results_gif" src==asset_path('ajax-loader.gif')
-        p <i>Enter your email address below to have this Stockbot quote sent to you.</i>
+        p 
+          |
+            <i>Enter your email address below to have this Stockbot quote sent to you.</i>
         p class="smallSuccess"
           |
             <strong>Success!</strong>  Check your inbox for an email from Stockbot. Send another, if you want.  Go ahead, we won't stop you*
@@ -47,25 +55,7 @@ body
 
     div class="row"
       div class="col-md-6"
-        div id="stocktwits-widget-news"
-        = javascript_include_tag \
-        "http://stocktwits.com/addon/widget/2/widget-loader.min.js" 
-        javascript:
-          var matchWidth = $('#matchingUp').width();
-          var matchHeight = $('#matchingUp').height() * 6
-          STWT.Widget({
-            container: 'stocktwits-widget-news', 
-            symbol: '#{@mod_stock_symbol}', 
-            avatars: 0, 
-            width: matchWidth, 
-            height: matchHeight, 
-            limit: '15', 
-            scrollbars: 'true', 
-            streaming: 'true', 
-            title: 'Gossip about #{@mod_stock_symbol}', 
-            style: 
-              {username_color: 'red', link_color: '#0078e7', link_hover_color: 'red', header_text_color: '000000', border_color: 'cecece', divider_color: 'cecece', divider_color: 'cecece', divider_type: 'solid', box_color: 'transparent', stream_color: 'transparent', text_color: '000000', time_color: '999999'}
-            }); 
+        = render :partial => 'layouts/widget' 
 
       div class="col-md-6"
         h3 Buy Shares
@@ -81,9 +71,10 @@ body
         p
           |
           =(link_to 'Start Again', stocks_path, { :class=>"btn btn-danger btn-large" })
-        p class="blank_line"  
-    
-      
+        p class="blank_line"
+
+
+
 
 
 

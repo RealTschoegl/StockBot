@@ -1,6 +1,8 @@
-- title "Picker - Add Your Input | StockBot"
 body 
 	- if !@our_stock_price.nil?
+		- title "Picker - Add Your Input | StockBot"
+		- content_for :header do 
+		  = javascript_include_tag 'picker'
 		div class="container"
 			div class="row"
 				div class="col-xs-12 col-sm-12 col-md-12"
@@ -125,6 +127,7 @@ body
 										&nbsp; &nbsp;
 									=(link_to 'Start Again', stocks_path, { :class=>"btn btn-danger btn-large" }) 
 	- else 
+		- title "Picker Error! Picker Error! | StockBot"
 		div class="container"
 			div class="row"
 				div class="col-md-12"
@@ -147,66 +150,8 @@ body
 						|
 							&nbsp; &nbsp;
 						|
-						a href="mailto:contact@stockbot.io" target="_blank" class="btn btn-primary btn-large" Contact 
+						a href="mailto:contact@stockbot.io" target="_blank" class="btn btn-primary btn-large" Contact
 
-javascript:
-	YUI().use("dial", function(Y) {
 
-	    var dial = new Y.Dial({
-	        min:-120,
-	        max:300,
-	        stepsPerRevolution:100,
-	        value: 30,
-	        strings:{label:'Drag To Set'}
-	    });
-	    dial.render("#demo");
-
-	    function updateInput( e ){
-	        var val = e.newVal;
-	        if ( isNaN( val ) ) {
-	            // Not a valid number.
-	            return;
-	        }
-	        this.set( "value", val );
-	    }
-
-	    var theInput = Y.one(document.getElementsByName("mod_stock_dial")[0]);
-	    // Subscribe to the Dial's valueChange event, passing the input as the 'this'
-	    dial.on("valueChange", updateInput, theInput);
-
-	});
-
-	YUI().use(
-	  'aui-rating',
-	  'node',
-	  function(Y) {
-	    var titleBox = Y.one('#titleBox');
-	    var instance, title, stars;
-
-	    var rating = new Y.StarRating(
-	      {
-	        boundingBox: '#myRating',
-	        disabled: false,
-	        label: "It's OK to be honest:   "
-	      }
-	    ).render();
-
-	    rating.on(
-	      'click',
-	      function(event) {
-	        instance = event.target;
-	        title = instance.get('title');
-	        stars = instance.get('value');
-
-	        if (!title) {
-	          titleBox.set('innerHTML', 'You selected <strong>0 stars</strong> - no rating!');
-	        }
-	        else {
-	          titleBox.set('innerHTML', 'You selected <strong>' + stars + ' stars</strong> - "' + title + '"!');
-	        }
-	      }
-	    );
-	  }
-	);
 
 

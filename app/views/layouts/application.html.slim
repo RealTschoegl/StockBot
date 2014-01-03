@@ -24,6 +24,8 @@ html
     "http://cdn.alloyui.com/2.0.0/aui/aui-min.js"
   	= csrf_meta_tags 
 
+  = content_for :header 
+  
   body
 
     div class="sidebar"
@@ -53,7 +55,9 @@ html
 
 
   footer
-    = render 'layouts/footer' 
+    = render 'layouts/footer'
+
+  
 
 
 
