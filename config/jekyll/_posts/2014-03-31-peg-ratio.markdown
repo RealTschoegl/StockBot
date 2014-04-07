@@ -1,0 +1,8 @@
+---
+layout: default
+title: PEG Ratio
+category: "Ratios"
+published: true
+---
+
+PEGratio.md

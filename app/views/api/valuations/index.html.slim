@@ -1,0 +1,60 @@
+- title "Welcome - Use Our API | StockBot"
+body 
+  div class="container"
+    div class="row"
+      div class="col-xs-12 col-sm-6 col-md-12"
+        h2 
+          |
+            The StockBot API
+    hr
+
+    div class="row"
+      div class="col-xs-12 col-sm-6 col-md-12"
+        p 
+          |
+            Our API is designed to provide the user with access to our company valuation data.  We don't give out raw data, but instead out our homemade composite share value and the constituent share valuations that make it up.  All requests will be handled through this api and have this as the base url:
+        p
+          |
+            &nbsp;&nbsp;&nbsp;<em>http://api.stockbot.io</em>
+        h4
+          |
+            Retrieve our valuation for a stock
+        p
+          |
+            To get a stock valuation and all of the subordinate valuations, send a GET request to: 
+        p
+          |
+            <strong>GET</strong>    /valuations/{:id}
+        p
+          |
+            Where the :id is the ticker symbol of the stock that you would like to look up.  
+        h4 
+          |
+            Retrieve one of our valuation methods for a stock
+        p
+          | 
+            To get a valuation method that goes into a stock valuation, add it as a parameter in your request. Below you will find a list of valuation methods you can look up.  You can only look up one at a time.
+        p
+          |
+            <strong>GET</strong>    /valuations/{:id}?valuation="{type}"
+        p
+          | 
+            Where the :id is the ticker symbol of the stock that you would like to look up and the type is the valuation method from the list below.
+        h4
+          |
+            List of Valuations
+        p
+          |
+            Here are the valuations that can be entered in the API request.  Only one valuation can be submitted per request.
+        ul
+          - @api_values.each do |value|
+            li <strong>"#{value}"</strong>
+
+
+
+
+
+
+
+
+

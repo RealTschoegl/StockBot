@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131210201718) do
+ActiveRecord::Schema.define(:version => 20140328195658) do
 
   create_table "companies", :force => true do |t|
     t.string   "stock_ticker"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.string   "company_name"
     t.float    "current_stock_price"
     t.float    "composite_share_value"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20131210201718) do
     t.string   "industry"
     t.integer  "sic_code"
     t.string   "exchange"
-    t.float    "PE_Comparable_Valuation"
+    t.float    "current_pe_comp"
     t.float    "NAV_Valuation"
     t.float    "CAPM_Valuation"
     t.float    "WACC_Valuation"
@@ -80,13 +80,13 @@ ActiveRecord::Schema.define(:version => 20131210201718) do
   end
 
   create_table "stocks", :force => true do |t|
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "company"
     t.string   "stock_ticker"
     t.integer  "free_cash_flow"
     t.integer  "num_shares"
-    t.float    "PE_ratio"
+    t.float    "current_pe_ratio"
     t.float    "beta"
     t.string   "industry"
     t.integer  "sic_code"

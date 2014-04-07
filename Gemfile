@@ -22,6 +22,8 @@ gem 'autoscaler'
 gem 'tradier'
 gem 'yui-rails'
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails', :github => 'anjlab/bootstrap-rails'
+gem 'bloggy'
+gem 'redcarpet'
 
 group :development, :test do
   gem 'sqlite3'
@@ -33,6 +35,7 @@ group :development, :test do
   gem 'figaro'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'quiet_assets'
 end
 
 group :production do

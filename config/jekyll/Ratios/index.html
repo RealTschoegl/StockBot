@@ -1,0 +1,17 @@
+---
+layout: page
+title: Ratios
+---
+
+<h2>Ratios</h2>
+<p>These documents all pertain to the efforts to add additional ratios to the main stockbot calculation.</p>
+<p>==============================</p>
+<div id="home">
+  <ul class="posts">
+    {% for post in site.posts reversed %}
+	    {% if post.categories contains 'ratios' %}
+	      <li> &raquo; <a href="/docs{{ post.url }}">{{ post.title }}</a></li>
+	    {% endif %}
+    {% endfor %}
+  </ul>
+</div>

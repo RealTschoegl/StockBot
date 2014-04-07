@@ -1,20 +1,21 @@
 StockPickApp::Application.routes.draw do
 
   resources :quotes
-
-
   resources :companies
 
-
-  # resources :stocks
-
+  namespace :api, path: '', constraints: { subdomain: 'api' } do
+    resources :valuations, only: [:index, :show]
+    root :to => 'valuations#index'
+  end
+  
   get "/stocks" => "stocks#index"
   post "/stocks/picker" => "stocks#picker"
   get "/stocks/picker" => "stocks#picker"
   post "/stocks/results" => "stocks#results"
   get "/stocks/results" => "stocks#results"
   root :to => 'stocks#index'
-            
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

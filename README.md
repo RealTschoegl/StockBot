@@ -9,11 +9,13 @@ Tasks to complete:
 
 - [ ] Add backup values from other APIs
 
+- [ ] Create method to populate database
+
 - [ ] Make more questions for the Picker 
 
 - [ ] Make defaults for values that take into account decimals and significant digits
 
-- [ ] Create an API
+- [ ] Update to Rails 4
 
 - [ ] Insert redirect screens between the index & picker as well as the picker & result pages
 
@@ -22,3 +24,5 @@ Tasks to complete:
 - [ ] Use machine learning to adjust the weights on the ValueGenerator model
 
 - [ ] Add a proper sidebar with tabs for Stockbot stuff, Company stuff, and the API
+
+

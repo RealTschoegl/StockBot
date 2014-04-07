@@ -1,0 +1,9 @@
+permalink: /:title.html
+destination: ../../public/docs
+name: StockBot Documents 
+markdown: redcarpet
+pygments: true
+exclude:
+  - Rakefile
+  - Gemfile
+  - .gitignore

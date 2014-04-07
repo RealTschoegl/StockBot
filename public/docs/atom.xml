@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>BLOG_NAME</title>
+ <link href="YOUR_URL/atom.xml" rel="self"/>
+ <link href="YOUR_URL"/>
+ <updated>2014-03-31T20:49:06-05:00</updated>
+ <id>BLOG_URL</id>
+ <author>
+   <name>BLOG_NAME</name>
+ </author>
+
+ 
+ <entry>
+   <title>Small Changes</title>
+   <link href="YOUR_URL/small-changes.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/small-changes</id>
+   <content type="html">&lt;ul&gt;
+&lt;li&gt;Lose the instance&lt;em&gt;variable&lt;/em&gt;get&lt;/li&gt;
+&lt;li&gt;Use Find_by for StockInfo search&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Return on Equity</title>
+   <link href="YOUR_URL/return-on-equity.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/return-on-equity</id>
+   <content type="html">&lt;p&gt;ReturnOnEquity.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Return on Capital</title>
+   <link href="YOUR_URL/return-on-capital.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/return-on-capital</id>
+   <content type="html">&lt;p&gt;ReturnOnCapital.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Quandl Ratios</title>
+   <link href="YOUR_URL/quandl-ratios.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/quandl-ratios</id>
+   <content type="html">&lt;p&gt;[
+    [ 0] &amp;quot;Date&amp;quot;,
+    [ 1] &amp;quot;Number of Shares Outstanding&amp;quot;,
+    [ 2] &amp;quot;3-Year Regression Beta&amp;quot;,
+    [ 3] &amp;quot;3-year Standard Deviation of Stock Price&amp;quot;,
+    [ 4] &amp;quot;Book Debt to Capital Ratio&amp;quot;,
+    [ 5] &amp;quot;Book Value of Equity&amp;quot;,
+    [ 6] &amp;quot;Book Value of Assets&amp;quot;,
+    [ 7] &amp;quot;Capital Expenditures&amp;quot;,
+    [ 8] &amp;quot;Cash&amp;quot;,
+    [ 9] &amp;quot;Cash as Percentage of Firm Value&amp;quot;,
+    [10] &amp;quot;Cash as Percentage of Revenues&amp;quot;,
+    [11] &amp;quot;Cash as Percentage of Total Assets&amp;quot;,
+    [12] &amp;quot;Change in Non-Cash Working Capital&amp;quot;,
+    [13] &amp;quot;Correlation with the Market&amp;quot;,
+    [14] &amp;quot;Current PE Ratio&amp;quot;,
+    [15] &amp;quot;Depreciation&amp;quot;,
+    [16] &amp;quot;Dividend Yield&amp;quot;,
+    [17] &amp;quot;Dividends&amp;quot;,
+    [18] &amp;quot;Earnings Before Interest and Taxes&amp;quot;,
+    [19] &amp;quot;EBIT for Previous Period&amp;quot;,
+    [20] &amp;quot;Earnings Before Interest Taxes Depreciation and Amortization&amp;quot;,
+    [21] &amp;quot;Effective Tax Rate&amp;quot;,
+    [22] &amp;quot;Effective Tax Rate on Income&amp;quot;,
+    [23] &amp;quot;Enterprise Value&amp;quot;,
+    [24] &amp;quot;EV to Invested Capital Ratio&amp;quot;,
+    [25] &amp;quot;EV to Trailing Sales Ratio&amp;quot;,
+    [26] &amp;quot;EV to EBIT Ratio&amp;quot;,
+    [27] &amp;quot;EV to EBITDA Ratio&amp;quot;,
+    [28] &amp;quot;EV To Sales Ratio&amp;quot;,
+    [29] &amp;quot;Expected Growth in Earnings Per Share&amp;quot;,
+    [30] &amp;quot;Expected Growth in Revenues&amp;quot;,
+    [31] &amp;quot;Free Cash Flow to Firm&amp;quot;,
+    [32] &amp;quot;Firm Value&amp;quot;,
+    [33] &amp;quot;Ratio of Fixed Assets to Total Assets&amp;quot;,
+    [34] &amp;quot;Forward Earnings Per Share&amp;quot;,
+    [35] &amp;quot;Forward PE Ratio&amp;quot;,
+    [36] &amp;quot;Growth in Earnings Per Share&amp;quot;,
+    [37] &amp;quot;Previous Year Growth in Revenues&amp;quot;,
+    [38] &amp;quot;Hi-Lo Risk&amp;quot;,
+    [39] &amp;quot;Insider Holdings&amp;quot;,
+    [40] &amp;quot;Institutional Holdings&amp;quot;,
+    [41] &amp;quot;Ratio of Intangible Assets to Total Assets&amp;quot;,
+    [42] &amp;quot;Invested Capital&amp;quot;,
+    [43] &amp;quot;Market Capitalization&amp;quot;,
+    [44] &amp;quot;Market Debt to Equity Ratio&amp;quot;,
+    [45] &amp;quot;Market Debt to Capital Ratio&amp;quot;,
+    [46] &amp;quot;Net Income&amp;quot;,
+    [47] &amp;quot;Net Margin&amp;quot;,
+    [48] &amp;quot;Non-Cash Working Capital&amp;quot;,
+    [49] &amp;quot;Non-Cash Working Capital as Percentage of Revenues&amp;quot;,
+    [50] &amp;quot;Payout Ratio&amp;quot;,
+    [51] &amp;quot;Price to Book Value Ratio&amp;quot;,
+    [52] &amp;quot;PE to Growth Ratio&amp;quot;,
+    [53] &amp;quot;Pre-Tax Operating Margin&amp;quot;,
+    [54] &amp;quot;Price to Sales Ratio&amp;quot;,
+    [55] &amp;quot;Reinvestment Amount&amp;quot;,
+    [56] &amp;quot;Reinvestment Rate&amp;quot;,
+    [57] &amp;quot;Revenues&amp;quot;,
+    [58] &amp;quot;Return on Capital&amp;quot;,
+    [59] &amp;quot;Return on Equity&amp;quot;,
+    [60] &amp;quot;Sales General and Administration Expenses&amp;quot;,
+    [61] &amp;quot;Stock Price&amp;quot;,
+    [62] &amp;quot;Total Debt&amp;quot;,
+    [63] &amp;quot;Trading Volume&amp;quot;,
+    [64] &amp;quot;Trailing 12-month Revenues&amp;quot;,
+    [65] &amp;quot;Trailing Net Income&amp;quot;,
+    [66] &amp;quot;Trailing PE Ratio&amp;quot;,
+    [67] &amp;quot;Trailing Revenues&amp;quot;,
+    [68] &amp;quot;Value Line Beta&amp;quot;,
+    [69] &amp;quot;EV to Book Value Ratio&amp;quot;
+]&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Price to Sales</title>
+   <link href="YOUR_URL/price-to-sales.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/price-to-sales</id>
+   <content type="html">&lt;p&gt;PriceToSales.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Price to Book</title>
+   <link href="YOUR_URL/price-to-book.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/price-to-book</id>
+   <content type="html">&lt;p&gt;PriceToBook.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>PEG Ratio</title>
+   <link href="YOUR_URL/peg-ratio.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/peg-ratio</id>
+   <content type="html">&lt;p&gt;PEGratio.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>New Valuation Methods to Add</title>
+   <link href="YOUR_URL/new-valuation-methods-to-add.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/new-valuation-methods-to-add</id>
+   <content type="html">&lt;p&gt;Current PE Ratio
+Forward PE Ratio
+PE to Growth (PEG) Ratio
+Price to Book Value Ratio
+Price to Sales Ratio
+EV To Sales Ratio
+EV to EBITDA Ratio
+EV to EBIT Ratio
+EV to Invested Capital Ratio
+EV to Book Value Ratio
+EV to Trailing Sales Ratio
+Ratio of Intangible Assets to Total Assets
+Ratio of Fixed Assets to Total Assets
+Market Debt to Equity Ratio
+Market Debt to Capital Ratio
+Book Debt to Capital Ratio
+Return on Equity
+Return on Capital&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>MD to Equity</title>
+   <link href="YOUR_URL/md-to-equity.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/md-to-equity</id>
+   <content type="html">&lt;p&gt;MDtoEquity.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>MD to Capital</title>
+   <link href="YOUR_URL/md-to-capital.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/md-to-capital</id>
+   <content type="html">&lt;p&gt;MDtoCapital.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Intangible to Tangible</title>
+   <link href="YOUR_URL/intangible-to-tangible.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/intangible-to-tangible</id>
+   <content type="html">&lt;p&gt;IntangibleToTangible.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Forward PE</title>
+   <link href="YOUR_URL/forward-pe.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/forward-pe</id>
+   <content type="html">&lt;p&gt;ForwardPE.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Fixed to Total</title>
+   <link href="YOUR_URL/fixed-to-total.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/fixed-to-total</id>
+   <content type="html">&lt;p&gt;FixedToTotal.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>EV to Trailing Sales</title>
+   <link href="YOUR_URL/ev-to-trailing-sales.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/ev-to-trailing-sales</id>
+   <content type="html">&lt;p&gt;EVtoTrailingSales.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>EV to Sales</title>
+   <link href="YOUR_URL/ev-to-sales.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/ev-to-sales</id>
+   <content type="html">&lt;p&gt;EvToSales.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>EV to IC</title>
+   <link href="YOUR_URL/ev-to-ic.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/ev-to-ic</id>
+   <content type="html">&lt;p&gt;EVtoIC.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>EV to EBITDA</title>
+   <link href="YOUR_URL/ev-to-ebitda.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/ev-to-ebitda</id>
+   <content type="html">&lt;p&gt;EvToEbitda.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>EV to EBIT</title>
+   <link href="YOUR_URL/ev-to-ebit.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/ev-to-ebit</id>
+   <content type="html">&lt;p&gt;EvToEbit.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>EV to BV</title>
+   <link href="YOUR_URL/ev-to-bv.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/ev-to-bv</id>
+   <content type="html">&lt;p&gt;EVtoBV.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Dummy Demo</title>
+   <link href="YOUR_URL/dummy-demo.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/dummy-demo</id>
+   <content type="html">&lt;p&gt;Variables:
+stocks database: xxxx&lt;em&gt;ratio
+company database: xxxx&lt;/em&gt;comp
+kosher: xxx&lt;em&gt;xxx&lt;/em&gt;kosher?
+valuation equation: get&lt;em&gt;xxxx&lt;/em&gt;ratio&lt;em&gt;comparable
+data point equation: get&lt;/em&gt;xxxx&lt;em&gt;ratio
+company view: @xxxx&lt;/em&gt;comp_view
+Quandl Variable: &amp;quot;XXXXX&amp;quot;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add conditional statement in get&lt;em&gt;data method to add the new value to the computed&lt;/em&gt;share_value array:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;xxx&lt;em&gt;xxx&lt;/em&gt;kosher? ? @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@xxxx&lt;em&gt;comp = get&lt;/em&gt;xxxx&lt;em&gt;ratio&lt;/em&gt;comparable) : @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@xxxx_comp = nil)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create valuation equation:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;def get&lt;em&gt;xxxx&lt;/em&gt;ratio&lt;em&gt;comparable
+    comparables = @sorted&lt;/em&gt;comparables
+    new&lt;em&gt;array = [] 
+    comparables.each {|item| new&lt;/em&gt;array &amp;lt;&amp;lt; item.xxxx&lt;em&gt;ratio;}
+    @xxxx&lt;/em&gt;comp = @current&lt;em&gt;stock&lt;/em&gt;price * ( ((new&lt;em&gt;array.inject(:+) / new&lt;/em&gt;array.count).to&lt;em&gt;f) / @xxxx&lt;/em&gt;ratio)&lt;/p&gt;
+
+&lt;p&gt;return @xxxx_comp
+end&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create equation prerequisite method:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;def xxx&lt;em&gt;xxx&lt;/em&gt;kosher?
+    get&lt;em&gt;xxxx&lt;/em&gt;ratio &amp;amp;&amp;amp; get&lt;em&gt;weighted&lt;/em&gt;quote &amp;amp;&amp;amp; get&lt;em&gt;market&lt;/em&gt;cap &amp;amp;&amp;amp; get_comparables:
+end&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create the subordinate methods for the equation prerequisite that get/check relevant pieces of data:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;def get&lt;em&gt;xxxx&lt;/em&gt;ratio
+    if @get&lt;em&gt;xxxx&lt;/em&gt;ratio.nil?
+        if !@quandlStockData.nil? &amp;amp;&amp;amp; @quandlStockData.has&lt;em&gt;key?(&amp;quot;XXXXX&amp;quot;) &amp;amp;&amp;amp; !@quandlStockData[&amp;quot;XXXXX&amp;quot;].nil?
+            @get&lt;/em&gt;xxxx&lt;em&gt;ratio = @quandlStockData[&amp;quot;XXXXX&amp;quot;].to&lt;/em&gt;f
+        elsif @databaseValues.respond&lt;em&gt;to?(&amp;quot;get&lt;/em&gt;xxxx&lt;em&gt;ratio&amp;quot;) &amp;amp;&amp;amp; !@databaseValues[&amp;quot;get&lt;/em&gt;xxxx&lt;em&gt;ratio&amp;quot;].nil?
+            @get&lt;/em&gt;xxxx&lt;em&gt;ratio = @databaseValues[&amp;quot;get&lt;/em&gt;xxxx&lt;em&gt;ratio&amp;quot;]
+        else
+            @get&lt;/em&gt;xxxx_ratio = nil
+        end
+    else
+        return true
+    end
+end&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Determine where the data will come for the prerequisite methods
+&amp;quot;Current PE Ratio&amp;quot;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add the new computed value to the hashpack hash:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&amp;quot;xxxx&lt;em&gt;comp&amp;quot; =&amp;gt; self.instance&lt;/em&gt;variable&lt;em&gt;get(:@xxxx&lt;/em&gt;comp)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add the new data input to the hashpack:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&amp;quot;xxxx&lt;em&gt;ratio&amp;quot; =&amp;gt; self.instance&lt;/em&gt;variable&lt;em&gt;get(:@xxxx&lt;/em&gt;ratio)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add newly computed value to company model for both method:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;new&lt;em&gt;company.xxxx&lt;/em&gt;comp = computed[&amp;quot;xxxx&lt;em&gt;comp&amp;quot;]
+update&lt;/em&gt;company.xxxx&lt;em&gt;comp = computed[&amp;quot;xxxx&lt;/em&gt;comp&amp;quot;]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add new API data point to stock model for both methods:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;new&lt;em&gt;stock.xxxx&lt;/em&gt;ratio = computed[&amp;quot;xxxx&lt;em&gt;ratio&amp;quot;]
+updated&lt;/em&gt;stock.xxxx&lt;em&gt;ratio = computed[&amp;quot;xxxx&lt;/em&gt;ratio&amp;quot;]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Migrate stock database to allow for the new value:
+add&lt;em&gt;column :stocks, :xxxx&lt;/em&gt;ratio, :float&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Migrate companies database to allow for the new value
+add&lt;em&gt;column :companies, :xxxx&lt;/em&gt;comp, :float&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Revise or Add ModValue equations: &lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;xxx&lt;em&gt;xxx&lt;/em&gt;kosher? ? @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@xxxx&lt;em&gt;comp = get&lt;/em&gt;xxxx&lt;em&gt;ratio&lt;/em&gt;comparable) : @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@xxxx_comp = nil)&lt;/p&gt;
+
+&lt;p&gt;def xxx&lt;em&gt;xxx&lt;/em&gt;kosher?
+    get&lt;em&gt;xxxx&lt;/em&gt;ratio &amp;amp;&amp;amp; get&lt;em&gt;weighted&lt;/em&gt;quote &amp;amp;&amp;amp; get&lt;em&gt;market&lt;/em&gt;cap &amp;amp;&amp;amp; get_comparables
+end&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Add the new value to the company view
+tr
+td
+    |
+    b Current PE Comparable Valuation:
+td
+    = @xxxx&lt;em&gt;comp&lt;/em&gt;view&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add the new value to the company controller view&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;!@company.xxxx&lt;em&gt;comp.nil? ? @xxxx&lt;/em&gt;comp&lt;em&gt;view = (@company.xxxx&lt;/em&gt;comp).round(2) : @xxxx&lt;em&gt;comp&lt;/em&gt;view = &amp;quot;N/A&amp;quot;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Change attribute accessor to reflect new database field
+:xxxx_ratio&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add company to completeness method in Company Helper
+data.xxxx_comp&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Database Migrations</title>
+   <link href="YOUR_URL/database-migrations.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/database-migrations</id>
+   <content type="html">&lt;p&gt;def change 
+    rename&lt;em&gt;column :stock, :PE&lt;/em&gt;ratio, :current&lt;em&gt;pe&lt;/em&gt;ratio
+    rename&lt;em&gt;column :company, :PE&lt;/em&gt;Comparable&lt;em&gt;Valuation, :current&lt;/em&gt;pe_comp&lt;/p&gt;
+
+&lt;p&gt;end&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Current PE</title>
+   <link href="YOUR_URL/current-pe.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/current-pe</id>
+   <content type="html">&lt;ol&gt;
+&lt;li&gt;Add conditional statement in get&lt;em&gt;data method to add the new value to the computed&lt;/em&gt;share_value array:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;current&lt;em&gt;pe&lt;/em&gt;kosher? ? @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@current&lt;em&gt;pe&lt;/em&gt;comp = get&lt;em&gt;current&lt;/em&gt;pe&lt;em&gt;ratio&lt;/em&gt;comparable) : @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@current&lt;em&gt;pe&lt;/em&gt;comp = nil)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create valuation equation:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;def get&lt;em&gt;current&lt;/em&gt;pe&lt;em&gt;ratio&lt;/em&gt;comparable
+    comparables = @sorted&lt;em&gt;comparables
+    new&lt;/em&gt;array = [] 
+    comparables.each {|item| new&lt;em&gt;array &amp;lt;&amp;lt; item.current&lt;/em&gt;PE&lt;em&gt;ratio;}
+    @current&lt;/em&gt;pe&lt;em&gt;comp = @current&lt;/em&gt;stock&lt;em&gt;price * ( ((new&lt;/em&gt;array.inject(:+) / new&lt;em&gt;array.count).to&lt;/em&gt;f) / @current&lt;em&gt;pe&lt;/em&gt;ratio)&lt;/p&gt;
+
+&lt;p&gt;return @current&lt;em&gt;pe&lt;/em&gt;comp
+end&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create equation prerequisite method:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;def current&lt;em&gt;pe&lt;/em&gt;kosher?
+    get&lt;em&gt;current&lt;/em&gt;PE&lt;em&gt;ratio &amp;amp;&amp;amp; get&lt;/em&gt;weighted&lt;em&gt;quote &amp;amp;&amp;amp; get&lt;/em&gt;market&lt;em&gt;cap &amp;amp;&amp;amp; get&lt;/em&gt;comparables:
+end&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create the subordinate methods for the equation prerequisite that get/check relevant pieces of data:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;def get&lt;em&gt;current&lt;/em&gt;PE&lt;em&gt;ratio
+    if @current&lt;/em&gt;pe&lt;em&gt;ratio.nil?
+        if !@quandlStockData.nil? &amp;amp;&amp;amp; @quandlStockData.has&lt;/em&gt;key?(&amp;quot;Current PE Ratio&amp;quot;) &amp;amp;&amp;amp; !@quandlStockData[&amp;quot;Current PE Ratio&amp;quot;].nil?
+            @current&lt;em&gt;pe&lt;/em&gt;ratio = @quandlStockData[&amp;quot;Current PE Ratio&amp;quot;].to&lt;em&gt;f
+        elsif @databaseValues.respond&lt;/em&gt;to?(&amp;quot;current&lt;em&gt;pe&lt;/em&gt;ratio&amp;quot;) &amp;amp;&amp;amp; !@databaseValues[&amp;quot;current&lt;em&gt;pe&lt;/em&gt;ratio&amp;quot;].nil?
+            @current&lt;em&gt;pe&lt;/em&gt;ratio = @databaseValues[&amp;quot;current&lt;em&gt;pe&lt;/em&gt;ratio&amp;quot;]
+        else
+            @current&lt;em&gt;pe&lt;/em&gt;ratio = nil
+        end
+    else
+        return true
+    end
+end&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Determine where the data will come for the prerequisite methods
+&amp;quot;Current PE Ratio&amp;quot;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add the new computed value to the hashpack hash:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&amp;quot;current&lt;em&gt;pe&lt;/em&gt;comp&amp;quot; =&amp;gt; self.instance&lt;em&gt;variable&lt;/em&gt;get(:@current&lt;em&gt;pe&lt;/em&gt;comp),&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add the new data input to the hashpack:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&amp;quot;current&lt;em&gt;pe&lt;/em&gt;ratio&amp;quot; =&amp;gt; self.instance&lt;em&gt;variable&lt;/em&gt;get(:@current&lt;em&gt;pe&lt;/em&gt;ratio),&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add newly computed value to company model for both method:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;new&lt;em&gt;company.PE&lt;/em&gt;Comparable&lt;em&gt;Valuation = computed[&amp;quot;current&lt;/em&gt;pe&lt;em&gt;comp&amp;quot;]
+update&lt;/em&gt;company.PE&lt;em&gt;Comparable&lt;/em&gt;Valuation = computed[&amp;quot;current&lt;em&gt;pe&lt;/em&gt;comp&amp;quot;]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add new API data point to stock model for both methods:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;new&lt;em&gt;stock.PE&lt;/em&gt;ratio = computed[&amp;quot;current&lt;em&gt;pe&lt;/em&gt;ratio&amp;quot;]
+updated&lt;em&gt;stock.PE&lt;/em&gt;ratio = computed[&amp;quot;current&lt;em&gt;pe&lt;/em&gt;ratio&amp;quot;]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Migrate stock database to allow for the new value:
+rename&lt;em&gt;column :stock, :PE&lt;/em&gt;ratio, :current&lt;em&gt;pe&lt;/em&gt;ratio&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Migrate companies database to allow for the new value
+rename&lt;em&gt;column :company, :PE&lt;/em&gt;Comparable&lt;em&gt;Valuation, :current&lt;/em&gt;pe_comp&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Revise or Add ModValue equations: &lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;current&lt;em&gt;pe&lt;/em&gt;kosher? ? @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@current&lt;em&gt;pe&lt;/em&gt;comp = get&lt;em&gt;current&lt;/em&gt;pe&lt;em&gt;ratio&lt;/em&gt;comparable) : @composite&lt;em&gt;share&lt;/em&gt;values &amp;lt;&amp;lt; (@current&lt;em&gt;pe&lt;/em&gt;comp = nil)&lt;/p&gt;
+
+&lt;p&gt;def current&lt;em&gt;pe&lt;/em&gt;kosher?
+    get&lt;em&gt;current&lt;/em&gt;PE&lt;em&gt;ratio &amp;amp;&amp;amp; get&lt;/em&gt;weighted&lt;em&gt;quote &amp;amp;&amp;amp; get&lt;/em&gt;market&lt;em&gt;cap &amp;amp;&amp;amp; get&lt;/em&gt;comparables
+end &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Add the new value to the company view
+tr
+td
+    |
+    b Current PE Comparable:
+td
+    = @current&lt;em&gt;pe&lt;/em&gt;value &lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add the new value to the company controller view&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;!@company.current&lt;em&gt;pe&lt;/em&gt;comp.nil? ? @current&lt;em&gt;pe&lt;/em&gt;value = (@company.current&lt;em&gt;pe&lt;/em&gt;comp).round(2) : @pe_value = &amp;quot;N/A&amp;quot;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Change attribute accessor to reflect new database field
+:current&lt;em&gt;pe&lt;/em&gt;ratio&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Book Debt to Capital</title>
+   <link href="YOUR_URL/book-debt-to-capital.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/book-debt-to-capital</id>
+   <content type="html">&lt;p&gt;BookDebtToCapital.md&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Add New Valuation Methods</title>
+   <link href="YOUR_URL/add-new-valuation-methods.html"/>
+   <updated>2014-03-31T00:00:00-05:00</updated>
+   <id>BLOG_URL/add-new-valuation-methods</id>
+   <content type="html">&lt;ol&gt;
+&lt;li&gt;Add conditional statement in get&lt;em&gt;data method to add the new value to the computed&lt;/em&gt;share_value array&lt;/li&gt;
+&lt;li&gt;Create valuation equation &lt;/li&gt;
+&lt;li&gt;Create equation prerequisite method&lt;/li&gt;
+&lt;li&gt;Create the subordinate methods for the equation prerequisite that get/check relevant pieces of data&lt;/li&gt;
+&lt;li&gt;Determine where the data will come for the prerequisite methods&lt;/li&gt;
+&lt;li&gt;Add the new computed value to the hashpack hash&lt;/li&gt;
+&lt;li&gt;Add the new data input to the hashpack&lt;/li&gt;
+&lt;li&gt;Add newly computed value to company model for both method&lt;/li&gt;
+&lt;li&gt;Add new API data point to stock model for both methods&lt;/li&gt;
+&lt;li&gt;Migrate stocks database to allow for the new value &lt;/li&gt;
+&lt;li&gt;Migrate companies database to allow for the new value&lt;/li&gt;
+&lt;li&gt;Revise ModValue equations if any new equations have &lt;/li&gt;
+&lt;li&gt;Add the new value to the company view&lt;/li&gt;
+&lt;li&gt;Add the new value to the company controller view&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>

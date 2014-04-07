@@ -5,7 +5,7 @@ module CompaniesHelper
 	#
 	# Returns a float value.
 	def companyComplete(data)
-		array = [data.PE_Comparable_Valuation, data.NAV_Valuation, data.CAPM_Valuation, data.WACC_Valuation, data.Dividend_Valuation, data.Sentiment_Valuation]
+		array = [data.current_pe_comp, data.NAV_Valuation, data.CAPM_Valuation, data.WACC_Valuation, data.Dividend_Valuation, data.Sentiment_Valuation]
 
 		percentage = (array.compact.count.to_f / array.count.to_f)
 

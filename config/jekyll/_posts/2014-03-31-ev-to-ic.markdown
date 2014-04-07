@@ -1,0 +1,8 @@
+---
+layout: default
+title: EV to IC
+category: "Ratios"
+published: true
+---
+
+EVtoIC.md

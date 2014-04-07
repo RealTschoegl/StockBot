@@ -12,7 +12,7 @@ module ValuationGenerator
 
 		## ================= 		Initialize   ==========================
 
-		attr_accessor :stock_ticker, :current_stock_price, :free_cash_flow, :num_shares, :PE_ratio, :dividend_per_share, :dividend_growth_rate, :beta, :cost_of_equity, :rate_of_return, :fcf_share_value, :capm_share_value, :dividend_share_value, :composite_share_value
+		attr_accessor :stock_ticker, :current_stock_price, :free_cash_flow, :num_shares, :current_pe_ratio, :dividend_per_share, :dividend_growth_rate, :beta, :cost_of_equity, :rate_of_return, :fcf_share_value, :capm_share_value, :dividend_share_value, :composite_share_value
 
 		def initialize(stock_ticker_symbol)
       @stock_ticker = stock_ticker_symbol
@@ -26,7 +26,7 @@ module ValuationGenerator
 
 				@composite_share_values = []
 
-				pe_comp_val_kosher? ? @composite_share_values << (@PE_Comparable_Valuation = get_PE_ratio_comparable) : @composite_share_values << (@PE_Comparable_Valuation = nil)
+				current_pe_kosher? ? @composite_share_values << (@current_pe_comp = get_current_pe_ratio_comparable) : @composite_share_values << (@current_pe_comp = nil)
 
 				nav_val_kosher? ? @composite_share_values << (@NAV_Valuation = get_net_asset_value) : @composite_share_values << (@NAV_Valuation = nil)
 
@@ -41,7 +41,8 @@ module ValuationGenerator
 				!@composite_share_values.compact.empty? ? @computed_share_value = @composite_share_values.compact.reduce(:+) / @composite_share_values.compact.count : (return false)
 
 				package_data
-				BackgroundWorker.perform_async(@hashPack)
+				local_persistence_surrogate_method(@hashPack)
+				# BackgroundWorker.perform_async(@hashPack)
 								
 				return @computed_share_value
 				
@@ -54,13 +55,13 @@ module ValuationGenerator
 
 		## =================    Valuation Equations   =================
 	  
-		def get_PE_ratio_comparable
+		def get_current_pe_ratio_comparable
 			comparables = @sorted_comparables
 			new_array = [] 
-			comparables.each {|item| new_array << item.PE_ratio;}
-			@PE_ratio_comp = @current_stock_price * ( ((new_array.inject(:+) / new_array.count).to_f) / @PE_ratio)
+			comparables.each {|item| new_array << item.current_PE_ratio;}
+			@current_pe_comp = @current_stock_price * ( ((new_array.inject(:+) / new_array.count).to_f) / @current_pe_ratio)
 
-		  return @PE_ratio_comp
+  		return @current_pe_comp
 		end
 
 		def get_net_asset_value
@@ -100,7 +101,7 @@ module ValuationGenerator
 
 	  	first_url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22#{self.stock_ticker}%22)&format=json%0A%09%09&env=http%3A%2F%2Fdatatables.org%2Falltables.env"
 	  	second_url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.keystats%20where%20symbol%20in%20(%22#{self.stock_ticker}%22)&format=json%0A%09%09&env=http%3A%2F%2Fdatatables.org%2Falltables.env"
-	  	third_url = "http://www.quandl.com/api/v1/datasets/OFDP/DMDRN_#{self.stock_ticker}_ALLFINANCIALRATIOS.csv?auth_token=#{ENV['QUANDL_API_TOKEN']}"
+	  	third_url = "http://www.quandl.com/api/v1/datasets/DMDRN/#{self.stock_ticker}_ALLFINANCIALRATIOS.csv?auth_token=#{ENV['QUANDL_API_TOKEN']}"
 	  	fourth_url = "http://www.quandl.com/api/v1/datasets/PSYCH/#{self.stock_ticker}_I.json?&auth_token=auth_token=#{ENV['QUANDL_API_TOKEN']}&trim_start=#{Chronic.parse("last week").strftime("%F")}&trim_end=#{Chronic.parse("today").strftime("%F")}&sort_order=desc"
 
 	  	(((first_url) =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]) == 0) ? first_request = Typhoeus::Request.new(first_url) : (return false)
@@ -183,9 +184,9 @@ module ValuationGenerator
 
 	  ## ===============  Equation Pre-Requisites  ==================
 
-	  def pe_comp_val_kosher?
-	  	get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables
-	  end
+	  def current_pe_kosher?
+			get_current_PE_ratio && get_weighted_quote && get_market_cap && get_comparables
+		end
 
 	  def nav_val_kosher?
 	  	get_assets && get_debt && get_num_shares
@@ -279,14 +280,14 @@ module ValuationGenerator
 			end
 		end
 
-		def get_PE_ratio
-			if @PE_ratio.nil?
-				if !@quandlStockData.nil? && @quandlStockData.has_key?("Trailing PE Ratio") && !@quandlStockData["Trailing PE Ratio"].nil?
-					@PE_ratio = @quandlStockData["Trailing PE Ratio"].to_f
-				elsif @databaseValues.respond_to?("PE_ratio") && !@databaseValues["PE_ratio"].nil?
-					@PE_ratio = @databaseValues["PE_ratio"]
+		def get_current_PE_ratio
+			if @current_pe_ratio.nil?
+				if !@quandlStockData.nil? && @quandlStockData.has_key?("Current PE Ratio") && !@quandlStockData["Current PE Ratio"].nil?
+					@current_pe_ratio = @quandlStockData["Current PE Ratio"].to_f
+				elsif @databaseValues.respond_to?("current_pe_ratio") && !@databaseValues["current_pe_ratio"].nil?
+					@current_pe_ratio = @databaseValues["current_pe_ratio"]
 				else
-					@PE_ratio = nil
+					@current_pe_ratio = nil
 				end
 			else
 				return true
@@ -629,7 +630,8 @@ module ValuationGenerator
 		    "stock_ticker" => self.instance_variable_get(:@stock_ticker),
 		    "free_cash_flow" => self.instance_variable_get(:@freeCashFlow),
 		    "number_shares" => self.instance_variable_get(:@numShares),
-		    "pe_ratio" => self.instance_variable_get(:@PE_ratio),
+		    "current_pe_ratio" => self.instance_variable_get(:@current_pe_ratio),
+		    "current_pe_comp" => self.instance_variable_get(:@current_pe_comp),
 		    "beta" => self.instance_variable_get(:@threeYearBeta),
 		    "industry" => self.instance_variable_get(:@stockProfile).industry,
 		    "sic_code" => self.instance_variable_get(:@stockProfile).sic_code,
@@ -637,7 +639,7 @@ module ValuationGenerator
 		    "market_cap" => self.instance_variable_get(:@marketCap),
 		    "net_assets" => self.instance_variable_get(:@netAssets),
 		    "total_debt" => self.instance_variable_get(:@totalDebt),
-		    "stock_price" => get_show_quote,
+		    "stock_price" => get_show_quote, 
 		   	"stockbot_price" => self.instance_variable_get(:@computed_share_value),
 		    "pe_value" => self.instance_variable_get(:@PE_Comparable_Valuation),
 		    "nav_value" => self.instance_variable_get(:@NAV_Valuation),
@@ -647,6 +649,16 @@ module ValuationGenerator
 		    "sentiment_value" => self.instance_variable_get(:@Sentiment_Valuation)
 			}
   	end
+
+  	def local_persistence_surrogate_method(data)
+			if Stock.where(stock_ticker: data["stock_ticker"]).first
+				Stock.update_stock(data)
+			else
+				Stock.new_stock(data)
+			end
+
+			Company.build_company(data)
+		end
 
 	end
 
@@ -661,7 +673,7 @@ module ValuationGenerator
 
 				@composite_share_values = []
 
-				pe_comp_val_kosher? ? @composite_share_values << (@PE_Comparable_Valuation = get_PE_ratio_comparable) : @composite_share_values << (@PE_Comparable_Valuation = nil)
+				current_pe_kosher? ? @composite_share_values << (@current_pe_comp = get_current_pe_ratio_comparable) : @composite_share_values << (@current_pe_comp = nil)
 
 				nav_val_kosher? ? @composite_share_values << (@NAV_Valuation = get_net_asset_value) : @composite_share_values << (@NAV_Valuation = nil)
 
@@ -692,9 +704,9 @@ module ValuationGenerator
 
 		## ===============  Equation Pre-Requisites  ==================
 
-		def pe_comp_val_kosher?
-	  	get_PE_ratio && get_weighted_quote && get_market_cap && get_comparables
-	  end
+		def current_pe_kosher?
+			get_current_PE_ratio && get_weighted_quote && get_market_cap && get_comparables
+		end
 
 	  def nav_val_kosher?
 	  	get_assets && get_debt && get_num_shares
