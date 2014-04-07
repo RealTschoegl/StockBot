@@ -21,7 +21,7 @@ html
 
   body
     div class="sidebar"
-    p class="sidebarText"
+    p class="sidebarText" 
       |
       a href="mailto:contact@stockbot.io" target="_blank" class="sidebar_link" Email
       |
@@ -34,6 +34,14 @@ html
       a href="http://stockbot.io" class="sidebar_link" Stockbot.io
       |
         &nbsp; &copy; #{Time.now.year}
+    div class="sidebar_right" 
+      a href="../companies" 
+        img src==asset_path('dot_matrix.png') class="block_display"
+        img src==asset_path('dot_matrix.png') class="block_display"
+      a href="../companies"
+        p 
+          |
+            Check out a list of Stockbot's house valuations
 	= yield
 
 

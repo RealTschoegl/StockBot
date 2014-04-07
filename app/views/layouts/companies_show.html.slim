@@ -23,17 +23,25 @@ html
     div class="sidebar"
     p class="sidebarText"
       |
-      a href="mailto:contact@stockbot.io" target="_blank" class="sidebar_link" Email 
+      a href="mailto:contact@stockbot.io" target="_blank" class="sidebar_link" Email
       |
-         &nbsp; |
+         &nbsp; | 
       |
-      a href="https://github.com/RealTschoegl/StockBot#stockbot" target="_blank" class="sidebar_link" About 
+      a href="https://github.com/RealTschoegl/StockBot#stockbot" target="_blank" class="sidebar_link" About
       |
-         &nbsp; |
+         &nbsp; | 
       |
-      a href="http://stockbot.io" class="sidebar_link" Stockbot.io 
+      a href="http://stockbot.io" class="sidebar_link" Stockbot.io
       |
-        &nbsp; &copy; #{Time.now.year}
+        &nbsp;&copy; #{Time.now.year}
+    div class="sidebar_right" 
+      a href="../companies" 
+        img src==asset_path('dot_matrix.png') class="block_display"
+        img src==asset_path('dot_matrix.png') class="block_display"
+      a href="../companies"
+        p 
+          |
+            Check out a list of Stockbot's house valuations
 	= yield
 
 
